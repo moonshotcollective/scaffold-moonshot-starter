@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "lib": ["DOM", "DOM.Iterable", "ES2018", "ESNext"],
+    "types": ["node", "ethers"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "typeRoots": ["node_modules/@types", "src/helpers/definitions"] /* List of folders to include type definitions from. */,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "rootDir": ".",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "paths": {
+      "~~/*": ["./src/*"],
+      "scripts/*": ["./scripts/*"],
+      "helpers/*": ["./helpers/*"],
+      "contracts/*": ["./contracts/*"],
+      "tests/*": ["./tests/*"],
+      "typechain/*": ["./typechain/*"],
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["types", "scripts", "test", "helpers", "./hardhat.config.ts", "./deploy"],
+  "exclude": ["**/node_modules", ".husky", "./src/styles/css", "./tailwind.config.js"],
+  "files": ["./hardhat.config.ts", "helpers/types/__global.ts"]
+}

@@ -1,0 +1,10 @@
+.git/
+node_modules/
+npm-debug
+coverage
+docker-compose*.yml
+.vscode
+.ssl
+.env
+README.md
+/ipfs

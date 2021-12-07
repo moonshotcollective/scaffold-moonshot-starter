@@ -1,0 +1,28 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Contributor {
+  """Identifies the date and time when the object was created."""
+  createdAt: String!
+  did: String!
+  githubUsername: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: String!
+}
+
+input JoinAsContributorInput {
+  did: String!
+  githubUsername: String!
+}
+
+type Mutation {
+  """Join as a Contributor"""
+  joinAsContributor(input: JoinAsContributorInput!): Contributor
+}
+
+type Query {
+  """Gets all the contributors"""
+  getAllContributors: [Contributor!]
+}

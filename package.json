@@ -1,0 +1,15 @@
+{
+  "name": "@scaffold-eth/scaffold-moonshot-starter",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "yarn install; lerna bootstrap;",
+    "start": "lerna run start --parallel"
+  }
+}
