@@ -72,9 +72,9 @@ const extendedColors: DeepPartial<
   yellow: {
     50: '#FDF7E7',
     100: '#FAE9BC',
-    200: '#F7DB91',
-    300: '#F4CD66',
-    400: '#F1BF3C',
+    200: '#F5D070', // dark yellow
+    300: '#F7DB91', // dark yellow hover
+    400: '#FAE9BC', // dark yellow active
     500: '#EEB111',
     600: '#BF8D0D',
     700: '#8F6A0A',

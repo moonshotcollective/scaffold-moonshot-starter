@@ -2,7 +2,7 @@ import { borderRadius, primary } from './utils/default-props';
 
 const layerStyles = {
   'solid-card': {
-    p: '1rem',
+    p: '2rem',
     bg: 'whisper',
     borderRadius: borderRadius,
     border: '1px solid',
@@ -14,14 +14,14 @@ const layerStyles = {
     },
   },
   'outline-card': {
-    p: '1rem',
+    p: '2rem',
     border: '1px solid',
     borderRadius: borderRadius,
     borderColor: primary,
     '.chakra-ui-dark &': { borderColor: primary },
   },
   'no-border-card': {
-    p: '1rem',
+    p: '2rem',
     bg: 'whisper',
     borderRadius: borderRadius,
     '.chakra-ui-dark &': { bg: 'fog' },
