@@ -67,6 +67,13 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from '@chakra-ui/react';
 import { SearchIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 
@@ -95,6 +102,13 @@ export const All = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { titleColor, violetColor, accentColorScheme } = useCustomColor();
+
+  const {
+    isOpen: isOpenDrawer,
+    onOpen: onOpenDrawer,
+    onClose: onCloseDrawer,
+  } = useDisclosure();
+  const btnRef = React.useRef();
 
   return (
     <>
@@ -169,6 +183,33 @@ export const All = () => {
             Hello
           </Button>
         </HStack>
+
+        <Button ref={btnRef} colorScheme="violet" onClick={onOpenDrawer}>
+          Open Drawer
+        </Button>
+        <Drawer
+          isOpen={isOpenDrawer}
+          placement="left"
+          onClose={onCloseDrawer}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Create your account</DrawerHeader>
+
+            <DrawerBody>
+              <Input placeholder="Type here..." />
+            </DrawerBody>
+
+            <DrawerFooter>
+              <Button variant="outline" mr={3} onClick={onCloseDrawer}>
+                Cancel
+              </Button>
+              <Button>Save</Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
 
         <Input />
         <Select placeholder="Select option"></Select>

@@ -44,7 +44,7 @@ const Home = () => {
           </Text>
           <HStack pt="4" pb="12">
             <Link href={dappLink} target="_blank" rel="noopener noreferrer">
-              <Button colorScheme="yellow" aria-label="Launch App">
+              <Button size="lg" colorScheme="yellow" aria-label="Launch App">
                 Launch App
               </Button>
             </Link>
@@ -53,7 +53,9 @@ const Home = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button aria-label="Contribute">Contribute</Button>
+              <Button size="lg" aria-label="Contribute">
+                Contribute
+              </Button>
             </Link>
           </HStack>
         </VStack>
@@ -69,7 +71,7 @@ const Home = () => {
         </Box>
       </SimpleGrid>
 
-      <Divider mt="16" />
+      <Divider mt="16" bg={primaryColor} />
 
       <VStack mt="16" spacing="12" align="left">
         <Heading color={accentColor}>How it Works</Heading>
@@ -133,7 +135,7 @@ const Home = () => {
           </VStack>
         </SimpleGrid>
       </VStack>
-      <Divider mt="16" />
+      <Divider mt="16" bg={primaryColor} />
 
       <VStack mt="16" spacing="8" align="left">
         <Heading color={accentColor} mb="8">
@@ -192,7 +194,7 @@ const Home = () => {
           </Text>
         </Flex>
       </VStack>
-      <Divider mt="16" bg="violet" />
+      <Divider mt="16" bg={primaryColor} />
     </Box>
   );
 };
