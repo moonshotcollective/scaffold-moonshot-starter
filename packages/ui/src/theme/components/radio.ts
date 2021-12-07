@@ -1,11 +1,12 @@
-import { radioAnatomy as parts } from "@chakra-ui/anatomy";
+import { radioAnatomy as parts } from '@chakra-ui/anatomy';
 import {
   PartsStyleFunction,
   PartsStyleObject,
   SystemStyleFunction,
-} from "@chakra-ui/theme-tools";
+} from '@chakra-ui/theme-tools';
+import { colorScheme } from '../utils/default-props';
 
-import Checkbox from "./checkbox";
+import Checkbox from './checkbox';
 
 type BaseStyle = {
   control: {
@@ -29,7 +30,7 @@ const baseStyleControl: SystemStyleFunction = (props) => {
 
   return {
     ...control,
-    borderRadius: "full",
+    borderRadius: 'full',
     _focus: {
       // eslint-disable-next-line no-underscore-dangle
       ...control._focus,
@@ -39,12 +40,12 @@ const baseStyleControl: SystemStyleFunction = (props) => {
       ...control._checked,
       _before: {
         content: `""`,
-        display: "inline-block",
-        pos: "relative",
-        w: "50%",
-        h: "50%",
-        borderRadius: "50%",
-        bg: "currentColor",
+        display: 'inline-block',
+        pos: 'relative',
+        w: '50%',
+        h: '50%',
+        borderRadius: '50%',
+        bg: 'currentColor',
       },
     },
   };
@@ -58,21 +59,21 @@ const baseStyle: PartsStyleFunction<typeof parts> = (props) => ({
 const sizes: Record<string, PartsStyleObject<typeof parts>> = {
   md: {
     control: { w: 4, h: 4 },
-    label: { fontSize: "md" },
+    label: { fontSize: 'md' },
   },
   lg: {
     control: { w: 5, h: 5 },
-    label: { fontSize: "lg" },
+    label: { fontSize: 'lg' },
   },
   sm: {
     control: { width: 3, height: 3 },
-    label: { fontSize: "sm" },
+    label: { fontSize: 'sm' },
   },
 };
 
 const defaultProps = {
-  size: "md",
-  colorScheme: "aqua",
+  size: 'md',
+  colorScheme: colorScheme,
 };
 
 export default {

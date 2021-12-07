@@ -1,15 +1,16 @@
 import type {
   SystemStyleInterpolation,
   SystemStyleObject,
-} from "@chakra-ui/theme-tools";
-import Input from "./input";
+} from '@chakra-ui/theme-tools';
+import { colorScheme } from '../utils/default-props';
+import Input from './input';
 
 const baseStyle: SystemStyleObject = {
   ...Input.baseStyle.field,
-  paddingY: "8px",
-  minHeight: "80px",
-  lineHeight: "short",
-  verticalAlign: "top",
+  paddingY: '8px',
+  minHeight: '80px',
+  lineHeight: 'short',
+  verticalAlign: 'top',
 };
 
 const variants: Record<string, SystemStyleInterpolation> = {
@@ -27,8 +28,9 @@ const sizes: Record<string, SystemStyleObject> = {
 };
 
 const defaultProps = {
-  size: "md",
-  variant: "outline",
+  size: 'md',
+  variant: 'outline',
+  colorScheme: colorScheme,
 };
 
 export default {
