@@ -5,8 +5,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 // import { sessionMiddleware } from './core/resources/Redis/redis';
-import { Context } from './core/utils/types';
-import { NextFunction } from 'express';
 import {
   BadRequestException,
   Logger,
@@ -17,10 +15,6 @@ import config from './core/configs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { CorsConfig, SwaggerConfig } from './core/configs/config.interface';
-import {
-  ceramicCoreFactory,
-  ceramicDataModelFactory,
-} from './services/ceramic/data-models';
 
 const {
   api: { protocol, hostname, port, corsOptions },
@@ -38,9 +32,6 @@ async function bootstrap() {
   // app.set('trust proxy', 1); // trust first proxy
   app.enableShutdownHooks(['SIGINT', 'SIGTERM']);
 
-  const ceramicClient = await ceramicDataModelFactory();
-  const ceramicCore = ceramicCoreFactory();
-
   // app.use(helmet());
   // app.use(cookieParser(sessionOptions.secret));
   // app.use(sessionMiddleware);
@@ -51,12 +42,6 @@ async function bootstrap() {
   //   }
   //   next();
   // });
-
-  app.use((req: Context['req'], _res: Context['res'], next: NextFunction) => {
-    req.ceramicClient = ceramicClient;
-    req.ceramicCore = ceramicCore;
-    next();
-  });
 
   const configService = app.get(ConfigService);
   const corsConfig = configService.get<CorsConfig>('cors');

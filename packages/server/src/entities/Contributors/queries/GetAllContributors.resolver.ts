@@ -17,7 +17,7 @@ export class GetAllContributorsResolver {
       },
       {
         did: 'did:3:some_other_did',
-        githubUsername: 'some__other_Github_username',
+        githubUsername: 'some_other_Github_username',
       },
     ];
   }

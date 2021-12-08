@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ethers } from 'ethers';
-import ABIS from '@scaffold-eth/hardhat/abis.json';
+import ABIS from '@scaffold-eth/hardhat-ts/hardhat_contracts.json';
 
 // TODO: move this in the config
 const INFURA_ID = process.env.INFURA_ID;
@@ -10,9 +10,7 @@ const NETWORKS = {
     color: '#666666',
     chainId: 31337,
     blockExplorer: '',
-    rpcUrl: `http://${
-      global.window ? window.location.hostname : 'localhost'
-    }:8545`,
+    rpcUrl: `http://localhost:8545`,
   },
   '1': {
     name: 'mainnet',
