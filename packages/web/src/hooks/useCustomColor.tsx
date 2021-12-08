@@ -14,8 +14,9 @@ function useCustomColor() {
     colors.accentLight[500],
     colors.accentDark[500]
   );
+  const accentColorScheme = useColorModeValue("accentLight", "accentDark");
 
-  return { primaryColor, getOverBgColor, accentColor };
+  return { primaryColor, getOverBgColor, accentColor, accentColorScheme };
 }
 
 export default useCustomColor;

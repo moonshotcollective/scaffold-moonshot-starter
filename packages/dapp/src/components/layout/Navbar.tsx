@@ -16,10 +16,10 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import useCustomColor from '../../core/hooks/useCustomColor';
-import ConnectButton from '../Buttons/ConnectButton';
-import ThemeToggle from '../Buttons/ThemeToggle';
-import GitcoinIcon from '../Icons/GitcoinIcon';
+import useCustomColor from "../../core/hooks/useCustomColor";
+import ConnectButton from "../Buttons/ConnectButton";
+import ThemeToggle from "../Buttons/ThemeToggle";
+import GitcoinIcon from "../Icons/GitcoinIcon";
 
 const LinkItem = ({ href, children, ...props }: any) => {
   const { pathname } = useRouter();
@@ -52,10 +52,10 @@ const LinkItems = () => {
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { accentColor, bgColor } = useCustomColor();
+  const { accentColor } = useCustomColor();
 
   return (
-    <Box as="nav" w="100%" top="0" bg={bgColor} zIndex={1}>
+    <Box as="nav" w="100%" top="0" zIndex={1}>
       <Container
         display="flex"
         p={2}

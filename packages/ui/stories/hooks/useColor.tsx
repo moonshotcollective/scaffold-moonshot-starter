@@ -10,10 +10,7 @@ function useColor() {
     colors.accentLight[500],
     colors.accentDark[500]
   );
-  const accentColorScheme = useColorModeValue(
-    colors.accentLight,
-    colors.accentDark
-  );
+  const accentColorScheme = useColorModeValue('accentLight', 'accentDark');
 
   return { textVioletColor, titleColor, accentColorScheme };
 }

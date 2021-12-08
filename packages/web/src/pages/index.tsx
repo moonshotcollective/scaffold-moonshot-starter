@@ -20,7 +20,7 @@ import { Title } from "@scaffold-eth/ui";
 
 const Home = () => {
   const { dappLink, name: appName } = appStaticContent;
-  const { primaryColor, getOverBgColor, accentColor } = useCustomColor();
+  const { primaryColor, accentColorScheme, accentColor } = useCustomColor();
 
   return (
     <Box w="full">
@@ -47,7 +47,7 @@ const Home = () => {
               <Button
                 m="2"
                 size="lg"
-                colorScheme="yellow"
+                colorScheme={accentColorScheme}
                 aria-label="Launch App"
               >
                 Launch App
