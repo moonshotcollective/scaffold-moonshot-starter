@@ -6,49 +6,20 @@ import {
   Heading,
   HStack,
   IconButton,
-  Link,
   Spacer,
   Stack,
-  Tag,
-  TagLabel,
   useDisclosure,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 import { Web3Context } from "../../contexts/Web3Provider";
 import ConnectButton from "../Buttons/ConnectButton";
 import ThemeToggle from '../Buttons/ThemeToggle';
 import LogoIcon from "../Icons/LogoIcon";
-
-const LinkItem = ({ href, _target, children, ...props }: any) => {
-  const { pathname } = useRouter();
-  let isActive = false;
-
-  if (href !== "/") {
-    const [, path] = href.split("/");
-    isActive = pathname.includes(path);
-  } else if (href === pathname) {
-    isActive = true;
-  }
-
-  return (
-    <NextLink href={href} passHref>
-      <Link
-        p={2}
-        color={isActive ? "aqua.300" : "stone"}
-        _target={_target}
-        {...props}
-      >
-        {children}
-      </Link>
-    </NextLink>
-  );
-};
+import LinkItem from '../Navigation/LinkItem';
 
 const Navbar = (props: any) => {
-  const { account } = useContext(Web3Context);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

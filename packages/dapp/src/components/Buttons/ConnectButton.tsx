@@ -8,6 +8,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
+import React from "react";
 import Link from "next/link";
 import { useContext } from "react";
 import { AiFillSetting } from "react-icons/ai";
