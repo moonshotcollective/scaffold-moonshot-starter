@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_COURSE_MUTATION = gql`
+export const CREATE_CONTRIBUTOR_MUTATION = gql`
   mutation JoinAsContributor($input: JoinAsContributorInput!) {
     joinAsContributor(input: $input) {
       did
@@ -9,7 +9,7 @@ export const CREATE_COURSE_MUTATION = gql`
   }
 `;
 
-export const GET_ALL_COURSES_QUERY = gql`
+export const GET_ALL_CONTRIBUTORS_QUERY = gql`
   query GetAllContributors {
     getAllContributors {
       did
