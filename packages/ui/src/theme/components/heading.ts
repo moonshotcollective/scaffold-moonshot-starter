@@ -3,7 +3,7 @@ import { SystemStyleObject } from "@chakra-ui/theme-tools";
 const baseStyle: SystemStyleObject = {
   fontFamily: "heading",
   fontWeight: "bold",
-  color: "white",
+  color: "moon",
 };
 
 const sizes: Record<string, SystemStyleObject> = {

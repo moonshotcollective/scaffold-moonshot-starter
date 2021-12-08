@@ -1,53 +1,53 @@
-import { accordionAnatomy as parts } from "@chakra-ui/anatomy"
+import { accordionAnatomy as parts } from '@chakra-ui/anatomy';
 import type {
   PartsStyleObject,
   SystemStyleObject,
-} from "@chakra-ui/theme-tools"
+} from '@chakra-ui/theme-tools';
 
 const baseStyleContainer: SystemStyleObject = {
-  borderTopWidth: "1px",
-  borderColor: "inherit",
+  borderTopWidth: '1px',
+  borderColor: 'inherit',
   _last: {
-    borderBottomWidth: "1px",
+    borderBottomWidth: '1px',
   },
-}
+};
 
 const baseStyleButton: SystemStyleObject = {
-  transitionProperty: "common",
-  transitionDuration: "normal",
-  fontSize: "1rem",
+  transitionProperty: 'common',
+  transitionDuration: 'normal',
+  fontSize: '1rem',
   _focus: {
-    boxShadow: "outline",
+    boxShadow: 'none',
   },
   _hover: {
-    bg: "blackAlpha.50",
+    bg: 'blackAlpha.50',
   },
   _disabled: {
     opacity: 0.4,
-    cursor: "not-allowed",
+    cursor: 'not-allowed',
   },
   px: 4,
   py: 2,
-}
+};
 
 const baseStylePanel: SystemStyleObject = {
   pt: 2,
   px: 4,
   pb: 5,
-}
+};
 
 const baseStyleIcon: SystemStyleObject = {
-  fontSize: "1.25em",
-}
+  fontSize: '1.25em',
+};
 
 const baseStyle: PartsStyleObject<typeof parts> = {
   container: baseStyleContainer,
   button: baseStyleButton,
   panel: baseStylePanel,
   icon: baseStyleIcon,
-}
+};
 
 export default {
   parts: parts.keys,
   baseStyle,
-}
+};

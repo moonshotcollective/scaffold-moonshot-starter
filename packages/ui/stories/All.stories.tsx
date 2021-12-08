@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { QButton, ButtonProps } from '../src/components/button';
+import { Title } from '../src/components/text';
 
 import { ColorModeToggleBar } from './ColorMode';
 
@@ -18,10 +19,6 @@ import {
   IconButton,
   Input,
   Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -49,7 +46,38 @@ import {
   useDisclosure,
   useToast,
   VStack,
+  Center,
+  Flex,
+  useTheme,
+  Badge,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuIcon,
+  MenuCommand,
+  MenuDivider,
+  Skeleton,
+  Stack,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from '@chakra-ui/react';
+import { SearchIcon, ExternalLinkIcon } from '@chakra-ui/icons';
+
+import useCustomColor from './hooks/useCustomColor';
 
 const meta: Meta = {
   title: 'Components/All',
@@ -69,25 +97,142 @@ export default meta;
 
 export const All = () => {
   const toast = useToast();
+  const theme = useTheme();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { titleColor, violetColor, accentColorScheme } = useCustomColor();
+
+  const {
+    isOpen: isOpenDrawer,
+    onOpen: onOpenDrawer,
+    onClose: onCloseDrawer,
+  } = useDisclosure();
+  const btnRef = React.useRef();
 
   return (
     <>
       <VStack>
-        <Button>Hello</Button>
-        <Button variant="outline">Hello</Button>
-        <Button variant="ghost">Hello</Button>
+        <ColorModeToggleBar />
+
+        {/* Use Text as designed to be responsive with textStyle which does not work on Heading */}
+        <Heading>Heading</Heading>
+        <Text as="h1" textStyle="h1" fontWeight="bold" color={titleColor}>
+          Hello world with Text
+        </Text>
+        <Title>Title</Title>
+        <HStack>
+          <Center boxSize="150px" layerStyle="solid-card">
+            <Text color={violetColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="outline-card">
+            <Text color={violetColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="no-border-card">
+            <Text color={violetColor}>Accent Text in Card</Text>
+          </Center>
+          {/* <Box layerStyle="solidCard" textStyle="h2">
+          With layer style and text style
+        </Box> */}
+        </HStack>
+
+        <Text textStyle="h1">
+          Lorem ipsum dolor sit amet,
+          <Box as="span" color={titleColor}>
+            {' '}
+            consetetur{' '}
+          </Box>
+          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+          dolore magna aliquyam erat, sed diam voluptua.
+        </Text>
+        <Text textStyle="h2" color={violetColor}>
+          Lorem ipsum dolor sit amet, sadipscing elitr, sed diam nonumy eirmod
+          tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+          voluptua.
+        </Text>
+        <Text textStyle="p">
+          Lorem ipsum dolor sit amet, sadipscing elitr, sed diam nonumy eirmod
+          tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+          voluptua.
+        </Text>
+        <Text textStyle="small" color={violetColor}>
+          Lorem ipsum dolor sit amet, sadipscing elitr, sed diam nonumy eirmod
+          tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+          voluptua.
+        </Text>
+
+        <HStack>
+          <Button onClick={() => console.log(theme)}>Hello</Button>
+          <Button variant="outline">Hello</Button>
+          <Button variant="ghost">Hello</Button>
+
+          <IconButton aria-label="Search database" icon={<SearchIcon />} />
+        </HStack>
+
+        <HStack>
+          <Button
+            colorScheme={accentColorScheme}
+            onClick={() => console.log(theme)}
+          >
+            Hello
+          </Button>
+          <Button colorScheme={accentColorScheme} variant="outline">
+            Hello
+          </Button>
+          <Button colorScheme={accentColorScheme} variant="ghost">
+            Hello
+          </Button>
+        </HStack>
+
+        <Button ref={btnRef} colorScheme="violet" onClick={onOpenDrawer}>
+          Open Drawer
+        </Button>
+        <Drawer
+          isOpen={isOpenDrawer}
+          placement="left"
+          onClose={onCloseDrawer}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Create your account</DrawerHeader>
+
+            <DrawerBody>
+              <Input placeholder="Type here..." />
+            </DrawerBody>
+
+            <DrawerFooter>
+              <Button variant="outline" mr={3} onClick={onCloseDrawer}>
+                Cancel
+              </Button>
+              <Button>Save</Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+
         <Input />
         <Select placeholder="Select option"></Select>
         <Textarea placeholder="Select option"></Textarea>
 
         <Switch />
         {/* set to subtle default variant="subtle" colorScheme="cyan" */}
+        <Text>Tags</Text>
         <Tag>hello</Tag>
         <Tag colorScheme="blue">hello</Tag>
-        <Tag colorScheme="green">hello</Tag>
-        <Tag colorScheme="teal">hello</Tag>
+        <Tag variant="solid" colorScheme="green">
+          hello
+        </Tag>
+        <Tag variant="outline" colorScheme="teal">
+          hello
+        </Tag>
+        <Tag variant="subtle" colorScheme="teal">
+          hello
+        </Tag>
+
+        <Text>Badges</Text>
+        <Badge>hello</Badge>
+        <Badge colorScheme="teal">hello</Badge>
 
         <Button
           onClick={() =>
@@ -103,7 +248,7 @@ export const All = () => {
           Show Toast
         </Button>
 
-        <Tabs>
+        <Tabs variant="soft-rounded">
           <TabList>
             <Tab>One</Tab>
             <Tab>Two</Tab>
@@ -122,10 +267,10 @@ export const All = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-        <Heading>Hello world</Heading>
         <Checkbox />
-        <Link p={2}>project 1</Link>
-        <Link>project 2</Link>
+        <Link isExternal>
+          Link <ExternalLinkIcon mx="2px" />
+        </Link>
 
         <Menu>
           <MenuButton
@@ -140,7 +285,11 @@ export const All = () => {
             </MenuItem>
             <MenuItem command="⌘N">New Window</MenuItem>
             <MenuItem>Open Closed Tab</MenuItem>
-            <MenuItem>Open File...</MenuItem>
+            <MenuDivider />
+            <MenuOptionGroup defaultValue="asc" title="Order" type="radio">
+              <MenuItemOption value="asc">Ascending</MenuItemOption>
+              <MenuItemOption value="desc">Descending</MenuItemOption>
+            </MenuOptionGroup>
           </MenuList>
         </Menu>
 
@@ -191,6 +340,48 @@ export const All = () => {
             </NumberInputStepper>
           </NumberInput>
         </FormControl>
+
+        <Accordion w="full" allowToggle>
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box flex="1" textAlign="left">
+                  Section 1 title
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </AccordionPanel>
+          </AccordionItem>
+
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box flex="1" textAlign="left">
+                  Section 2 title
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+
+        <Stack>
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+        </Stack>
       </VStack>
     </>
   );

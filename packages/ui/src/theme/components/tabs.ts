@@ -1,17 +1,18 @@
-import { tabsAnatomy as parts } from "@chakra-ui/anatomy";
+import { tabsAnatomy as parts } from '@chakra-ui/anatomy';
 import type {
   PartsStyleFunction,
   PartsStyleInterpolation,
   PartsStyleObject,
   SystemStyleFunction,
   SystemStyleObject,
-} from "@chakra-ui/theme-tools";
-import { getColor, mode } from "@chakra-ui/theme-tools";
+} from '@chakra-ui/theme-tools';
+import { mode } from '@chakra-ui/theme-tools';
+import { borderRadius, colorScheme } from '../utils/default-props';
 
 const baseStyleRoot: SystemStyleFunction = (props) => {
   const { orientation } = props;
   return {
-    display: orientation === "vertical" ? "flex" : "block",
+    display: orientation === 'vertical' ? 'flex' : 'block',
   };
 };
 
@@ -20,31 +21,31 @@ const baseStyleTab: SystemStyleFunction = (props) => {
 
   return {
     flex: isFitted ? 1 : undefined,
-    transitionProperty: "common",
-    transitionDuration: "normal",
+    transitionProperty: 'common',
+    transitionDuration: 'normal',
     _focus: {
       zIndex: 1,
-      boxShadow: "none",
+      boxShadow: 'none',
     },
   };
 };
 
 const baseStyleTablist: SystemStyleFunction = (props) => {
-  const { align = "start", orientation } = props;
+  const { align = 'start', orientation } = props;
 
   type Alignments = {
     [key: string]: string;
   };
 
   const alignments: Alignments = {
-    end: "flex-end",
-    center: "center",
-    start: "flex-start",
+    end: 'flex-end',
+    center: 'center',
+    start: 'flex-start',
   };
 
   return {
     justifyContent: alignments[align],
-    flexDirection: orientation === "vertical" ? "column" : "row",
+    flexDirection: orientation === 'vertical' ? 'column' : 'row',
   };
 };
 
@@ -64,19 +65,19 @@ const sizes: Record<string, PartsStyleObject<typeof parts>> = {
     tab: {
       py: 1,
       px: 4,
-      fontSize: "sm",
+      fontSize: 'sm',
     },
   },
   md: {
     tab: {
-      fontSize: "md",
+      fontSize: 'md',
       py: 2,
       px: 4,
     },
   },
   lg: {
     tab: {
-      fontSize: "lg",
+      fontSize: 'lg',
       py: 3,
       px: 4,
     },
@@ -85,30 +86,30 @@ const sizes: Record<string, PartsStyleObject<typeof parts>> = {
 
 const variantLine: PartsStyleFunction<typeof parts> = (props) => {
   const { colorScheme: c, orientation } = props;
-  const isVertical = orientation === "vertical";
+  const isVertical = orientation === 'vertical';
   const borderProp =
-    orientation === "vertical" ? "borderStart" : "borderBottom";
-  const marginProp = isVertical ? "marginStart" : "marginBottom";
+    orientation === 'vertical' ? 'borderStart' : 'borderBottom';
+  const marginProp = isVertical ? 'marginStart' : 'marginBottom';
 
   return {
     tablist: {
-      [borderProp]: "2px solid",
-      borderColor: "inherit",
+      [borderProp]: '2px solid',
+      borderColor: 'inherit',
     },
     tab: {
-      [borderProp]: "2px solid",
-      borderColor: "transparent",
-      [marginProp]: "-2px",
+      [borderProp]: '2px solid',
+      borderColor: 'transparent',
+      [marginProp]: '-2px',
       _selected: {
         color: mode(`${c}.600`, `${c}.300`)(props),
-        borderColor: "currentColor",
+        borderColor: 'currentColor',
       },
       _active: {
-        bg: mode("gray.200", "whiteAlpha.300")(props),
+        bg: mode('gray.200', 'whiteAlpha.300')(props),
       },
       _disabled: {
         opacity: 0.4,
-        cursor: "not-allowed",
+        cursor: 'not-allowed',
       },
     },
   };
@@ -118,20 +119,20 @@ const variantEnclosed: PartsStyleFunction<typeof parts> = (props) => {
   const { colorScheme: c } = props;
   return {
     tab: {
-      borderTopRadius: "md",
-      border: "1px solid",
-      borderColor: "transparent",
-      mb: "-1px",
+      borderTopRadius: 'md',
+      border: '1px solid',
+      borderColor: 'transparent',
+      mb: '-1px',
       _selected: {
         color: mode(`${c}.600`, `${c}.300`)(props),
-        borderColor: "inherit",
+        borderColor: 'inherit',
         borderBottomColor: mode(`white`, `gray.800`)(props),
       },
     },
     tablist: {
-      mb: "-1px",
-      borderBottom: "1px solid",
-      borderColor: "inherit",
+      mb: '-1px',
+      borderBottom: '1px solid',
+      borderColor: 'inherit',
     },
   };
 };
@@ -140,40 +141,46 @@ const variantEnclosedColored: PartsStyleFunction<typeof parts> = (props) => {
   const { colorScheme: c } = props;
   return {
     tab: {
-      border: "1px solid",
-      borderColor: "inherit",
+      border: '1px solid',
+      borderColor: 'inherit',
       bg: mode(`gray.50`, `whiteAlpha.50`)(props),
-      mb: "-1px",
+      mb: '-1px',
       _notLast: {
-        marginEnd: "-1px",
+        marginEnd: '-1px',
       },
       _selected: {
-        bg: mode("#fff", "gray.800")(props),
+        bg: mode('#fff', 'gray.800')(props),
         color: mode(`${c}.600`, `${c}.300`)(props),
-        borderColor: "inherit",
-        borderTopColor: "currentColor",
-        borderBottomColor: "transparent",
+        borderColor: 'inherit',
+        borderTopColor: 'currentColor',
+        borderBottomColor: 'transparent',
       },
     },
     tablist: {
-      mb: "-1px",
-      borderBottom: "1px solid",
-      borderColor: "inherit",
+      mb: '-1px',
+      borderBottom: '1px solid',
+      borderColor: 'inherit',
     },
   };
 };
 
 const variantSoftRounded: PartsStyleFunction<typeof parts> = (props) => {
-  const { colorScheme: c, theme } = props;
+  const { colorScheme: c } = props;
   return {
     tab: {
-      borderRadius: "full",
-      fontWeight: "semibold",
-      color: "gray.600",
+      borderRadius: borderRadius,
+      fontWeight: 'semibold',
+      color: 'ice',
       _selected: {
-        color: getColor(theme, `${c}.700`),
-        bg: getColor(theme, `${c}.100`),
+        color: mode(`white`, `cosmos`)(props),
+        bg: mode(`violet.800`, `${c}.200`)(props),
       },
+    },
+    tablist: {
+      bg: mode(`whisper`, `fog`)(props),
+      border: '1px solid',
+      borderRadius: borderRadius,
+      borderColor: mode(`ice`, `meteorid`)(props),
     },
   };
 };
@@ -182,11 +189,11 @@ const variantSolidRounded: PartsStyleFunction<typeof parts> = (props) => {
   const { colorScheme: c } = props;
   return {
     tab: {
-      borderRadius: "full",
-      fontWeight: "semibold",
-      color: mode("gray.600", "inherit")(props),
+      borderRadius: 'full',
+      fontWeight: 'semibold',
+      color: mode('gray.600', 'inherit')(props),
       _selected: {
-        color: mode(`#fff`, "gray.800")(props),
+        color: mode(`#fff`, 'gray.800')(props),
         bg: mode(`${c}.600`, `${c}.300`)(props),
       },
     },
@@ -198,8 +205,8 @@ const variantUnstyled: PartsStyleFunction<typeof parts> = (props) => {
     tab: {
       _selected: {
         color: mode(`${c}.600`, `${c}.300`)(props),
-        fontWeight: "bold",
-        borderBottomWidth: "2px",
+        fontWeight: 'bold',
+        borderBottomWidth: '2px',
         borderBottomColor: mode(`${c}.600`, `${c}.300`)(props),
       },
     },
@@ -208,15 +215,15 @@ const variantUnstyled: PartsStyleFunction<typeof parts> = (props) => {
 const variants: Record<string, PartsStyleInterpolation<typeof parts>> = {
   line: variantLine,
   enclosed: variantEnclosed,
-  "enclosed-colored": variantEnclosedColored,
-  "soft-rounded": variantSoftRounded,
-  "solid-rounded": variantSolidRounded,
+  'enclosed-colored': variantEnclosedColored,
+  'soft-rounded': variantSoftRounded,
+  'solid-rounded': variantSolidRounded,
   unstyled: variantUnstyled,
 };
 const defaultProps = {
-  size: "md",
-  variant: "unstyled",
-  colorScheme: "aqua",
+  size: 'md',
+  variant: 'soft-rounded',
+  colorScheme: colorScheme,
 };
 
 export default {

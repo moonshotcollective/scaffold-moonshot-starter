@@ -1,35 +1,42 @@
-import { mode, transparentize } from "@chakra-ui/theme-tools";
+import { mode, transparentize } from '@chakra-ui/theme-tools';
 import type {
   SystemStyleObject,
   SystemStyleFunction,
-} from "@chakra-ui/theme-tools";
+} from '@chakra-ui/theme-tools';
 
-const baseStyle: SystemStyleObject = {
-  lineHeight: "1.2",
-  borderRadius: "sm",
-  fontWeight: "semibold",
-  transitionProperty: "common",
-  transitionDuration: "normal",
-  color: "space",
-  _focus: {
-    boxShadow: "none",
-  },
-  _disabled: {
-    opacity: 0.4,
-    cursor: "not-allowed",
-    boxShadow: "none",
-  },
-  _hover: {
-    _disabled: {
-      bg: "initial",
+import { borderRadius, colorScheme } from '../utils/default-props';
+
+const baseStyle: SystemStyleFunction = (props) => {
+  // const { colorScheme: c, theme } = props;
+
+  return {
+    lineHeight: '1.2',
+    borderRadius: borderRadius,
+    fontWeight: 'semibold',
+    textTransform: 'uppercase',
+    transitionProperty: 'common',
+    transitionDuration: 'normal',
+    color: mode(`inherit`, `cosmos`)(props),
+    _focus: {
+      boxShadow: 'none',
     },
-  },
+    _disabled: {
+      opacity: 0.4,
+      cursor: 'not-allowed',
+      boxShadow: 'none',
+    },
+    _hover: {
+      _disabled: {
+        bg: 'initial',
+      },
+    },
+  };
 };
 
 const variantGhost: SystemStyleFunction = (props) => {
   const { colorScheme: c, theme } = props;
 
-  if (c === "gray") {
+  if (c === 'gray') {
     return {
       color: mode(`inherit`, `whiteAlpha.900`)(props),
       _hover: {
@@ -44,7 +51,7 @@ const variantGhost: SystemStyleFunction = (props) => {
 
   return {
     color: mode(`${c}.600`, `${c}.200`)(props),
-    bg: "transparent",
+    bg: 'transparent',
     _hover: {
       bg: mode(`${c}.50`, darkHoverBg)(props),
     },
@@ -58,8 +65,8 @@ const variantOutline: SystemStyleFunction = (props) => {
   const { colorScheme: c } = props;
   const borderColor = mode(`gray.200`, `whiteAlpha.300`)(props);
   return {
-    border: "1px solid",
-    borderColor: c === "gray" ? borderColor : "currentColor",
+    border: '1px solid',
+    borderColor: c === 'gray' ? borderColor : 'currentColor',
     ...variantGhost(props),
   };
 };
@@ -74,23 +81,23 @@ type AccessibleColor = {
 /** Accessible color overrides for less accessible colors. */
 const accessibleColorMap: { [key: string]: AccessibleColor } = {
   yellow: {
-    bg: "yellow.400",
-    color: "black",
-    hoverBg: "yellow.500",
-    activeBg: "yellow.600",
+    bg: 'yellow.400',
+    color: 'black',
+    hoverBg: 'yellow.500',
+    activeBg: 'yellow.600',
   },
   cyan: {
-    bg: "cyan.400",
-    color: "black",
-    hoverBg: "cyan.500",
-    activeBg: "cyan.600",
+    bg: 'cyan.400',
+    color: 'black',
+    hoverBg: 'cyan.500',
+    activeBg: 'cyan.600',
   },
 };
 
 const variantSolid: SystemStyleFunction = (props) => {
   const { colorScheme: c } = props;
 
-  if (c === "gray") {
+  if (c === 'gray') {
     const bg = mode(`gray.100`, `whiteAlpha.200`)(props);
 
     return {
@@ -107,7 +114,7 @@ const variantSolid: SystemStyleFunction = (props) => {
 
   const {
     bg = `${c}.500`,
-    color = "white",
+    color = 'white',
     hoverBg = `${c}.600`,
     activeBg = `${c}.700`,
   } = accessibleColorMap[c] ?? {};
@@ -131,14 +138,14 @@ const variantLink: SystemStyleFunction = (props) => {
   const { colorScheme: c } = props;
   return {
     padding: 0,
-    height: "auto",
-    lineHeight: "normal",
-    verticalAlign: "baseline",
+    height: 'auto',
+    lineHeight: 'normal',
+    verticalAlign: 'baseline',
     color: mode(`${c}.500`, `${c}.200`)(props),
     _hover: {
-      textDecoration: "underline",
+      textDecoration: 'underline',
       _disabled: {
-        textDecoration: "none",
+        textDecoration: 'none',
       },
     },
     _active: {
@@ -148,10 +155,10 @@ const variantLink: SystemStyleFunction = (props) => {
 };
 
 const variantUnstyled: SystemStyleObject = {
-  bg: "none",
-  color: "inherit",
-  display: "inline",
-  lineHeight: "inherit",
+  bg: 'none',
+  color: 'inherit',
+  display: 'inline',
+  lineHeight: 'inherit',
   m: 0,
   p: 0,
 };
@@ -168,33 +175,33 @@ const sizes: Record<string, SystemStyleObject> = {
   lg: {
     h: 12,
     minW: 12,
-    fontSize: "lg",
+    fontSize: 'lg',
     px: 6,
   },
   md: {
     h: 10,
     minW: 10,
-    fontSize: "md",
+    fontSize: 'md',
     px: 4,
   },
   sm: {
     h: 8,
     minW: 8,
-    fontSize: "sm",
+    fontSize: 'sm',
     px: 3,
   },
   xs: {
     h: 6,
     minW: 6,
-    fontSize: "xs",
+    fontSize: 'xs',
     px: 2,
   },
 };
 
 const defaultProps = {
-  variant: "solid",
-  size: "md",
-  colorScheme: "purple",
+  variant: 'solid',
+  size: 'md',
+  colorScheme: colorScheme,
 };
 
 export default {

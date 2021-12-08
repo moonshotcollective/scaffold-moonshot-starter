@@ -6,6 +6,7 @@ import type {
   SystemStyleObject,
 } from "@chakra-ui/theme-tools";
 import { calc, cssVar, mode } from "@chakra-ui/theme-tools";
+import { borderRadius } from "../utils/default-props";
 
 const $width = cssVar("switch-track-width");
 const $height = cssVar("switch-track-height");
@@ -19,7 +20,7 @@ const baseStyleTrack: SystemStyleFunction = (props) => {
   const { colorScheme: c } = props;
 
   return {
-    borderRadius: "full",
+    borderRadius: borderRadius,
     p: "2px",
     width: [$width.reference],
     height: [$height.reference],
@@ -86,7 +87,7 @@ const sizes: Record<string, PartsStyleObject<typeof parts>> = {
 
 const defaultProps = {
   size: "md",
-  colorScheme: "aqua",
+  colorScheme: "violet",
 };
 
 export default {

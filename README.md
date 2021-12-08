@@ -28,7 +28,7 @@ Ceramic is our main data store in conjunction with Filecoin & IPFS for file stor
 - [Node](https://nodejs.org/en/download/)
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/)
 - [Git](https://git-scm.com/downloads)
-- Accounts and API keys for [NFT.storage](https://nft.storage/) and [WEB3.storage](https://web3.storage/)
+- Account and API key for [WEB3.storage](https://web3.storage/)
 
 ### Setup env
 
