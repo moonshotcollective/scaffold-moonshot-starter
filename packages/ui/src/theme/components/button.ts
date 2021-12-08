@@ -1,10 +1,10 @@
-import { mode, transparentize } from '@chakra-ui/theme-tools';
 import type {
-  SystemStyleObject,
   SystemStyleFunction,
+  SystemStyleObject,
 } from '@chakra-ui/theme-tools';
-
-import { borderRadius, colorScheme } from '../utils/default-props';
+import { mode, transparentize } from '@chakra-ui/theme-tools';
+import { colors } from '../colors';
+import { borderRadius } from '../utils/default-props';
 
 const baseStyle: SystemStyleFunction = (props) => {
   // const { colorScheme: c, theme } = props;
@@ -16,7 +16,7 @@ const baseStyle: SystemStyleFunction = (props) => {
     textTransform: 'uppercase',
     transitionProperty: 'common',
     transitionDuration: 'normal',
-    color: mode(`inherit`, `cosmos`)(props),
+    color: mode(colors.neutralLightest, colors.neutralDarkest)(props),
     _focus: {
       boxShadow: 'none',
     },
@@ -201,7 +201,6 @@ const sizes: Record<string, SystemStyleObject> = {
 const defaultProps = {
   variant: 'solid',
   size: 'md',
-  colorScheme: colorScheme,
 };
 
 export default {

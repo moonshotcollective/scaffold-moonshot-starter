@@ -1,3 +1,2 @@
-export const colorScheme = 'violet';
+export const colorScheme = 'primary';
 export const borderRadius = 'md';
-export const primary = 'violet.200';

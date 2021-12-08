@@ -8,6 +8,7 @@ import type {
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
 import { borderRadius, colorScheme } from '../utils/default-props';
+import { colors } from '../colors';
 
 const baseStyleRoot: SystemStyleFunction = (props) => {
   const { orientation } = props;
@@ -172,15 +173,15 @@ const variantSoftRounded: PartsStyleFunction<typeof parts> = (props) => {
       fontWeight: 'semibold',
       color: 'ice',
       _selected: {
-        color: mode(`white`, `cosmos`)(props),
-        bg: mode(`violet.800`, `${c}.200`)(props),
+        color: mode(colors.neutralLightest, colors.neutralDarkest)(props),
+        bg: mode(`${c}.500`, `${c}.200`)(props),
       },
     },
     tablist: {
-      bg: mode(`whisper`, `fog`)(props),
+      bg: mode(colors.neutralLighter, colors.neutralDarker)(props),
       border: '1px solid',
       borderRadius: borderRadius,
-      borderColor: mode(`ice`, `meteorid`)(props),
+      borderColor: mode(colors.neutralLight, colors.neutralDark)(props),
     },
   };
 };

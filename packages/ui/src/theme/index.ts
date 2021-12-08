@@ -1,10 +1,9 @@
 import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react';
-
+import { colors } from './colors';
 import components from './components';
-import colors from './colors';
 import fonts from './fonts';
-import styles from './styles';
 import layerStyles from './layer-styles';
+import styles from './styles';
 import textStyles from './text-styles';
 import { colorScheme } from './utils/default-props';
 

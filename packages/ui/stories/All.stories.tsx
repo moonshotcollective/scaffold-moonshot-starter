@@ -77,7 +77,7 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 
-import useCustomColor from './hooks/useCustomColor';
+import useColor from './hooks/useColor';
 
 const meta: Meta = {
   title: 'Components/All',
@@ -101,7 +101,7 @@ export const All = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { titleColor, violetColor, accentColorScheme } = useCustomColor();
+  const { titleColor, textVioletColor, accentColorScheme } = useColor();
 
   const {
     isOpen: isOpenDrawer,
@@ -123,13 +123,13 @@ export const All = () => {
         <Title>Title</Title>
         <HStack>
           <Center boxSize="150px" layerStyle="solid-card">
-            <Text color={violetColor}>Accent Text in Card</Text>
+            <Text color={textVioletColor}>Accent Text in Card</Text>
           </Center>
           <Center boxSize="150px" layerStyle="outline-card">
-            <Text color={violetColor}>Accent Text in Card</Text>
+            <Text color={textVioletColor}>Accent Text in Card</Text>
           </Center>
           <Center boxSize="150px" layerStyle="no-border-card">
-            <Text color={violetColor}>Accent Text in Card</Text>
+            <Text color={textVioletColor}>Accent Text in Card</Text>
           </Center>
           {/* <Box layerStyle="solidCard" textStyle="h2">
           With layer style and text style
@@ -145,7 +145,7 @@ export const All = () => {
           sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
           dolore magna aliquyam erat, sed diam voluptua.
         </Text>
-        <Text textStyle="h2" color={violetColor}>
+        <Text textStyle="h2" color={textVioletColor}>
           Lorem ipsum dolor sit amet, sadipscing elitr, sed diam nonumy eirmod
           tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
           voluptua.
@@ -155,7 +155,7 @@ export const All = () => {
           tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
           voluptua.
         </Text>
-        <Text textStyle="small" color={violetColor}>
+        <Text textStyle="small" color={textVioletColor}>
           Lorem ipsum dolor sit amet, sadipscing elitr, sed diam nonumy eirmod
           tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
           voluptua.
@@ -184,7 +184,7 @@ export const All = () => {
           </Button>
         </HStack>
 
-        <Button ref={btnRef} colorScheme="violet" onClick={onOpenDrawer}>
+        <Button ref={btnRef} onClick={onOpenDrawer}>
           Open Drawer
         </Button>
         <Drawer

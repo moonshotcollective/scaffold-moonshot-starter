@@ -1,8 +1,60 @@
 import { DeepPartial, Theme } from '@chakra-ui/react';
+
+interface ExtendedColors {
+  neutralDarkest: string;
+  neutralDarker: string;
+  neutralDark: string;
+  neutralLightest: string;
+  neutralLighter: string;
+  neutralLight: string;
+
+  // Functional
+  success: string;
+  error: string;
+
+  primary: {
+    50: string;
+    100: string;
+    200: string;
+    300: string;
+    400: string;
+    500: string;
+    600: string;
+    700: string;
+    800: string;
+    900: string;
+  };
+  accentDark: {
+    50: string;
+    100: string;
+    200: string;
+    300: string;
+    400: string;
+    500: string;
+    600: string;
+    700: string;
+    800: string;
+    900: string;
+  };
+  accentLight: {
+    50: string;
+    100: string;
+    200: string;
+    300: string;
+    400: string;
+    500: string;
+    600: string;
+    700: string;
+    800: string;
+    900: string;
+  };
+}
+
 /** extend additional color here */
 const extendedColors: DeepPartial<
   Record<string, Theme['colors']['current' | 'purple']>
-> = {
+> &
+  ExtendedColors = {
   // white: '#fff',
   // space: '#0E0333',
   // spacepink: '#301041',
@@ -48,28 +100,31 @@ const extendedColors: DeepPartial<
   // },
 
   // Basic
-  cosmos: '#0F0A1E',
-  fog: '#18112C',
-  meteorid: '#513B91',
-  ice: '#AFA2D6',
-  whisper: '#EFEDF5',
+  neutralDarkest: '#0F0A1E',
+  neutralDarker: '#18112C',
+  neutralDark: '#513B91',
+  neutralLightest: '#fff',
+  neutralLighter: '#EFEDF5',
+  neutralLight: '#AFA2D6',
 
-  // Attention
-  moon: '#F5D070',
-  fresh: '#26cd7f',
-  violet: {
+  // Functional
+  success: '#9AF1A8',
+  error: '#F86D97',
+
+  // Main
+  primary: {
     '50': '#EDE7FD',
     '100': '#CDBDFA',
-    '200': '#AC92F6',
+    '200': '#AC92F6', //
     '300': '#8C68F3',
     '400': '#6C3DF0',
-    '500': '#4C13EC',
+    '500': '#4C13EC', //
     '600': '#3C0FBD',
     '700': '#2D0B8E',
     '800': '#1E085E',
     '900': '#0F042F',
   },
-  yellow: {
+  accentDark: {
     '50': '#FDF7E7',
     '100': '#FAE9BC',
     '200': '#F7DB91',
@@ -81,7 +136,7 @@ const extendedColors: DeepPartial<
     '800': '#5F4707',
     '900': '#302303',
   },
-  green: {
+  accentLight: {
     '50': '#E9FBF3',
     '100': '#C3F4DD',
     '200': '#9CEDC7',
@@ -93,18 +148,12 @@ const extendedColors: DeepPartial<
     '800': '#105635',
     '900': '#082B1B',
   },
-
-  // Functional
-  froly: '#F86D97',
-  madang: '#9AF1A8',
 };
 
 /** override chakra colors here */
 const overridenChakraColors: DeepPartial<Theme['colors']> = {};
 
-const colors = {
+export const colors = {
   ...overridenChakraColors,
   ...extendedColors,
 };
-
-export default colors;

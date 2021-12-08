@@ -1,30 +1,31 @@
-import { borderRadius, primary } from './utils/default-props';
+import { colors } from '../theme/colors';
+import { borderRadius } from './utils/default-props';
 
 const layerStyles = {
   'solid-card': {
     p: '2rem',
-    bg: 'whisper',
+    bg: colors.neutralLighter,
     borderRadius: borderRadius,
     border: '1px solid',
-    borderColor: primary,
+    borderColor: colors.neutralLight,
     '.chakra-ui-dark &': {
-      bg: 'fog',
+      bg: colors.neutralDarker,
       border: '1px solid',
-      borderColor: 'meteorid',
+      borderColor: colors.neutralDark,
     },
   },
   'outline-card': {
     p: '2rem',
     border: '1px solid',
     borderRadius: borderRadius,
-    borderColor: primary,
-    '.chakra-ui-dark &': { borderColor: primary },
+    borderColor: colors.neutralLight,
+    '.chakra-ui-dark &': { borderColor: colors.neutralDark },
   },
   'no-border-card': {
     p: '2rem',
-    bg: 'whisper',
+    bg: colors.neutralLighter,
     borderRadius: borderRadius,
-    '.chakra-ui-dark &': { bg: 'fog' },
+    '.chakra-ui-dark &': { bg: colors.neutralDarker },
   },
 };
 

@@ -6,12 +6,14 @@ import type {
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
 import { borderRadius, colorScheme } from '../utils/default-props';
+import { colors } from '../colors';
+import useThemeColor from '../../hooks/useThemeColor';
 
 const baseStyleList: SystemStyleFunction = (props) => {
-  const bgColor = mode(`gray.100`, `cosmos`)(props);
+  const { getBgColor, getOverBgColor } = useThemeColor();
 
   return {
-    bg: bgColor,
+    bg: getBgColor(props),
     boxShadow: mode('sm', 'dark-lg')(props),
     color: 'inherit',
     minW: '3xs',
@@ -19,14 +21,14 @@ const baseStyleList: SystemStyleFunction = (props) => {
     p: '2',
     zIndex: 1,
     borderRadius: borderRadius,
-    borderColor: bgColor,
+    borderColor: getOverBgColor(props),
     borderWidth: '1px',
   };
 };
 
 const baseStyleItem: SystemStyleFunction = (props) => {
   const { colorScheme: c } = props;
-  const txtColor = mode(`white`, `cosmos`)(props);
+  const txtColor = mode(colors.neutralLighter, colors.neutralDarker)(props);
 
   return {
     py: '0.4rem',
