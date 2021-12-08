@@ -19,6 +19,7 @@ import { useContext } from "react";
 
 import { Web3Context } from "../../contexts/Web3Provider";
 import ConnectButton from "../Buttons/ConnectButton";
+import ThemeToggle from '../Buttons/ThemeToggle';
 import LogoIcon from "../Icons/LogoIcon";
 
 const LinkItem = ({ href, _target, children, ...props }: any) => {
@@ -95,12 +96,8 @@ const Navbar = (props: any) => {
         </HStack>
         <Spacer />
         <Flex alignItems="center">
-          {account && (
-            <Tag variant="outline" colorScheme="green">
-              <TagLabel>Connected</TagLabel>
-            </Tag>
-          )}
           <ConnectButton />
+          <ThemeToggle />
         </Flex>
       </Container>
 

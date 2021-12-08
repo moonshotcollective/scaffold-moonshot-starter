@@ -14,17 +14,18 @@ import { AiFillSetting } from "react-icons/ai";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 
 import { Web3Context } from "../../contexts/Web3Provider";
-
-import LogoutButton from "./LogoutButton";
+import Address from '../custom/Address';
 
 function ConnectButton({ w }: { w?: string }) {
-  const { account, connectWeb3, logout } = useContext(Web3Context);
+  const { account, connectWeb3, logout, provider } = useContext(Web3Context);
 
   return (
     <HStack w="full">
-      <Text>{account}</Text>
-      {account ? (
-        <Button onClick={logout}>Logout</Button>
+      {account && provider ? (
+        <>
+          <Address address={account} value={account} fontSize="18px" size="short" />
+          <Button onClick={logout}>Logout</Button>
+        </>
       ) : (
         <Button onClick={connectWeb3} w={w}>
           Connect
@@ -61,7 +62,7 @@ function ConnectButton({ w }: { w?: string }) {
           </MenuItem>
           <MenuDivider />
           <MenuItem w="full">
-            <LogoutButton w="full" />
+            <Button onClick={logout}>Logout</Button>
           </MenuItem>
         </MenuList>
       </Menu>
