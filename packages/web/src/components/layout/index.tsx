@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
-
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import BottomBar from "./BottomBar";
 
 type LayoutProps = {
   children: ReactNode;
@@ -10,15 +10,16 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <Box margin="0 auto" maxWidth={1100} transition="0.5s ease-out">
-      <Box margin="8">
-        <Navbar />
-        <Box as="main" marginY={22}>
-          {children}
+    <>
+      <Navbar />
+      <Box margin="0 auto" maxWidth={1100} transition="0.5s ease-out">
+        <Box margin={[4, 8, 16]}>
+          <Box as="main">{children}</Box>
+          <Footer />
         </Box>
-        <Footer />
       </Box>
-    </Box>
+      <BottomBar />
+    </>
   );
 };
 
