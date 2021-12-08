@@ -49,9 +49,9 @@ const staticProvider = new ethers.providers.StaticJsonRpcProvider(
 
 const initialState = {
   loading: false,
-  account: null,
-  provider: null,
-  contracts: null,
+  account: undefined,
+  provider: undefined,
+  contracts: undefined,
   staticProvider
 } as State;
 

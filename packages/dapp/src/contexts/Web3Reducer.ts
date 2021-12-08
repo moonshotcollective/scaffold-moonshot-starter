@@ -3,14 +3,14 @@ import { ethers } from "ethers";
 /* eslint-disable import/prefer-default-export */
 export type State = {
   loading: boolean;
-  account: null | string;
-  provider: null | any;
+  account?: string;
+  provider?: any;
   staticProvider: ethers.providers.Web3Provider;
-  ens: null | string;
-  self: null | any;
-  core: null | any;
-  identityLink: null | any;
-  contracts: null | any;
+  ens?: string;
+  self?: any;
+  core?: any;
+  identityLink?: any;
+  contracts?: any;
   connectWeb3?: any;
   logout?: any;
 };

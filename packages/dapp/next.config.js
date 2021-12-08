@@ -15,13 +15,4 @@ module.exports = withPWA({
     register: true,
   },
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/",
-        permanent: true,
-      },
-    ];
-  },
 });
