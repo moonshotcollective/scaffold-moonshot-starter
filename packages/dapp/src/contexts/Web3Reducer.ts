@@ -31,26 +31,6 @@ export const Web3Reducer = (state: State, action: Record<string, any>) => {
         ...state,
         provider: action.payload,
       };
-    case "SET_SELF":
-      return {
-        ...state,
-        self: action.payload,
-      };
-    case "SET_CORE":
-      return {
-        ...state,
-        core: action.payload,
-      };
-    case "SET_IDENTITY_LINK":
-      return {
-        ...state,
-        identityLink: action.payload,
-      };
-    case "SET_IS_REVIEWER":
-      return {
-        ...state,
-        isReviewer: action.payload,
-      };
     case "SET_CONTRACTS":
       return {
         ...state,

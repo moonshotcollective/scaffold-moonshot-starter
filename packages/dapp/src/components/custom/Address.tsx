@@ -8,7 +8,6 @@ import {
   SkeletonText,
   IconButton,
   Icon,
-  Text
 } from "@chakra-ui/react";
 import { useClipboard } from "@chakra-ui/hooks";
 import { Box, Flex, HStack } from "@chakra-ui/layout";
@@ -73,7 +72,7 @@ function Address({ value, address, size = "long", blockExplorer, minimized = fal
     return (
       <Box as="span" verticalAlign="middle">
         <Link target="_blank" href={etherscanLink} rel="noopener noreferrer">
-          <Blockies seed={account.toLowerCase()} size={8} scale={2} />
+          <Blockies seed={account.toLowerCase()} className="blockies" size={8} scale={2} />
         </Link>
       </Box>
     );
@@ -101,7 +100,6 @@ function Address({ value, address, size = "long", blockExplorer, minimized = fal
           href={etherscanLink}
           target="_blank"
           rel="noopener noreferrer"
-          color="white"
         >
           <RiExternalLinkFill />
           {displayAddress}
@@ -112,7 +110,7 @@ function Address({ value, address, size = "long", blockExplorer, minimized = fal
 
   return (
     <HStack fontSize={fontSize ?? 28}>
-      <Blockies seed={account.toLowerCase()} size={8} scale={blockiesScale ? blockiesScale / 7 : 5} />
+      <Blockies className="blockies" seed={account.toLowerCase()} size={8} scale={blockiesScale ? blockiesScale / 7 : 4.9} />
       {text}
       <IconButton
         onClick={onCopy}

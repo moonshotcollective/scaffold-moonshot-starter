@@ -79,7 +79,7 @@ const Home = () => {
       <Divider mt="16" bg={primaryColor} />
 
       <VStack mt="16" spacing="12" align="left">
-        <Heading color={accentColor}>How it Works</Heading>
+        <Heading color={accentColor}>How it works</Heading>
         <SimpleGrid
           columns={{
             sm: 1,

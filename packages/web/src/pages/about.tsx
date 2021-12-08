@@ -3,37 +3,32 @@ import {
   HStack,
   Text,
   VStack,
-  Button
+  Box
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-import Container from "../components/layout/Container";
 
-const Home = () => {
+const About = () => {
   const router = useRouter();
 
   function goTo(destination: string) {
     router.push(destination);
   }
   return (
-    <Container>
+    <Box w="full">
       <VStack w="full" p="8">
         <HStack align="center" w="full">
-          <Heading as="h1">Homepage</Heading>
+          <Heading as="h1" color="fresh">About</Heading>
         </HStack>
-        <Heading fontSize="xl">
+        <Text as="h2" fontSize="xl">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos esse rerum doloremque eligendi tenetur reprehenderit consequuntur adipisci officia amet quam architecto, commodi deserunt neque debitis porro non iusto asperiores molestiae!
-        </Heading>
+        </Text>
         <Text>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos esse rerum doloremque eligendi tenetur reprehenderit consequuntur adipisci officia amet quam architecto, commodi deserunt neque debitis porro non iusto asperiores molestiae!
         </Text>
-        <HStack>
-          <Button>Action 1</Button>
-          <Button variant="outline">Action 2</Button>
-        </HStack>
       </VStack>
-    </Container>
+    </Box>
   );
 };
 
-export default Home;
+export default About;

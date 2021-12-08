@@ -1,6 +1,4 @@
 import ABIS from "@scaffold-eth/hardhat-ts/hardhat_contracts.json";
-import publishedModel from "@scaffold-eth/schemas/lib/model.json";
-import { EthereumAuthProvider, SelfID } from "@self.id/web";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
@@ -15,11 +13,6 @@ import React, {
 } from "react";
 import Web3Modal from "web3modal";
 
-import {
-  ceramicCoreFactory,
-  CERAMIC_TESTNET,
-} from "../core/ceramic";
-import { IdentityLink } from "../core/ceramic/identity-link";
 import NETWORKS from "../core/networks";
 
 import { State, Web3Reducer } from "./Web3Reducer";
@@ -88,13 +81,6 @@ const Web3Provider = ({ children }: { children: any }) => {
     });
   };
 
-  const setSelf = (self: null | any) => {
-    dispatch({
-      type: "SET_SELF",
-      payload: self,
-    });
-  };
-
   const setContracts = (contracts: null | any) => {
     dispatch({
       type: "SET_CONTRACTS",
@@ -108,25 +94,6 @@ const Web3Provider = ({ children }: { children: any }) => {
       payload: ens,
     });
   };
-
-  const setCore = (core: null | any) => {
-    dispatch({
-      type: "SET_CORE",
-      payload: core,
-    });
-  };
-
-  const setIdentityLink = (identityLink: null | any) => {
-    dispatch({
-      type: "SET_IDENTITY_LINK",
-      payload: identityLink,
-    });
-  };
-
-  useEffect(() => {
-    const coreCeramic = ceramicCoreFactory();
-    setCore(coreCeramic);
-  }, []);
 
   useEffect(() => {
     async function updateState() {
@@ -151,8 +118,6 @@ const Web3Provider = ({ children }: { children: any }) => {
   const logout = async () => {
     setAccount(null);
     setProvider(null);
-    setSelf(null);
-    setCore(null);
     setContracts(null);
     localStorage.setItem("defaultWallet", "");
   };
@@ -194,21 +159,6 @@ const Web3Provider = ({ children }: { children: any }) => {
     }
 
     setAccount(account);
-
-    const identityLinkService = new IdentityLink(
-      process.env.NEXT_PUBLIC_CERAMIC_VERIFICATION_SERVER_URL ||
-      "https://verifications-clay.3boxlabs.com"
-    );
-    setIdentityLink(identityLinkService);
-
-    const mySelf = await SelfID.authenticate({
-      authProvider: new EthereumAuthProvider(ethersProvider.provider, account),
-      ceramic: CERAMIC_TESTNET,
-      connectNetwork: CERAMIC_TESTNET,
-      model: publishedModel,
-    });
-
-    setSelf(mySelf);
 
     provider.on("chainChanged", () => {
       // window.location.reload();

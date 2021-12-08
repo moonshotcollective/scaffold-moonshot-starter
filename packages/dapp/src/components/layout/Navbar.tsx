@@ -16,11 +16,10 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import useCustomColor from "../../hooks/useCustomColor";
-import DiscordButton from "../Buttons/DiscordButton";
-import TwitterButton from "../Buttons/TwitterButton";
-import GitcoinIcon from "../Icons/GitcoinIcon";
-import ThemeToggle from "./ThemeToggle";
+import useCustomColor from '../../core/hooks/useCustomColor';
+import ConnectButton from '../Buttons/ConnectButton';
+import ThemeToggle from '../Buttons/ThemeToggle';
+import GitcoinIcon from '../Icons/GitcoinIcon';
 
 const LinkItem = ({ href, children, ...props }: any) => {
   const { pathname } = useRouter();
@@ -44,12 +43,14 @@ const LinkItems = () => {
   return (
     <>
       <LinkItem href="/">Home</LinkItem>
-      <LinkItem href="/about">About</LinkItem>
+      <LinkItem href="/contract">Contract</LinkItem>
+      <LinkItem href="/example">Example</LinkItem>
+      <LinkItem href="/subgraph">Subgraph</LinkItem>
     </>
   );
 };
 
-const Header = () => {
+const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { accentColor, bgColor } = useCustomColor();
 
@@ -82,8 +83,7 @@ const Header = () => {
 
         <HStack marginLeft="auto">
           <HStack display={{ base: "none", md: "flex" }}>
-            <DiscordButton />
-            <TwitterButton />
+            <ConnectButton />
           </HStack>
           <ThemeToggle />
           <IconButton
@@ -116,4 +116,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
