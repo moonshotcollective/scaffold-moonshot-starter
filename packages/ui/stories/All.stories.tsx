@@ -184,15 +184,8 @@ export const All = () => {
           </Button>
         </HStack>
 
-        <Button ref={btnRef} onClick={onOpenDrawer}>
-          Open Drawer
-        </Button>
-        <Drawer
-          isOpen={isOpenDrawer}
-          placement="left"
-          onClose={onCloseDrawer}
-          finalFocusRef={btnRef}
-        >
+        <Button onClick={onOpenDrawer}>Open Drawer</Button>
+        <Drawer isOpen={isOpenDrawer} placement="left" onClose={onCloseDrawer}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />

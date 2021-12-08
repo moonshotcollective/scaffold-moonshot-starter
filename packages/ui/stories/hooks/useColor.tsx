@@ -1,12 +1,19 @@
 import { useColorModeValue } from '@chakra-ui/react';
 import { colors } from '../../src';
+
 function useColor() {
   const textVioletColor = useColorModeValue(
     colors.neutralDark,
     colors.neutralLight
   );
-  const titleColor = useColorModeValue('fresh', 'moon');
-  const accentColorScheme = useColorModeValue('green', 'yellow');
+  const titleColor = useColorModeValue(
+    colors.accentLight[500],
+    colors.accentDark[500]
+  );
+  const accentColorScheme = useColorModeValue(
+    colors.accentLight,
+    colors.accentDark
+  );
 
   return { textVioletColor, titleColor, accentColorScheme };
 }

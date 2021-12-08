@@ -2,7 +2,8 @@ import { Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 import Footer from "./Footer";
-import Navbar from './Navbar';
+import Navbar from "./Navbar";
+import BottomBar from "../../../../dapp/src/components/layout/BottomBar";
 
 type LayoutProps = {
   children: ReactNode;
@@ -20,6 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
           <Footer />
         </Box>
       </Box>
+      <BottomBar />
     </>
   );
 };

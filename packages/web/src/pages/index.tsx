@@ -20,7 +20,7 @@ import { Title } from "@scaffold-eth/ui";
 
 const Home = () => {
   const { dappLink, name: appName } = appStaticContent;
-  const { accentColor, primaryColor } = useCustomColor();
+  const { primaryColor, getOverBgColor, accentColor } = useCustomColor();
 
   return (
     <Box w="full">

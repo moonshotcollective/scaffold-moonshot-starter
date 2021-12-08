@@ -17,10 +17,10 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { HiDotsHorizontal } from "react-icons/hi";
-import useCustomColor from "../../hooks/useCustomColor";
+import useCustomColor from "../../../../web/src/hooks/useCustomColor";
 
 function BottomBar() {
-  const { bgColor, primaryColor } = useCustomColor();
+  const { getOverBgColor, primaryColor } = useCustomColor();
   return (
     <Box
       display={{ base: "flex", md: "none" }}
@@ -31,7 +31,7 @@ function BottomBar() {
       zIndex="sticky"
       borderTopWidth="1px"
       borderTopColor={primaryColor}
-      bg={bgColor}
+      bg={getOverBgColor}
     >
       <HStack w="full" px="4" justify="space-between">
         <Button>Connect</Button>
