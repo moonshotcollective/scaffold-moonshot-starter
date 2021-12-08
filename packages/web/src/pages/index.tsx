@@ -23,7 +23,7 @@ const Home = () => {
   const { accentColor, primaryColor } = useCustomColor();
 
   return (
-    <Box mt={16} mb={8} w="full">
+    <Box w="full">
       <SimpleGrid
         columns={{
           base: 1,
@@ -42,9 +42,14 @@ const Home = () => {
           <Text pt="10" textStyle="h2">
             {appStaticContent.description}
           </Text>
-          <HStack pt="4" pb="12">
+          <Flex d="row" pt="4" pb="12">
             <Link href={dappLink} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" colorScheme="yellow" aria-label="Launch App">
+              <Button
+                m="2"
+                size="lg"
+                colorScheme="yellow"
+                aria-label="Launch App"
+              >
                 Launch App
               </Button>
             </Link>
@@ -53,11 +58,11 @@ const Home = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button size="lg" aria-label="Contribute">
+              <Button m="2" size="lg" aria-label="Contribute">
                 Contribute
               </Button>
             </Link>
-          </HStack>
+          </Flex>
         </VStack>
         <Box rounded="full" w="full" justifyContent="flex-end">
           <AspectRatio ratio={16 / 10} boxShadow="2xl" borderRadius="30px">

@@ -1,11 +1,11 @@
-import { Box, Flex, Link, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, NextLink, useColorMode } from "@chakra-ui/react";
 
 const Footer = () => {
   const { colorMode } = useColorMode();
   return (
     <Box as="footer" width="full" alignContent="center" py="6">
       <Flex alignItems="center" justifyContent="center">
-        <Link
+        <NextLink
           href="https://gitcoin.co/"
           target="_blank"
           rel="noopener noreferrer"
@@ -75,7 +75,7 @@ const Footer = () => {
               />
             </svg>
           )}
-        </Link>
+        </NextLink>
       </Flex>
     </Box>
   );
