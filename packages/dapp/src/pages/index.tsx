@@ -17,7 +17,7 @@ const Home = () => {
   }
   return (
     <Container>
-      <VStack w="full" bgImage="/images/nightcity1.png" p="8">
+      <VStack w="full" p="8">
         <HStack align="center">
           <Heading fontSize="7xl">Homepage</Heading>
         </HStack>
