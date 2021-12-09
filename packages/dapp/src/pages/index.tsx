@@ -14,7 +14,7 @@ const Home = () => {
   }
   return (
     <Container>
-      <VStack w="full" p="8">
+      <VStack w="full">
         <HStack align="center" w="full">
           <Title>Title</Title>
         </HStack>

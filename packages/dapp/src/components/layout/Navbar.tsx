@@ -82,9 +82,7 @@ const Navbar = () => {
         </HStack>
 
         <HStack marginLeft="auto">
-          <HStack display={{ base: "none", md: "flex" }}>
-            <ConnectButton />
-          </HStack>
+          <ConnectButton />
           <ThemeToggle />
           <IconButton
             size="md"

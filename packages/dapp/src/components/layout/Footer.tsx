@@ -3,7 +3,7 @@ import { Box, Flex, Link, useColorMode } from "@chakra-ui/react";
 const Footer = () => {
   const { colorMode } = useColorMode();
   return (
-    <Box as="footer" width="full" alignContent="center" py="6">
+    <Box as="footer" width="full" alignContent="center" py="12">
       <Flex alignItems="center" justifyContent="center">
         <Link
           href="https://gitcoin.co/"

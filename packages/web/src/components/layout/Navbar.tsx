@@ -51,10 +51,10 @@ const LinkItems = () => {
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { accentColor, bgColor } = useCustomColor();
+  const { accentColor } = useCustomColor();
 
   return (
-    <Box as="nav" w="100%" top="0" bg={bgColor} zIndex={1}>
+    <Box as="nav" w="100%" top="0" zIndex={1}>
       <Container
         display="flex"
         p={2}
