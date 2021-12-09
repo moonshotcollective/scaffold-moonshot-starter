@@ -7,6 +7,7 @@ export interface Config {
   swagger: SwaggerConfig;
   graphql: GraphqlConfig;
   security: SecurityConfig;
+  infuraKey: string;
   api: {
     tracing: boolean;
     apiKey: string;
@@ -33,6 +34,21 @@ export interface Config {
     url: string;
   };
   redisConfig: RedisOptions;
+  redisAuthConfig: RedisOptions;
+  sessionOptions: {
+    name: string;
+    secret: string;
+    resave: boolean;
+    saveUninitialized: boolean;
+    unset: 'destroy' | 'keep';
+    cookie: {
+      secure: boolean;
+      httpOnly: boolean;
+      sameSite: boolean | 'lax' | 'strict' | 'none';
+      path: string;
+      maxAge: number;
+    };
+  };
 }
 
 export interface NestConfig {

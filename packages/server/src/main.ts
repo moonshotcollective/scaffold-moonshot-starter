@@ -1,10 +1,12 @@
 import { config as dotenvConfig } from 'dotenv';
 dotenvConfig();
-// import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { NestFactory } from '@nestjs/core';
+import { NextFunction } from 'express';
+
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-// import { sessionMiddleware } from './core/resources/Redis/redis';
+import { sessionMiddleware } from './core/resources/Redis/redis';
 import {
   BadRequestException,
   Logger,
@@ -15,9 +17,11 @@ import config from './core/configs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { CorsConfig, SwaggerConfig } from './core/configs/config.interface';
+import { Context } from './core/utils/types';
 
 const {
   api: { protocol, hostname, port, corsOptions },
+  sessionOptions,
 } = config();
 
 async function bootstrap() {
@@ -32,16 +36,15 @@ async function bootstrap() {
   // app.set('trust proxy', 1); // trust first proxy
   app.enableShutdownHooks(['SIGINT', 'SIGTERM']);
 
-  // app.use(helmet());
-  // app.use(cookieParser(sessionOptions.secret));
-  // app.use(sessionMiddleware);
-  // /* Cookie & Session cleaner */
-  // app.use((req: Context['req'], res: Context['res'], next: NextFunction) => {
-  //   if (req.cookies[sessionOptions.name] && !req.session?.userId) {
-  //     res.clearCookie(sessionOptions.name);
-  //   }
-  //   next();
-  // });
+  app.use(cookieParser(sessionOptions.secret));
+  app.use(sessionMiddleware);
+  /* Cookie & Session cleaner */
+  app.use((req: Context['req'], res: Context['res'], next: NextFunction) => {
+    if (req.cookies[sessionOptions.name] && !req.session?.siwe) {
+      res.clearCookie(sessionOptions.name);
+    }
+    next();
+  });
 
   const configService = app.get(ConfigService);
   const corsConfig = configService.get<CorsConfig>('cors');

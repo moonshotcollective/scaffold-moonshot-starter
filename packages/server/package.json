@@ -1,9 +1,9 @@
 {
-  "name": "server",
-  "version": "0.0.8",
-  "description": "Server for services such as Ceramic and Web3 & NFT Storage",
+  "name": "@scaffold-eth/server",
+  "version": "0.0.1",
+  "description": "NodeJS TypeScript API using NestJS",
   "author": "Super Shadowy Coders",
-  "private": false,
+  "private": true,
   "license": "GPL-3.0-or-later",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -30,6 +30,7 @@
     "@nestjs/swagger": "^5.0.9",
     "@nestjs/terminus": "^7.2.0",
     "@stablelib/random": "^1.0.1",
+    "apg-js": "^4.1.1",
     "apollo-server-express": "^2",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
