@@ -50,11 +50,6 @@ export type MutationSignInArgs = {
   input: SiweRegisterInput;
 };
 
-
-export type MutationSignOutArgs = {
-  input: SiweMessageInput;
-};
-
 export type Query = {
   __typename?: 'Query';
   /** Gets all the contributors */
@@ -121,9 +116,7 @@ export type SignInMutationVariables = Exact<{
 
 export type SignInMutation = { __typename?: 'Mutation', signIn: { __typename?: 'User', address: string, ens?: string | null | undefined } };
 
-export type SignOutMutationVariables = Exact<{
-  input: SiweMessageInput;
-}>;
+export type SignOutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SignOutMutation = { __typename?: 'Mutation', signOut: boolean };
@@ -243,8 +236,8 @@ export type SignInMutationHookResult = ReturnType<typeof useSignInMutation>;
 export type SignInMutationResult = Apollo.MutationResult<SignInMutation>;
 export type SignInMutationOptions = Apollo.BaseMutationOptions<SignInMutation, SignInMutationVariables>;
 export const SignOutDocument = gql`
-    mutation SignOut($input: SiweMessageInput!) {
-  signOut(input: $input)
+    mutation SignOut {
+  signOut
 }
     `;
 export type SignOutMutationFn = Apollo.MutationFunction<SignOutMutation, SignOutMutationVariables>;
@@ -262,7 +255,6 @@ export type SignOutMutationFn = Apollo.MutationFunction<SignOutMutation, SignOut
  * @example
  * const [signOutMutation, { data, loading, error }] = useSignOutMutation({
  *   variables: {
- *      input: // value for 'input'
  *   },
  * });
  */

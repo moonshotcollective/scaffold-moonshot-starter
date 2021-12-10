@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 /* eslint-disable import/prefer-default-export */
 export type State = {
   loading: boolean;
+  isSignedIn: boolean;
   account?: string;
   provider?: any;
   staticProvider: ethers.providers.Web3Provider;
@@ -20,6 +21,11 @@ export const Web3Reducer = (state: State, action: Record<string, any>) => {
       return {
         ...state,
         account: action.payload,
+      };
+    case "SET_IS_SIGNED_IN":
+      return {
+        ...state,
+        isSignedIn: action.payload,
       };
     case "SET_ENS":
       return {

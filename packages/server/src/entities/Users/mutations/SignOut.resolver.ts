@@ -1,15 +1,18 @@
-import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
-import {
-  BadRequestException,
-  Inject,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Resolver, Mutation, Context } from '@nestjs/graphql';
+import { Inject, UnauthorizedException } from '@nestjs/common';
 
 import { Context as ContextType } from '../../../core/utils/types';
-import { SiweMessageInput } from '../dto/SiweMessageInput';
 import { PUB_SUB } from '../../../core/constants/redis';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
+import config from '../../../core/configs/config';
 
+const {
+  sessionOptions: {
+    name,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    cookie: { maxAge, ...cookieOptions },
+  },
+} = config();
 @Resolver()
 export class SignOutResolver {
   constructor(
@@ -20,26 +23,25 @@ export class SignOutResolver {
   @Mutation(() => Boolean, {
     description: 'Logs out a user an notifies the connected clients',
   })
-  async signOut(
-    @Context() ctx: ContextType,
-    @Args('input')
-    message: SiweMessageInput,
-  ): Promise<boolean> {
-    if (!ctx.req.session || !ctx.req.session.siwe) {
+  async signOut(@Context() ctx: ContextType): Promise<boolean> {
+    if (!ctx.req.session) {
       throw new UnauthorizedException('Expected to be signed in first');
     }
-    if (!message || !message.address) {
-      throw new BadRequestException({
-        message: 'Expected siwe object as input',
-      });
-    }
-    let isDestroyed = false;
-    ctx.req.session.destroy(() => {
-      isDestroyed = true;
-    });
+
+    const loggedOutAddress = ctx.req.session.siwe?.address;
     await this.pubSub.publish('userSignedOut', {
-      userSignedOut: message.address,
+      userSignedOut: loggedOutAddress,
     });
-    return isDestroyed;
+
+    return new Promise<boolean>((resolve, reject) =>
+      ctx.req.session.destroy((err) => {
+        if (err) {
+          reject(err);
+        }
+
+        ctx.res.clearCookie(name, cookieOptions);
+        resolve(true);
+      }),
+    );
   }
 }

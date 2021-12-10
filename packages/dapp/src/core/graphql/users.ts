@@ -10,8 +10,8 @@ export const SIGN_IN_MUTATION = gql`
 `;
 
 export const SIGN_OUT_MUTATION = gql`
-  mutation SignOut($input: SiweMessageInput!) {
-    signOut(input: $input)
+  mutation SignOut {
+    signOut
   }
 `;
 

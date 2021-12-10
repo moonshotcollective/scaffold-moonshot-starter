@@ -13,8 +13,8 @@ import React, {
   useCallback,
 } from "react";
 import Web3Modal from "web3modal";
-import { useSignInMutation } from '../core/graphql/generated/types';
-import { GET_NONCE_QUERY, SIGN_IN_MUTATION } from '../core/graphql/users';
+import { useSignInMutation, useSignOutMutation } from '../core/graphql/generated/types';
+import { GET_NONCE_QUERY, ME_QUERY } from '../core/graphql/users';
 
 import NETWORKS from "../core/networks";
 
@@ -48,6 +48,7 @@ const initialState = {
   account: undefined,
   provider: undefined,
   contracts: undefined,
+  isSignedIn: false,
   staticProvider
 } as State;
 
@@ -68,7 +69,11 @@ const Web3Context = createContext(initialState);
 
 const Web3Provider = ({ children }: { children: any }) => {
   const client = useApolloClient();
+
   const [signIn] = useSignInMutation({
+    fetchPolicy: "network-only"
+  })
+  const [signOut] = useSignOutMutation({
     fetchPolicy: "network-only"
   })
   const [state, dispatch] = useReducer(Web3Reducer, initialState);
@@ -102,6 +107,34 @@ const Web3Provider = ({ children }: { children: any }) => {
     });
   };
 
+  const setIsSignedIn = (isSignedIn: boolean) => {
+    dispatch({
+      type: "SET_IS_SIGNED_IN",
+      payload: isSignedIn,
+    });
+  };
+
+  useEffect(() => {
+    async function getCurrentUser() {
+      try {
+        const { data: meData } = await client.query({
+          query: ME_QUERY,
+          fetchPolicy: "network-only"
+        })
+        if (!meData?.me?.address) {
+          return;
+        }
+        console.log(meData.me.address);
+        setIsSignedIn(true);
+        setAccount(meData.me.address);
+        setENS(meData.me.ens);
+      } catch (error) {
+        console.log("NOT_AUTHENTICATED")
+      }
+    }
+    getCurrentUser();
+  }, [])
+
   // Reload contracts globally on network change
   useEffect(() => {
     async function updateState() {
@@ -124,9 +157,11 @@ const Web3Provider = ({ children }: { children: any }) => {
   }, [chainId, state.provider, state.account]);
 
   const logout = async () => {
+    await signOut();
     setAccount(null);
     setProvider(null);
     setContracts(null);
+    setIsSignedIn(false);
     localStorage.setItem("defaultWallet", "");
   };
 
@@ -203,16 +238,12 @@ const Web3Provider = ({ children }: { children: any }) => {
           }
         }
       })
-
-      console.log(isSignedIn);
-      // const { data } = await client.mutate({
-      //   mutation: SIGN_IN_MUTATION,
-      //   variables: {
-      //     ens: 
-      //   },
-      //   fetchPolicy: "network-only"
-      // });
+      setIsSignedIn(true)
+      if (isSignedIn.data?.signIn.ens) {
+        setENS(isSignedIn.data?.signIn.ens)
+      }
     } catch (error) {
+      setIsSignedIn(false)
       console.log(error);
     }
 

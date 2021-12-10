@@ -25,7 +25,7 @@ type Mutation {
   signIn(input: SiweRegisterInput!): User!
 
   """Logs out a user an notifies the connected clients"""
-  signOut(input: SiweMessageInput!): Boolean!
+  signOut: Boolean!
 }
 
 type Query {

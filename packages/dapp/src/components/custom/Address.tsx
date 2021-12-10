@@ -45,7 +45,6 @@ function Address({ value, address, size = "long", blockExplorer, minimized = fal
   const account = value || address;
   const ens = useResolveEnsName(staticProvider, address);
   const { hasCopied, onCopy } = useClipboard(account);
-
   if (!account) {
     return (
       <Box padding="6" as="span">
