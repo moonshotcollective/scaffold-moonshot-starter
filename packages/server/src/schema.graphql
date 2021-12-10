@@ -21,8 +21,11 @@ type Mutation {
   """Join as a Contributor"""
   joinAsContributor(input: JoinAsContributorInput!): Contributor
 
-  """Registers a new user and notifies the connected clients"""
-  register(input: SiweRegisterInput!): User!
+  """Sign in a user and notifies the connected clients"""
+  signIn(input: SiweRegisterInput!): User!
+
+  """Logs out a user an notifies the connected clients"""
+  signOut(input: SiweMessageInput!): Boolean!
 }
 
 type Query {
@@ -59,7 +62,7 @@ input SiweMessageInput {
 }
 
 input SiweRegisterInput {
-  ens: String!
+  ens: String
   message: SiweMessageInput!
 }
 

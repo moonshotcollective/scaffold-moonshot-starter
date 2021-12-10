@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import ABIS from "@scaffold-eth/hardhat-ts/hardhat_contracts.json";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useWeb3React } from "@web3-react/core";
@@ -12,6 +13,8 @@ import React, {
   useCallback,
 } from "react";
 import Web3Modal from "web3modal";
+import { useSignInMutation } from '../core/graphql/generated/types';
+import { GET_NONCE_QUERY, SIGN_IN_MUTATION } from '../core/graphql/users';
 
 import NETWORKS from "../core/networks";
 
@@ -64,6 +67,10 @@ const providerOptions = {
 const Web3Context = createContext(initialState);
 
 const Web3Provider = ({ children }: { children: any }) => {
+  const client = useApolloClient();
+  const [signIn] = useSignInMutation({
+    fetchPolicy: "network-only"
+  })
   const [state, dispatch] = useReducer(Web3Reducer, initialState);
   const { activate, chainId } = useWeb3React();
 
@@ -95,6 +102,7 @@ const Web3Provider = ({ children }: { children: any }) => {
     });
   };
 
+  // Reload contracts globally on network change
   useEffect(() => {
     async function updateState() {
       if (chainId && state.provider && state.account) {
@@ -123,10 +131,11 @@ const Web3Provider = ({ children }: { children: any }) => {
   };
 
   const connectWeb3 = useCallback(async () => {
+    // Set up Web3 Modal
     const web3Modal = new Web3Modal({
       providerOptions,
       // TODO: false for production
-      cacheProvider: true,
+      cacheProvider: false,
     });
     const provider = await web3Modal.connect();
     const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
@@ -134,18 +143,83 @@ const Web3Provider = ({ children }: { children: any }) => {
       ethersProvider.connection.url === "metamask" ? injected : walletconnect
     );
     setProvider(ethersProvider);
+
+    // Get address & signer
     const signer = ethersProvider.getSigner();
     const account = await signer.getAddress();
 
+    // Get ens
+    let ens = null;
     try {
-      const ens = await ethersProvider.lookupAddress(account);
+      ens = await ethersProvider.lookupAddress(account);
       setENS(ens);
     } catch (error) {
       console.log({ error });
       setENS(null);
     }
+
+    // Sign in with ethereum
+    try {
+      // Get a nonce from the back-end
+      const { data } = await client.query({
+        query: GET_NONCE_QUERY,
+        fetchPolicy: "network-only"
+      });
+      console.log({ nonce: data?.getNonce });
+      const message = {
+        domain: window.document.location.host,
+        address: account,
+        chainId: `${await ethersProvider.getNetwork().then(({ chainId }: { chainId: number }) => chainId)}`,
+        uri: window.document.location.origin,
+        version: '1',
+        statement: 'SIWE GraphQL Example',
+        nonce: data?.getNonce,
+      };
+
+      console.log({ message });
+
+      const formData = new FormData();
+      formData.append("message", JSON.stringify(message));
+      const signedSiweMessageRes = await fetch('/api/siwe-message', {
+        method: "POST",
+        body: formData,
+      })
+      const { signedSiweMessage, siweMsg } = await signedSiweMessageRes.json()
+      console.log({ signedSiweMessage, siweMsg });
+
+      const signature = await ethersProvider.getSigner().signMessage(signedSiweMessage);
+
+      console.log({ signature });
+
+      const isSignedIn = await signIn({
+        variables: {
+          input: {
+            ens: ens,
+            message: {
+              ...siweMsg,
+              type: "PERSONAL_SIGNATURE",
+              signature
+            }
+          }
+        }
+      })
+
+      console.log(isSignedIn);
+      // const { data } = await client.mutate({
+      //   mutation: SIGN_IN_MUTATION,
+      //   variables: {
+      //     ens: 
+      //   },
+      //   fetchPolicy: "network-only"
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+
+    // check if supported network
     if (chainId) {
       const strChainId = chainId.toString() as keyof typeof NETWORKS;
+
       if (supportedNetworks.includes(strChainId)) {
         const network = NETWORKS[strChainId];
         const abis = ABIS as Record<string, any>;

@@ -21,6 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@graphql-codegen/typescript-operations": "^2.2.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.2",
     "@nestjs/axios": "^0.0.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.0.1",
@@ -52,6 +54,7 @@
     "uuid-validate": "^0.0.3"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.3.0",
     "@nestjs/cli": "^8.1.1",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",

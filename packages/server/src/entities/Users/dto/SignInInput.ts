@@ -6,6 +6,6 @@ export class SiweRegisterInput {
   @Field(() => SiweMessageInput)
   message: SiweMessageInput;
 
-  @Field()
+  @Field({ nullable: true })
   ens?: string;
 }

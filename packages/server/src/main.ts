@@ -1,8 +1,8 @@
 import { config as dotenvConfig } from 'dotenv';
 dotenvConfig();
-import cookieParser from 'cookie-parser';
 import { NestFactory } from '@nestjs/core';
-import { NextFunction } from 'express';
+// import cookieParser from 'cookie-parser';
+// import { NextFunction } from 'express';
 
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -16,17 +16,17 @@ import {
 import config from './core/configs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { CorsConfig, SwaggerConfig } from './core/configs/config.interface';
-import { Context } from './core/utils/types';
+import { SwaggerConfig } from './core/configs/config.interface';
 
 const {
   api: { protocol, hostname, port, corsOptions },
-  sessionOptions,
+  // sessionOptions,
 } = config();
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bodyParser: true,
+    cors: false,
   });
 
   app.enableCors(corsOptions);
@@ -36,18 +36,19 @@ async function bootstrap() {
   // app.set('trust proxy', 1); // trust first proxy
   app.enableShutdownHooks(['SIGINT', 'SIGTERM']);
 
-  app.use(cookieParser(sessionOptions.secret));
+  // app.use(cookieParser(sessionOptions.secret));
   app.use(sessionMiddleware);
-  /* Cookie & Session cleaner */
-  app.use((req: Context['req'], res: Context['res'], next: NextFunction) => {
-    if (req.cookies[sessionOptions.name] && !req.session?.siwe) {
-      res.clearCookie(sessionOptions.name);
-    }
-    next();
-  });
+  // /* Cookie & Session cleaner */
+  // app.use((req: Context['req'], res: Context['res'], next: NextFunction) => {
+  //   if (!req.session?.nonce) {
+  //     res.clearCookie(sessionOptions.name);
+  //   }
+  //   console.log(req.session.nonce);
+  //   next();
+  // });
 
   const configService = app.get(ConfigService);
-  const corsConfig = configService.get<CorsConfig>('cors');
+  // const corsConfig = configService.get<CorsConfig>('cors');
   const swaggerConfig = configService.get<SwaggerConfig>('swagger');
 
   // Swagger Api
@@ -60,11 +61,6 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
 
     SwaggerModule.setup(swaggerConfig.path || 'api', app, document);
-  }
-
-  // Cors
-  if (corsConfig?.enabled) {
-    app.enableCors();
   }
 
   app.useGlobalPipes(
