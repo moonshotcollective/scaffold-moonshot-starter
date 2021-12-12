@@ -14,33 +14,33 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { Web3Context } from "../../contexts/Web3Provider";
 import Address from "../custom/Address";
 
-const MenuOptions = (logout: any) => (
-  <Menu>
-    <MenuButton
-      as={Button}
-      rounded="full"
-      variant="link"
-      cursor="pointer"
-      minW={0}
-    >
-      ok
-    </MenuButton>
-    <MenuList>
-      <NextLink href="/profile" passHref>
-        <MenuItem icon={<BsFillPersonLinesFill />}>Profile</MenuItem>
-      </NextLink>
-      <NextLink href="/settings" passHref>
-        <MenuItem icon={<AiFillSetting />}>Settings</MenuItem>
-      </NextLink>
-      <MenuDivider />
-      <MenuItem>
-        <Button colorScheme="pink" onClick={logout}>
-          Logout
-        </Button>
-      </MenuItem>
-    </MenuList>
-  </Menu>
-);
+// const MenuOptions = (logout: any) => (
+//   <Menu>
+//     <MenuButton
+//       as={Button}
+//       rounded="full"
+//       variant="link"
+//       cursor="pointer"
+//       minW={0}
+//     >
+//       ok
+//     </MenuButton>
+//     <MenuList>
+//       <NextLink href="/profile" passHref>
+//         <MenuItem icon={<BsFillPersonLinesFill />}>Profile</MenuItem>
+//       </NextLink>
+//       <NextLink href="/settings" passHref>
+//         <MenuItem icon={<AiFillSetting />}>Settings</MenuItem>
+//       </NextLink>
+//       <MenuDivider />
+//       <MenuItem>
+//         <Button colorScheme="pink" onClick={logout}>
+//           Logout
+//         </Button>
+//       </MenuItem>
+//     </MenuList>
+//   </Menu>
+// );
 
 function ConnectButton({ w }: { w?: string }) {
   const { account, connectWeb3, logout, provider } = useContext(Web3Context);

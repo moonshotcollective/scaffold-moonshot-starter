@@ -13,6 +13,7 @@ import {
   Link,
   useDisclosure,
   VStack,
+  Flex,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -42,9 +43,8 @@ const LinkItem = ({ href, children, ...props }: any) => {
 const LinkItems = () => {
   return (
     <>
-      <LinkItem href="/">Home</LinkItem>
-      <LinkItem href="/contract">Contract</LinkItem>
-      <LinkItem href="/example">Example</LinkItem>
+      <LinkItem href="/">Contract</LinkItem>
+      <LinkItem href="/example">ExampleUI</LinkItem>
       <LinkItem href="/subgraph">Subgraph</LinkItem>
     </>
   );
@@ -62,7 +62,6 @@ const Navbar = () => {
         maxW="7xl"
         wrap="wrap"
         alignItems="center"
-        justify="space-between"
       >
         <HStack px="4" spacing={4}>
           <GitcoinIcon size="36px" />
