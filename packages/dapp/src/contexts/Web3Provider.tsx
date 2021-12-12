@@ -36,8 +36,12 @@ const walletconnect = new WalletConnectConnector({
   qrcode: true,
 });
 
+// const staticProvider = new ethers.providers.StaticJsonRpcProvider(
+//   `https://mainnet.infura.io/v3/${NEXT_PUBLIC_INFURA_ID}`
+// );
+
 const staticProvider = new ethers.providers.StaticJsonRpcProvider(
-  `https://mainnet.infura.io/v3/${NEXT_PUBLIC_INFURA_ID}`
+  `http://localhost:8545`
 );
 
 const initialState = {
@@ -45,7 +49,7 @@ const initialState = {
   account: undefined,
   provider: undefined,
   contracts: undefined,
-  staticProvider
+  staticProvider,
 } as State;
 
 const providerOptions = {
