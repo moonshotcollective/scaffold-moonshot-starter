@@ -131,9 +131,28 @@ export const All = () => {
           <Center boxSize="150px" layerStyle="no-border-card">
             <Text color={textVioletColor}>Accent Text in Card</Text>
           </Center>
-          {/* <Box layerStyle="solidCard" textStyle="h2">
-          With layer style and text style
-        </Box> */}
+        </HStack>
+        <HStack>
+          <Center boxSize="150px" layerStyle="solid-hover">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="outline-hover">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="no-border-hover">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+        </HStack>
+        <HStack>
+          <Center boxSize="150px" layerStyle="solid-hover2">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="outline-hover2">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="no-border-hover2">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
         </HStack>
 
         <Text textStyle="h1">
@@ -260,6 +279,27 @@ export const All = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
+
+        <Tabs variant="line">
+          <TabList>
+            <Tab>One</Tab>
+            <Tab>Two</Tab>
+            <Tab>Three</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <p>one!</p>
+            </TabPanel>
+            <TabPanel>
+              <p>two!</p>
+            </TabPanel>
+            <TabPanel>
+              <p>three!</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+
         <Checkbox />
         <Link isExternal>
           Link <ExternalLinkIcon mx="2px" />
