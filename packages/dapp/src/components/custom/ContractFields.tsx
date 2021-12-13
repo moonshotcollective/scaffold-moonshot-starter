@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Web3Context } from "../../contexts/Web3Provider";
 import useCustomColor from "../../core/hooks/useCustomColor";
 import NETWORKS from "../../core/networks";
+import { YourContract } from "@scaffold-eth/hardhat-ts/generated/contract-types/YourContract";
 
 type Block = {
   inputs?: Array<Object>;
@@ -21,16 +22,21 @@ function ContractFields({ ...others }: any) {
   const { coloredText } = useCustomColor();
   const [purpose, setPurpose] = useState("");
   const [purposeInput, setPurposeInput] = useState("");
+  const [yourContract, setYourContract] = useState<YourContract>();
 
   const readPurpose = async () => {
-    const res = await contracts.yourContract.purpose();
-    setPurpose(res);
+    if (yourContract) {
+      const res = await yourContract.purpose();
+      setPurpose(res);
+    }
   };
 
   const writePurpose = async () => {
-    const transaction = await contracts.yourContract.setPurpose(purposeInput);
-    await transaction.wait();
-    readPurpose();
+    if (yourContract) {
+      const transaction = await yourContract.setPurpose(purposeInput);
+      await transaction.wait();
+      readPurpose();
+    }
   };
 
   useEffect(() => {
@@ -41,6 +47,7 @@ function ContractFields({ ...others }: any) {
       const abi = abis[strChainId][network.name].contracts.YourContract.abi;
 
       setAbi(abi);
+      setYourContract(contracts.yourContract);
       readPurpose();
     }
   }, [chainId, contracts]);
@@ -56,6 +63,10 @@ function ContractFields({ ...others }: any) {
       {...others}
     >
       <Text textStyle="h1">Your Contract</Text>
+      <Text textStyle="small">
+        yarn chain, deploy in /hardhat yarn yarn dev in dapp.{" "}
+      </Text>
+
       {abi &&
         abi.map((el: Block) => {
           if (el.type === "function" && el.inputs?.length !== 0) {

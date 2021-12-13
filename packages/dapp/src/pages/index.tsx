@@ -13,19 +13,10 @@ const Home = () => {
   const [purpose, setPurpose] = useState("");
 
   const readLog = async () => {
-    console.log(`contracts`, contracts);
-    console.log(`provider`, provider);
-    console.log(`staticProvider`, staticProvider);
-
-    const res = await contracts.yourContract.purpose();
-    setPurpose(res);
-    console.log(`purpose`, res);
-    console.log(`purpose`, "ehlo");
-  };
-
-  const writeContract = async (text: string) => {
-    const transaction = await contracts.yourContract.setPurpose(text);
-    await transaction.wait();
+    if (provider && account) {
+      const res = await provider?.getBalance(account);
+      console.log(`purpose`, res);
+    }
   };
 
   useEffect(() => {
@@ -63,6 +54,7 @@ const Home = () => {
       </Text>
       <HStack>
         <Text>{purpose}</Text>
+        <Button onClick={readLog}>Read</Button>
       </HStack>
       <ContractFields />
       <Faucet />

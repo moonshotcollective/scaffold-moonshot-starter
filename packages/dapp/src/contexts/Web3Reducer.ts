@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 export type State = {
   loading: boolean;
   account?: string;
-  provider?: any;
+  provider?: ethers.providers.Web3Provider;
   staticProvider: ethers.providers.Web3Provider;
   ens?: string;
   self?: any;
