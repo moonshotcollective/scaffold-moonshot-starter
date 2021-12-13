@@ -2,28 +2,24 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/order */
 // This adds support for typescript paths mappings
-import 'tsconfig-paths/register';
-import * as dotenv from 'dotenv';
-dotenv.config();
-import { Signer, utils } from 'ethers';
-import '@typechain/hardhat';
-import '@nomiclabs/hardhat-waffle';
-import '@nomiclabs/hardhat-ethers';
-import '@tenderly/hardhat-tenderly';
-import 'hardhat-deploy';
-// not required as we are using @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers
-
-// import 'solidity-coverage';
-
-import * as fs from 'fs';
-import * as path from 'path';
-import * as chalk from 'chalk';
-
 import { Provider, TransactionRequest } from '@ethersproject/providers';
-
+import '@nomiclabs/hardhat-ethers';
+import '@nomiclabs/hardhat-etherscan';
+import '@nomiclabs/hardhat-waffle';
+import '@tenderly/hardhat-tenderly';
+import '@typechain/hardhat';
+import * as chalk from 'chalk';
+import * as dotenv from 'dotenv';
+import { Signer, utils } from 'ethers';
+// not required as we are using @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers
+// import 'solidity-coverage';
+import * as fs from 'fs';
+import 'hardhat-deploy';
 import { HardhatUserConfig, task } from 'hardhat/config';
 import { HttpNetworkUserConfig } from 'hardhat/types';
-import { HardhatRuntimeEnvironmentExtended, TEthers } from 'helpers/types/hardhat-type-extensions';
+import { TEthers } from 'helpers/types/hardhat-type-extensions';
+import 'tsconfig-paths/register';
+dotenv.config();
 
 declare module 'hardhat/types/runtime' {
   // This is an example of an extension to the Hardhat Runtime Environment.
@@ -169,6 +165,11 @@ const config: HardhatUserConfig = {
   },
   typechain: {
     outDir: './generated/contract-types',
+  },
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: 'PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8',
   },
 };
 export default config;

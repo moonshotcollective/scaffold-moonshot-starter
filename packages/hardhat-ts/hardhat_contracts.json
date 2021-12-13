@@ -1,11 +1,11 @@
 {
-  "31337": {
-    "localhost": {
-      "name": "localhost",
-      "chainId": "31337",
+  "42": {
+    "kovan": {
+      "name": "kovan",
+      "chainId": "42",
       "contracts": {
         "YourContract": {
-          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "address": "0x96EDf5a39E832e37F54A7F6FfFb4823747760CDC",
           "abi": [
             {
               "inputs": [],

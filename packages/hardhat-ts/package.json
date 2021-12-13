@@ -8,6 +8,7 @@
     "test": "hardhat test --network hardhat",
     "compile": "hardhat compile",
     "deploy": "hardhat deploy --export-all ./hardhat_contracts.json",
+    "deploy:kovan": "hardhat deploy --export-all ./hardhat_contracts.json --network kovan",
     "export": "hardhat export --export-all ./hardhat_contracts.json",
     "postdeploy": "hardhat run scripts/publish.ts",
     "watch": "node scripts/watch.js",
@@ -16,7 +17,8 @@
     "send": "hardhat send",
     "generate": "hardhat generate",
     "account": "hardhat account",
-    "etherscan-verify": "hardhat etherscan-verify --api-key PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8"
+    "etherscan-verify": "hardhat etherscan-verify --api-key PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8",
+    "hardhat-etherscan": "hardhat verify --network kovan DEPLOYED_CONTRACT_ADDRESS \"Constructor argument 1\" "
   },
   "dependencies": {
     "@eth-optimism/hardhat-ovm": "^0.2.2",
@@ -33,12 +35,13 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.4.1",
     "hardhat": "^2.4.0",
-    "hardhat-deploy": "^0.9.2",
+    "hardhat-deploy": "^0.9.14",
     "hardhat-deploy-ethers": "^0.3.0-beta.10",
     "qrcode-terminal": "^0.12.0",
     "typechain": "^6.0.5"
   },
   "devDependencies": {
+    "@nomiclabs/hardhat-etherscan": "^2.1.8",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.1",
     "eslint": "^7.32.0",
