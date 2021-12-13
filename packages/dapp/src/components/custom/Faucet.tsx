@@ -3,6 +3,7 @@ import { Web3Context } from "../../contexts/Web3Provider";
 import React, { useContext, useState, useEffect } from "react";
 import { ethers, utils } from "ethers";
 import toast, { Toaster } from "react-hot-toast";
+import { hexToString } from "../../core/helpers";
 
 function Faucet({ ...others }: any) {
   const { account, staticProvider } = useContext(Web3Context);
@@ -21,9 +22,6 @@ function Faucet({ ...others }: any) {
         // const address = await signer.getAddress();
         setFaucetSigner(signer);
 
-        const _balance = await signer.getBalance();
-        setFaucetBalance(utils.formatEther(_balance.toString()));
-
         getFaucetBalance();
       }
     };
@@ -33,7 +31,7 @@ function Faucet({ ...others }: any) {
   const getFaucetBalance = async () => {
     if (faucetSigner) {
       const _balance = await faucetSigner.getBalance();
-      setFaucetBalance(utils.formatEther(_balance.toString()));
+      setFaucetBalance(hexToString(_balance));
     }
   };
 

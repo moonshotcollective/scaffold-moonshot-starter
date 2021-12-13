@@ -1,21 +1,24 @@
-import { Button, HStack, Text, VStack } from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
+import { HStack, IconButton, Text, VStack } from "@chakra-ui/react";
 import { Title } from "@scaffold-eth/ui";
 import ContractFields from "components/custom/ContractFields";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Faucet from "../components/custom/Faucet";
 import { Web3Context } from "../contexts/Web3Provider";
+import { hexToString } from "../core/helpers";
 import useCustomColor from "../core/hooks/useCustomColor";
 
 const Home = () => {
-  const { account, contracts, provider, staticProvider } =
-    useContext(Web3Context);
-  const { coloredText, accentColorScheme } = useCustomColor();
-  const [purpose, setPurpose] = useState("");
+  const { account, provider, staticProvider } = useContext(Web3Context);
+  const { coloredText } = useCustomColor();
+  const [yourBalance, setYourBalance] = useState("");
 
-  const readLog = async () => {
+  const getEthBalance = async () => {
     if (provider && account) {
       const res = await provider?.getBalance(account);
-      console.log(`purpose`, res);
+      const balance = hexToString(res);
+      setYourBalance(balance);
+      // console.log(`balance`, balance);
     }
   };
 
@@ -33,7 +36,8 @@ const Home = () => {
     //   }
     // };
     // getFaucetAddress();
-  }, [staticProvider]);
+    getEthBalance();
+  }, [account]);
 
   return (
     <VStack>
@@ -53,8 +57,12 @@ const Home = () => {
         porro non iusto asperiores molestiae!
       </Text>
       <HStack>
-        <Text>{purpose}</Text>
-        <Button onClick={readLog}>Read</Button>
+        <Text>Your Balance: {yourBalance}Ξ</Text>
+        <IconButton
+          onClick={getEthBalance}
+          aria-label="refresh"
+          icon={<RepeatIcon />}
+        />
       </HStack>
       <ContractFields />
       <Faucet />

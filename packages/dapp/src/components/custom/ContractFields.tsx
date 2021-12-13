@@ -64,7 +64,8 @@ function ContractFields({ ...others }: any) {
     >
       <Text textStyle="h1">Your Contract</Text>
       <Text textStyle="small">
-        yarn chain, deploy in /hardhat yarn yarn dev in dapp.{" "}
+        yarn chain, deploy in /hardhat and yarn dev in dapp.{" "}
+        * make sure you are connected to localhost
       </Text>
 
       {abi &&
