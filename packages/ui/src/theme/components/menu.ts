@@ -27,7 +27,7 @@ const baseStyleList: SystemStyleFunction = (props) => {
 
 const baseStyleItem: SystemStyleFunction = (props) => {
   // const { colorScheme: c } = props;
-  const { getHover2Color, getTextColor } = useThemeColor();
+  const { getPrimaryColor, getInverseTextColor } = useThemeColor();
 
   return {
     py: '0.4rem',
@@ -37,16 +37,16 @@ const baseStyleItem: SystemStyleFunction = (props) => {
     transitionTimingFunction: 'ease-in',
     borderRadius: borderRadius,
     _focus: {
-      bg: getHover2Color(props),
-      color: getTextColor(props),
+      bg: getPrimaryColor(props),
+      color: getInverseTextColor(props),
     },
     _active: {
-      bg: getHover2Color(props),
-      color: getTextColor(props),
+      bg: getPrimaryColor(props),
+      color: getInverseTextColor(props),
     },
     _expanded: {
-      bg: getHover2Color(props),
-      color: getTextColor(props),
+      bg: getPrimaryColor(props),
+      color: getInverseTextColor(props),
     },
     _disabled: {
       opacity: 0.4,

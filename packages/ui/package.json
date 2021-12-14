@@ -65,6 +65,7 @@
     "@types/react-dom": "^17.0.9",
     "babel-loader": "^8.2.2",
     "cz-conventional-changelog": "^3.3.0",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -89,6 +90,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/moonshotcollective/scaffold-moonshot-starter.git"
+  },
+  "resolutions": {
+    "postcss": "8.1.7"
   },
   "config": {
     "commitizen": {

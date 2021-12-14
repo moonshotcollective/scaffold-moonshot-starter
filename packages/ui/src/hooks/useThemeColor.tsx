@@ -3,15 +3,25 @@ import { colors } from '../theme/colors';
 
 function useThemeColor() {
   const getTextColor = mode(colors.neutralDarkest, colors.neutralLightest);
+  const getInverseTextColor = mode(
+    colors.neutralLightest,
+    colors.neutralDarkest
+  );
   const getBgColor = mode(colors.neutralLightest, colors.neutralDarkest);
   const getOverBgColor = mode(colors.neutralLighter, colors.neutralDarker);
   const getHover2Color = mode(colors.neutralLight, colors.neutralDark);
-  // const txtColor = mode(colors.neutralDarker, colors.neutralLighter);
+  const getBorderColor = mode(colors.borderLight, colors.borderDark);
+  const getPrimaryColor = mode(colors.primary[500], colors.primary[200]);
 
-  // const titleColor = useColorModeValue('fresh', 'moon');
-  // const accentColorScheme = useColorModeValue('green', 'yellow');
-
-  return { getTextColor, getBgColor, getOverBgColor, getHover2Color };
+  return {
+    getTextColor,
+    getInverseTextColor,
+    getBgColor,
+    getOverBgColor,
+    getHover2Color,
+    getBorderColor,
+    getPrimaryColor,
+  };
 }
 
 export default useThemeColor;

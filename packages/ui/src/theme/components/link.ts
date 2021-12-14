@@ -12,7 +12,7 @@ const baseStyle: SystemStyleFunction = (props) => {
     outline: 'none',
     color: 'inherit',
     _hover: {
-      color: mode(colors.accentLight[500], colors.accentDark[500])(props),
+      color: mode(colors.primary[500], colors.primary[500])(props),
       textDecoration: 'none',
     },
     _focus: {
