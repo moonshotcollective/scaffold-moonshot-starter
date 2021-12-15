@@ -4,7 +4,7 @@ import type {
 } from '@chakra-ui/theme-tools';
 import { mode, transparentize } from '@chakra-ui/theme-tools';
 import { colors } from '../colors';
-import { borderRadius } from '../utils/default-props';
+import { borderRadius } from '../default-props';
 
 const baseStyle: SystemStyleFunction = (props) => {
   // const { colorScheme: c, theme } = props;

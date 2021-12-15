@@ -6,7 +6,7 @@ import type {
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
 import useThemeColor from '../../hooks/useThemeColor';
-import { borderRadius, colorScheme } from '../utils/default-props';
+import { borderRadius, colorScheme } from '../default-props';
 
 const baseStyleList: SystemStyleFunction = (props) => {
   const { getOverBgColor } = useThemeColor();

@@ -5,7 +5,7 @@ import fonts from './fonts';
 import layerStyles from './layer-styles';
 import styles from './styles';
 import textStyles from './text-styles';
-import { colorScheme } from './utils/default-props';
+import { colorScheme } from './default-props';
 
 const config = {
   initialColorMode: 'dark',

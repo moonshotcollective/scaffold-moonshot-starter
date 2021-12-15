@@ -5,7 +5,7 @@ import type {
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
 import { getColor, mode } from '@chakra-ui/theme-tools';
-import { borderRadius, colorScheme } from '../utils/default-props';
+import { borderRadius, colorScheme } from '../default-props';
 
 const baseStyle: PartsStyleObject<typeof parts> = {
   field: {

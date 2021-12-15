@@ -4,7 +4,7 @@ import type {
   PartsStyleObject,
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
-import { colorScheme } from '../utils/default-props';
+import { colorScheme } from '../default-props';
 import Badge from './badge';
 
 const baseStyleContainer: SystemStyleObject = {

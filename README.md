@@ -97,6 +97,26 @@ $ yarn deploy --network mytestnet --reset
 
 ### Dev Preview
 
+**Build the ui theme:**
+
+```bash
+$ cd packages/ui
+$ yarn build
+```
+
+**Build in local**
+
+```bash
+$ cd packages/hardhat-ts
+$ yarn chain
+```
+
+Open a new terminal
+
+```bash
+$ yarn deploy
+```
+
 **Start the 📱 dApp:**
 
 ```bash

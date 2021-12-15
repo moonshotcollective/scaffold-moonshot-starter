@@ -7,7 +7,7 @@ import type {
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
 import useThemeColor from '../../hooks/useThemeColor';
-import { borderRadius } from '../utils/default-props';
+import { borderRadius } from '../default-props';
 
 const baseStyleOverlay: SystemStyleObject = {
   bg: 'blackAlpha.600',

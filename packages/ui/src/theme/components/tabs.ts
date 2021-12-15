@@ -7,7 +7,7 @@ import type {
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
-import { borderRadius, colorScheme } from '../utils/default-props';
+import { borderRadius, colorScheme } from '../default-props';
 import { colors } from '../colors';
 
 const baseStyleRoot: SystemStyleFunction = (props) => {
