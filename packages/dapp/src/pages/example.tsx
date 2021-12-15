@@ -63,7 +63,7 @@ const Elements = () => {
           <Button onClick={toggleColorMode}>
             Toggle {colorMode === "light" ? "Dark" : "Light"}
           </Button>
-          <Button variant="solid" colorScheme="purple">
+          <Button variant="solid">
             Hello
           </Button>
           <Button variant="outline">Hello</Button>

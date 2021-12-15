@@ -2,6 +2,7 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import { HStack, IconButton, Text, VStack } from "@chakra-ui/react";
 import { Title } from "@scaffold-eth/ui";
 import ContractFields from "components/custom/ContractFields";
+import { accessListify } from "ethers/lib/utils";
 import React, { useContext, useEffect, useState } from "react";
 import Faucet from "../components/custom/Faucet";
 import { Web3Context } from "../contexts/Web3Provider";
@@ -10,7 +11,7 @@ import useCustomColor from "../core/hooks/useCustomColor";
 
 const Home = () => {
   const { account, provider, staticProvider } = useContext(Web3Context);
-  const { coloredText } = useCustomColor();
+  const { coloredText, accentColor } = useCustomColor();
   const [yourBalance, setYourBalance] = useState("");
 
   const getEthBalance = async () => {
@@ -42,7 +43,7 @@ const Home = () => {
   return (
     <VStack>
       <HStack align="center" w="full">
-        <Title>Title</Title>
+        <Title color={accentColor}>Title</Title>
       </HStack>
       <Text textStyle="h2">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos

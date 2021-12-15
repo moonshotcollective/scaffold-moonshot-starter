@@ -6,6 +6,7 @@ import { CacheProvider } from "@emotion/react";
 // import "@fontsource/poppins";
 // import "@fontsource/space-mono";
 import '@fontsource/inter';
+import '@fontsource/montserrat';
 import { Web3Provider as EthersProvider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core";
 import { DefaultSeo } from "next-seo";
