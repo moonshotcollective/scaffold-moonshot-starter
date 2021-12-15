@@ -102,6 +102,6 @@ const myTheme = {
       },
     },
   },
-
+};
 const theme = extendTheme(customTheme, myTheme);
 ```

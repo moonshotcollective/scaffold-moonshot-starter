@@ -8,7 +8,7 @@ import '@nomiclabs/hardhat-etherscan';
 import '@nomiclabs/hardhat-waffle';
 import '@tenderly/hardhat-tenderly';
 import '@typechain/hardhat';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as dotenv from 'dotenv';
 import { Signer, utils } from 'ethers';
 // not required as we are using @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers

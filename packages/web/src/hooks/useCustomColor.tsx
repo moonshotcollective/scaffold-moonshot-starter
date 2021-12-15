@@ -12,7 +12,7 @@ function useCustomColor() {
   );
   const accentColor = useColorModeValue(
     colors.accentLight[500],
-    colors.accentDark[800]
+    colors.accentDark[300]
   );
   const accentColorScheme = useColorModeValue("accentLight", "accentDark");
 
