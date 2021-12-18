@@ -48,8 +48,8 @@ const MyApp = ({
     <ApolloProvider client={apolloClient}>
       <Web3ReactProvider getLibrary={getLibrary}>
         <Web3ReactProviderDefault getLibrary={getLibrary}>
-          <Web3ReactManager>
-            <Web3Provider>
+          <Web3Provider>
+            <Web3ReactManager>
               <CacheProvider value={emotionCache}>
                 <ChakraProvider theme={theme}>
                   <Head>
@@ -64,8 +64,8 @@ const MyApp = ({
                   </Layout>
                 </ChakraProvider>
               </CacheProvider>
-            </Web3Provider>
-          </Web3ReactManager>
+            </Web3ReactManager>
+          </Web3Provider>
         </Web3ReactProviderDefault>
       </Web3ReactProvider>
     </ApolloProvider >

@@ -1,7 +1,3 @@
-import arbitrumLogoUrl from "../../../public/arbitrum_logo.svg";
-import optimismLogoUrl from "../../../public/optimism_logo.svg";
-import polygonLogoUrl from "../../../public/polygon_logo.svg";
-
 export enum SupportedChainId {
   MAINNET = 1,
 
@@ -65,6 +61,7 @@ export interface L1ChainInfo {
   readonly explorer: string;
   readonly infoLink: string;
   readonly label: string;
+  readonly logoUrl?: string;
 }
 export interface L2ChainInfo extends L1ChainInfo {
   readonly bridge: string;
@@ -84,7 +81,8 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://arbiscan.io/",
     infoLink: "https://info.uniswap.org/#/arbitrum",
     label: "Arbitrum",
-    logoUrl: arbitrumLogoUrl,
+    logoUrl:
+      "https://bafybeiah6eptie6vzihz75uyx4m2uwpeyf5etem2o5ncqlizpme26hr7xa.ipfs.dweb.link/arbitrum_logo.svg",
   },
   [SupportedChainId.ARBITRUM_RINKEBY]: {
     bridge: "https://bridge.arbitrum.io/",
@@ -92,37 +90,48 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://rinkeby-explorer.arbitrum.io/",
     infoLink: "https://info.uniswap.org/#/arbitrum/",
     label: "Arbitrum Rinkeby",
-    logoUrl: arbitrumLogoUrl,
+    logoUrl:
+      "https://bafybeiah6eptie6vzihz75uyx4m2uwpeyf5etem2o5ncqlizpme26hr7xa.ipfs.dweb.link/arbitrum_logo.svg",
   },
   [SupportedChainId.MAINNET]: {
     docs: "https://docs.uniswap.org/",
     explorer: "https://etherscan.io/",
     infoLink: "https://info.uniswap.org/#/",
-    label: "Mainnet",
+    label: "Ethereum",
+    logoUrl:
+      "https://bafybeicfpyrummvr3bvqt274wreogtp2lpocn7rgcrjpsogxigy4pfjgrq.ipfs.dweb.link/eth-home-icon.svg",
   },
   [SupportedChainId.RINKEBY]: {
     docs: "https://docs.uniswap.org/",
     explorer: "https://rinkeby.etherscan.io/",
     infoLink: "https://info.uniswap.org/#/",
     label: "Rinkeby",
+    logoUrl:
+      "https://bafybeicfpyrummvr3bvqt274wreogtp2lpocn7rgcrjpsogxigy4pfjgrq.ipfs.dweb.link/eth-home-icon.svg",
   },
   [SupportedChainId.ROPSTEN]: {
     docs: "https://docs.uniswap.org/",
     explorer: "https://ropsten.etherscan.io/",
     infoLink: "https://info.uniswap.org/#/",
     label: "Ropsten",
+    logoUrl:
+      "https://bafybeicfpyrummvr3bvqt274wreogtp2lpocn7rgcrjpsogxigy4pfjgrq.ipfs.dweb.link/eth-home-icon.svg",
   },
   [SupportedChainId.KOVAN]: {
     docs: "https://docs.uniswap.org/",
     explorer: "https://kovan.etherscan.io/",
     infoLink: "https://info.uniswap.org/#/",
     label: "Kovan",
+    logoUrl:
+      "https://bafybeicfpyrummvr3bvqt274wreogtp2lpocn7rgcrjpsogxigy4pfjgrq.ipfs.dweb.link/eth-home-icon.svg",
   },
   [SupportedChainId.GOERLI]: {
     docs: "https://docs.uniswap.org/",
     explorer: "https://goerli.etherscan.io/",
     infoLink: "https://info.uniswap.org/#/",
     label: "Görli",
+    logoUrl:
+      "https://bafybeicfpyrummvr3bvqt274wreogtp2lpocn7rgcrjpsogxigy4pfjgrq.ipfs.dweb.link/eth-home-icon.svg",
   },
   [SupportedChainId.OPTIMISM]: {
     bridge: "https://gateway.optimism.io/",
@@ -130,7 +139,8 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://optimistic.etherscan.io/",
     infoLink: "https://info.uniswap.org/#/optimism/",
     label: "Optimism",
-    logoUrl: optimismLogoUrl,
+    logoUrl:
+      "https://bafybeie7jwnrmi67qu44vuru2hg7idjl2pr2zmxfazl2oazo74sredvj44.ipfs.dweb.link/optimism_logo.svg",
   },
   [SupportedChainId.OPTIMISTIC_KOVAN]: {
     bridge: "https://gateway.optimism.io/",
@@ -138,13 +148,25 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: "https://optimistic.etherscan.io/",
     infoLink: "https://info.uniswap.org/#/optimism",
     label: "Optimistic Kovan",
-    logoUrl: optimismLogoUrl,
+    logoUrl:
+      "https://bafybeie7jwnrmi67qu44vuru2hg7idjl2pr2zmxfazl2oazo74sredvj44.ipfs.dweb.link/optimism_logo.svg",
   },
   [SupportedChainId.HARDHAT]: {
     docs: "https://hardhat.org/getting-started/",
     explorer: "",
     infoLink: "https://hardhat.org",
     label: "Hardhat Local",
+    logoUrl:
+      "https://bafybeiaw2miirrpxabh5tex6uglfqurbht46uc3hezqrlxtcrp46eomgcu.ipfs.dweb.link/hardhat_logo.jpg",
+  },
+  [SupportedChainId.POLYGON]: {
+    docs: "https://polygon.technology/",
+    explorer: "https://polygonscan.com/",
+    infoLink: "https://polygon.technology/",
+    bridge: "https://wallet.polygon.technology/",
+    label: "Polygon",
+    logoUrl:
+      "https://bafybeigywkm3xvxl3mnqz6fd4h2csplh5eea6iuz4rnukhv2kua5nlfseq.ipfs.dweb.link/polygon-logo.svg",
   },
   [SupportedChainId.MUMBAI]: {
     docs: "https://polygon.technology/",
@@ -152,14 +174,7 @@ export const CHAIN_INFO: ChainInfo = {
     infoLink: "https://polygon.technology/",
     bridge: "",
     label: "Mumbai",
-    logoUrl: polygonLogoUrl,
-  },
-  [SupportedChainId.POLYGON]: {
-    docs: "https://polygon.technology/",
-    explorer: "https://polygonscan.com/",
-    infoLink: "https://polygon.technology/",
-    bridge: "https://wallet.polygon.technology/",
-    label: "Mumbai",
-    logoUrl: polygonLogoUrl,
+    logoUrl:
+      "https://bafybeigywkm3xvxl3mnqz6fd4h2csplh5eea6iuz4rnukhv2kua5nlfseq.ipfs.dweb.link/polygon-logo.svg",
   },
 };

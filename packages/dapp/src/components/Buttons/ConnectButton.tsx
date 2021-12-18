@@ -7,6 +7,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
+import { useWeb3React } from '@web3-react/core';
 import NextLink from "next/link";
 import React, { useContext } from "react";
 import { AiFillSetting } from "react-icons/ai";
@@ -44,6 +45,7 @@ import Address from "../custom/Address";
 
 function ConnectButton({ w }: { w?: string }) {
   const { account, connectWeb3, logout } = useContext(Web3Context);
+  const { active } = useWeb3React();
 
   return (
     <HStack w="full">
@@ -59,7 +61,7 @@ function ConnectButton({ w }: { w?: string }) {
           {/* <Button onClick={logout}>Logout</Button> */}
           {/* <MenuOptions /> */}
         </>
-      ) : (
+      ) : active && (
         <Button onClick={connectWeb3} w={w}>
           Connect
         </Button>

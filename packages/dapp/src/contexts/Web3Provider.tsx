@@ -27,7 +27,7 @@ import { State, Web3Reducer } from "./Web3Reducer";
 
 
 const { NEXT_PUBLIC_INFURA_ID } = process.env;
-const supportedNetworks = Object.keys(ABIS);
+export const supportedNetworks = Object.keys(ABIS);
 
 const injected = new InjectedConnector({
   supportedChainIds: supportedNetworks.map((net) => parseInt(net, 10)),
@@ -168,8 +168,6 @@ const Web3Provider = ({ children }: { children: any }) => {
     });
     const provider = await web3Modal.connect();
     const lib = getLibrary(provider);
-
-    console.log({ lib });
     activate(
       lib?.connection.url === "metamask" ? injected : walletconnect
     );

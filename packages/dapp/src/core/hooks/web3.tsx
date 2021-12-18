@@ -1,13 +1,13 @@
+import { useContext, useEffect, useState } from 'react'
 import { Web3Provider } from '@ethersproject/providers'
 import { useSafeAppConnection } from '@gnosis.pm/safe-apps-web3-react'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
-import { useContext, useEffect, useState } from 'react'
+import { SafeAppConnector } from "@gnosis.pm/safe-apps-web3-react"
 import { isMobile } from 'react-device-detect'
-import { injected } from '../connectors'
-import { SafeAppConnector } from "@gnosis.pm/safe-apps-web3-react";
-import { Web3Context } from '../../contexts/Web3Provider'
 
+import { injected } from '../connectors'
+import { Web3Context } from '../../contexts/Web3Provider'
 
 export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> {
   const context = useWeb3ReactCore<Web3Provider>()
@@ -61,12 +61,12 @@ export function useEagerConnect() {
 export function useInactiveListener(suppress = false) {
   const { connectWeb3 } = useContext(Web3Context)
   const { active, error, activate } = useWeb3ReactCore() // specifically using useWeb3React because of what this hook does
-
   useEffect(() => {
     const { ethereum } = window
 
     if (ethereum && ethereum.on && !error && !suppress) {
       const handleChainChanged = () => {
+        connectWeb3();
         // eat errors
         activate(injected, undefined, true).catch((error) => {
           console.error('Failed to activate after chain changed', error)
@@ -75,6 +75,7 @@ export function useInactiveListener(suppress = false) {
 
       const handleAccountsChanged = (accounts: string[]) => {
         if (accounts.length > 0) {
+          connectWeb3();
           // eat errors
           activate(injected, undefined, true).catch((error) => {
             console.error('Failed to activate after accounts changed', error)
