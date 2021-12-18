@@ -1,10 +1,10 @@
-import { mode, transparentize } from '@chakra-ui/theme-tools';
 import type {
-  SystemStyleObject,
   SystemStyleFunction,
+  SystemStyleObject,
 } from '@chakra-ui/theme-tools';
-
-import { borderRadius, colorScheme } from '../utils/default-props';
+import { mode, transparentize } from '@chakra-ui/theme-tools';
+import { colors } from '../colors';
+import { borderRadius } from '../default-props';
 
 const baseStyle: SystemStyleFunction = (props) => {
   // const { colorScheme: c, theme } = props;
@@ -16,7 +16,7 @@ const baseStyle: SystemStyleFunction = (props) => {
     textTransform: 'uppercase',
     transitionProperty: 'common',
     transitionDuration: 'normal',
-    color: mode(`inherit`, `cosmos`)(props),
+    color: mode(colors.neutralLightest, colors.neutralDarkest)(props),
     _focus: {
       boxShadow: 'none',
     },
@@ -71,29 +71,6 @@ const variantOutline: SystemStyleFunction = (props) => {
   };
 };
 
-type AccessibleColor = {
-  bg?: string;
-  color?: string;
-  hoverBg?: string;
-  activeBg?: string;
-};
-
-/** Accessible color overrides for less accessible colors. */
-const accessibleColorMap: { [key: string]: AccessibleColor } = {
-  yellow: {
-    bg: 'yellow.400',
-    color: 'black',
-    hoverBg: 'yellow.500',
-    activeBg: 'yellow.600',
-  },
-  cyan: {
-    bg: 'cyan.400',
-    color: 'black',
-    hoverBg: 'cyan.500',
-    activeBg: 'cyan.600',
-  },
-};
-
 const variantSolid: SystemStyleFunction = (props) => {
   const { colorScheme: c } = props;
 
@@ -112,25 +89,16 @@ const variantSolid: SystemStyleFunction = (props) => {
     };
   }
 
-  const {
-    bg = `${c}.500`,
-    color = 'white',
-    hoverBg = `${c}.600`,
-    activeBg = `${c}.700`,
-  } = accessibleColorMap[c] ?? {};
-
-  const background = mode(bg, `${c}.200`)(props);
-
   return {
-    bg: background,
-    color: mode(color, `gray.800`)(props),
+    bg: mode(`${c}.500`, `${c}.200`)(props),
+    color: mode('white', `gray.800`)(props),
     _hover: {
-      bg: mode(hoverBg, `${c}.300`)(props),
+      bg: mode(`${c}.600`, `${c}.300`)(props),
       _disabled: {
-        bg: background,
+        bg: mode(`${c}.500`, `${c}.200`)(props),
       },
     },
-    _active: { bg: mode(activeBg, `${c}.400`)(props) },
+    _active: { bg: mode(`${c}.700`, `${c}.400`)(props) },
   };
 };
 
@@ -201,7 +169,6 @@ const sizes: Record<string, SystemStyleObject> = {
 const defaultProps = {
   variant: 'solid',
   size: 'md',
-  colorScheme: colorScheme,
 };
 
 export default {

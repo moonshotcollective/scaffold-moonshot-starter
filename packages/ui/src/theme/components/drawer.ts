@@ -6,6 +6,7 @@ import type {
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
+import useThemeColor from '../../hooks/useThemeColor';
 
 /**
  * Since the `maxWidth` prop references theme.sizes internally,
@@ -35,24 +36,27 @@ const baseStyleDialogContainer: SystemStyleObject = {
 
 const baseStyleDialog: SystemStyleFunction = (props) => {
   const { isFullHeight } = props;
+  const { getBgColor } = useThemeColor();
 
   return {
     ...(isFullHeight && { height: '100vh' }),
     zIndex: 'modal',
     maxH: '100vh',
-    bg: mode('white', 'cosmos')(props),
+    bg: getBgColor(props),
     color: 'inherit',
     boxShadow: mode('lg', 'dark-lg')(props),
   };
 };
 
 const baseStyleHeader: SystemStyleFunction = (props) => {
+  const { getTextColor } = useThemeColor();
+
   return {
     px: 6,
     py: 4,
     fontSize: 'xl',
     fontWeight: 'semibold',
-    color: mode('fog', 'white')(props),
+    color: getTextColor(props),
   };
 };
 

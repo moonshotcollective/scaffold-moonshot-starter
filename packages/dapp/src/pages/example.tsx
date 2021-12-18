@@ -43,6 +43,9 @@ import {
   VStack,
   useColorMode,
 } from "@chakra-ui/react";
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = () => toast("Hello 😀");
 
 const Elements = () => {
   const toast = useToast();
@@ -53,12 +56,14 @@ const Elements = () => {
   return (
     <Box pt="16" mb={8} w="full">
       <VStack align="center">
+        <Toaster />
+        <Button onClick={notify}>notify</Button>
         {/* UI Components */}
         <VStack>
           <Button onClick={toggleColorMode}>
             Toggle {colorMode === "light" ? "Dark" : "Light"}
           </Button>
-          <Button variant="solid" colorScheme="purple">
+          <Button variant="solid">
             Hello
           </Button>
           <Button variant="outline">Hello</Button>

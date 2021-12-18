@@ -13,13 +13,14 @@ import {
   Link,
   useDisclosure,
   VStack,
+  Flex,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import useCustomColor from '../../core/hooks/useCustomColor';
-import ConnectButton from '../Buttons/ConnectButton';
-import ThemeToggle from '../Buttons/ThemeToggle';
-import GitcoinIcon from '../Icons/GitcoinIcon';
+import useCustomColor from "../../core/hooks/useCustomColor";
+import ConnectButton from "../Buttons/ConnectButton";
+import ThemeToggle from "../Buttons/ThemeToggle";
+import GitcoinIcon from "../Icons/GitcoinIcon";
 
 const LinkItem = ({ href, children, ...props }: any) => {
   const { pathname } = useRouter();
@@ -42,9 +43,8 @@ const LinkItem = ({ href, children, ...props }: any) => {
 const LinkItems = () => {
   return (
     <>
-      <LinkItem href="/">Home</LinkItem>
-      <LinkItem href="/contract">Contract</LinkItem>
-      <LinkItem href="/example">Example</LinkItem>
+      <LinkItem href="/">Contract</LinkItem>
+      <LinkItem href="/example">ExampleUI</LinkItem>
       <LinkItem href="/subgraph">Subgraph</LinkItem>
     </>
   );
@@ -52,17 +52,16 @@ const LinkItems = () => {
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { accentColor, bgColor } = useCustomColor();
+  const { accentColor } = useCustomColor();
 
   return (
-    <Box as="nav" w="100%" top="0" bg={bgColor} zIndex={1}>
+    <Box as="nav" w="100%" top="0" zIndex={1}>
       <Container
         display="flex"
         p={2}
         maxW="7xl"
         wrap="wrap"
         alignItems="center"
-        justify="space-between"
       >
         <HStack px="4" spacing={4}>
           <GitcoinIcon size="36px" />
@@ -82,9 +81,7 @@ const Navbar = () => {
         </HStack>
 
         <HStack marginLeft="auto">
-          <HStack display={{ base: "none", md: "flex" }}>
-            <ConnectButton />
-          </HStack>
+          <ConnectButton />
           <ThemeToggle />
           <IconButton
             size="md"

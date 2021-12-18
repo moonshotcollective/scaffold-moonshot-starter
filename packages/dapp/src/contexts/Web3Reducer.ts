@@ -5,7 +5,8 @@ export type State = {
   loading: boolean;
   isSignedIn: boolean;
   account?: string;
-  provider?: any;
+  chainId?: number;
+  provider?: ethers.providers.Web3Provider;
   staticProvider: ethers.providers.Web3Provider;
   ens?: string;
   self?: any;
@@ -21,6 +22,11 @@ export const Web3Reducer = (state: State, action: Record<string, any>) => {
       return {
         ...state,
         account: action.payload,
+      };
+    case "SET_CHAIN_ID":
+      return {
+        ...state,
+        chainId: action.payload,
       };
     case "SET_IS_SIGNED_IN":
       return {

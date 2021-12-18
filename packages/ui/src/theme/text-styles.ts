@@ -56,6 +56,10 @@ const textStyles = {
     lineHeight: '110%',
     letterSpacing: '-1%',
   },
+  glow: {
+    textShadow:
+      '0 0 20px rgb(192 219 255 / 35%), 0 0 22px rgb(65 120 255 / 24%)',
+  },
 };
 
 export default textStyles;

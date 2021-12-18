@@ -6,7 +6,7 @@ import type {
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
-import { colorScheme } from '../utils/default-props';
+import { colorScheme } from '../default-props';
 
 const baseStyleControl: SystemStyleFunction = (props) => {
   const { colorScheme: c } = props;

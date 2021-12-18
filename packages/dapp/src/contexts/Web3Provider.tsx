@@ -13,35 +13,30 @@ import React, {
   useCallback,
 } from "react";
 import Web3Modal from "web3modal";
+import { NETWORK_URLS } from '../core/connectors';
+import { ALL_SUPPORTED_CHAIN_IDS } from '../core/connectors/chains';
+import getLibrary from '../core/connectors/getLibrary';
+import { SUPPORTED_WALLETS } from '../core/connectors/wallets';
 import { useSignInMutation, useSignOutMutation } from '../core/graphql/generated/types';
 import { GET_NONCE_QUERY, ME_QUERY } from '../core/graphql/users';
+import { useActiveWeb3React } from '../core/hooks/web3';
 
 import NETWORKS from "../core/networks";
 
 import { State, Web3Reducer } from "./Web3Reducer";
 
+
 const { NEXT_PUBLIC_INFURA_ID } = process.env;
 const supportedNetworks = Object.keys(ABIS);
 
-const rpcs = {
-  1: `https://mainnet.infura.io/v3/${NEXT_PUBLIC_INFURA_ID}`, // mainnet // For more WalletConnect providers: https://docs.walletconnect.org/quick-start/dapps/web3-provider#required
-  42: `https://kovan.infura.io/v3/${NEXT_PUBLIC_INFURA_ID}`,
-  80001: `https://polygon-mumbai.infura.io/v3/${NEXT_PUBLIC_INFURA_ID}`,
-  100: "https://dai.poa.network", // xDai
-};
 const injected = new InjectedConnector({
   supportedChainIds: supportedNetworks.map((net) => parseInt(net, 10)),
 });
 
-// TODO: create custom ceramic auth for wallet connect?
 const walletconnect = new WalletConnectConnector({
-  rpc: rpcs,
+  rpc: NETWORK_URLS,
   qrcode: true,
 });
-
-const staticProvider = new ethers.providers.StaticJsonRpcProvider(
-  `https://mainnet.infura.io/v3/${NEXT_PUBLIC_INFURA_ID}`
-);
 
 const initialState = {
   loading: false,
@@ -49,27 +44,29 @@ const initialState = {
   provider: undefined,
   contracts: undefined,
   isSignedIn: false,
-  staticProvider
+  chainId: undefined,
 } as State;
 
 const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      bridge: "https://polygon.bridge.walletconnect.org",
-      infuraId: NEXT_PUBLIC_INFURA_ID,
-      rpc: rpcs,
+      supportedChainIds: ALL_SUPPORTED_CHAIN_IDS,
+      rpcs: NETWORK_URLS,
+      qrcode: true,
     },
   },
   // authereum: {
   //   package: Authereum,
   // },
 };
+
 const Web3Context = createContext(initialState);
 
 const Web3Provider = ({ children }: { children: any }) => {
-  const client = useApolloClient();
 
+
+  const client = useApolloClient();
   const [signIn] = useSignInMutation({
     fetchPolicy: "network-only"
   })
@@ -77,19 +74,12 @@ const Web3Provider = ({ children }: { children: any }) => {
     fetchPolicy: "network-only"
   })
   const [state, dispatch] = useReducer(Web3Reducer, initialState);
-  const { activate, chainId } = useWeb3React();
+  const { chainId, activate, library } = useWeb3React();
 
   const setAccount = (account: null | string) => {
     dispatch({
       type: "SET_ACCOUNT",
       payload: account,
-    });
-  };
-
-  const setProvider = (provider: null | any) => {
-    dispatch({
-      type: "SET_PROVIDER",
-      payload: provider,
     });
   };
 
@@ -114,6 +104,31 @@ const Web3Provider = ({ children }: { children: any }) => {
     });
   };
 
+  async function updateState() {
+    if (chainId && library) {
+      const strChainId = chainId.toString() as keyof typeof NETWORKS;
+      if (supportedNetworks.includes(strChainId)) {
+        const network = NETWORKS[strChainId];
+        const abis = ABIS as Record<string, any>;
+        try {
+          const yourContract = new ethers.Contract(
+            abis[strChainId][network.name].contracts.YourContract.address,
+            abis[strChainId][network.name].contracts.YourContract.abi,
+            library.getSigner()
+          );
+          setContracts({ yourContract });
+        } catch (error) {
+          console.log('error reseting contract for', strChainId, error);
+        }
+      }
+    }
+  }
+
+  // Reload contracts globally on network change
+  useEffect(() => {
+    updateState();
+  }, [ABIS, chainId, library]);
+
   useEffect(() => {
     async function getCurrentUser() {
       try {
@@ -135,31 +150,11 @@ const Web3Provider = ({ children }: { children: any }) => {
     getCurrentUser();
   }, [])
 
-  // Reload contracts globally on network change
-  useEffect(() => {
-    async function updateState() {
-      if (chainId && state.provider && state.account) {
-        const strChainId = chainId.toString() as keyof typeof NETWORKS;
-        if (supportedNetworks.includes(strChainId)) {
-          const network = NETWORKS[strChainId];
-          const abis = ABIS as Record<string, any>;
-          const signer = state.provider.getSigner();
-          const yourContract = new ethers.Contract(
-            abis[strChainId][network.name].contracts.YourContract.address,
-            abis[strChainId][network.name].contracts.YourContract.abi,
-            signer
-          );
-          setContracts({ yourContract });
-        }
-      }
-    }
-    updateState();
-  }, [chainId, state.provider, state.account]);
+
 
   const logout = async () => {
     await signOut();
     setAccount(null);
-    setProvider(null);
     setContracts(null);
     setIsSignedIn(false);
     localStorage.setItem("defaultWallet", "");
@@ -169,24 +164,26 @@ const Web3Provider = ({ children }: { children: any }) => {
     // Set up Web3 Modal
     const web3Modal = new Web3Modal({
       providerOptions,
-      // TODO: false for production
       cacheProvider: false,
     });
     const provider = await web3Modal.connect();
-    const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
-    activate(
-      ethersProvider.connection.url === "metamask" ? injected : walletconnect
-    );
-    setProvider(ethersProvider);
+    const lib = getLibrary(provider);
 
+    console.log({ lib });
+    activate(
+      lib?.connection.url === "metamask" ? injected : walletconnect
+    );
+    // activate(
+    //   provider.connection.url === "metamask" ? injected : walletconnect
+    // );
     // Get address & signer
-    const signer = ethersProvider.getSigner();
+    const signer = lib.getSigner();
     const account = await signer.getAddress();
 
     // Get ens
     let ens = null;
     try {
-      ens = await ethersProvider.lookupAddress(account);
+      ens = await lib.lookupAddress(account);
       setENS(ens);
     } catch (error) {
       console.log({ error });
@@ -204,7 +201,7 @@ const Web3Provider = ({ children }: { children: any }) => {
       const message = {
         domain: window.document.location.host,
         address: account,
-        chainId: `${await ethersProvider.getNetwork().then(({ chainId }: { chainId: number }) => chainId)}`,
+        chainId: `${await lib.getNetwork().then(({ chainId }: { chainId: number }) => chainId)}`,
         uri: window.document.location.origin,
         version: '1',
         statement: 'SIWE GraphQL Example',
@@ -222,7 +219,7 @@ const Web3Provider = ({ children }: { children: any }) => {
       const { signedSiweMessage, siweMsg } = await signedSiweMessageRes.json()
       console.log({ signedSiweMessage, siweMsg });
 
-      const signature = await ethersProvider.getSigner().signMessage(signedSiweMessage);
+      const signature = await lib.getSigner().signMessage(signedSiweMessage);
 
       console.log({ signature });
 
@@ -248,31 +245,22 @@ const Web3Provider = ({ children }: { children: any }) => {
     }
 
     // check if supported network
-    if (chainId) {
-      const strChainId = chainId.toString() as keyof typeof NETWORKS;
-
-      if (supportedNetworks.includes(strChainId)) {
-        const network = NETWORKS[strChainId];
-        const abis = ABIS as Record<string, any>;
-        const yourContract = new ethers.Contract(
-          abis[strChainId][network.name].contracts.YourContract.address,
-          abis[strChainId][network.name].contracts.YourContract.abi,
-          signer
-        );
-        setContracts({ yourContract });
-      }
+    const strChainId = chainId ? chainId?.toString() : "";
+    if (supportedNetworks.includes(strChainId)) {
+      const network = NETWORKS[strChainId as keyof typeof NETWORKS];
+      const abis = ABIS as Record<string, any>;
+      const yourContract = new ethers.Contract(
+        abis[strChainId][network.name].contracts.YourContract.address,
+        abis[strChainId][network.name].contracts.YourContract.abi,
+        signer
+      );
+      console.log('reseting contract for', strChainId, network.name, network.chainId);
+      setContracts({ yourContract });
     }
 
     setAccount(account);
 
-    provider.on("chainChanged", () => {
-      // window.location.reload();
-    });
-
-    provider.on("accountsChanged", () => {
-      // window.location.reload();
-    });
-  }, [chainId, activate]);
+  }, [ABIS, chainId]);
 
   return (
     <Web3Context.Provider

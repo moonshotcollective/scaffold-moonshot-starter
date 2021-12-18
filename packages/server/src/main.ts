@@ -20,7 +20,6 @@ import { SwaggerConfig } from './core/configs/config.interface';
 
 const {
   api: { protocol, hostname, port, corsOptions },
-  // sessionOptions,
 } = config();
 
 async function bootstrap() {
@@ -36,19 +35,9 @@ async function bootstrap() {
   // app.set('trust proxy', 1); // trust first proxy
   app.enableShutdownHooks(['SIGINT', 'SIGTERM']);
 
-  // app.use(cookieParser(sessionOptions.secret));
   app.use(sessionMiddleware);
-  // /* Cookie & Session cleaner */
-  // app.use((req: Context['req'], res: Context['res'], next: NextFunction) => {
-  //   if (!req.session?.nonce) {
-  //     res.clearCookie(sessionOptions.name);
-  //   }
-  //   console.log(req.session.nonce);
-  //   next();
-  // });
 
   const configService = app.get(ConfigService);
-  // const corsConfig = configService.get<CorsConfig>('cors');
   const swaggerConfig = configService.get<SwaggerConfig>('swagger');
 
   // Swagger Api

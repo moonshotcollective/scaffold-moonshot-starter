@@ -5,10 +5,10 @@ import type {
 } from '@chakra-ui/theme-tools';
 
 const baseStyleContainer: SystemStyleObject = {
-  borderTopWidth: '1px',
+  borderTopWidth: '0px',
   borderColor: 'inherit',
   _last: {
-    borderBottomWidth: '1px',
+    borderBottomWidth: '0px',
   },
 };
 

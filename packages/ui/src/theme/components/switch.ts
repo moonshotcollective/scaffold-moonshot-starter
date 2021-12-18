@@ -6,7 +6,7 @@ import type {
   SystemStyleObject,
 } from "@chakra-ui/theme-tools";
 import { calc, cssVar, mode } from "@chakra-ui/theme-tools";
-import { borderRadius } from "../utils/default-props";
+import { borderRadius } from "../default-props";
 
 const $width = cssVar("switch-track-width");
 const $height = cssVar("switch-track-height");
