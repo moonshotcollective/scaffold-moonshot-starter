@@ -1,11 +1,10 @@
 # scaffold-moonshot-starter
 
-Typescript x NestJS x NextJS x Chakra-UI scaffold-eth production ready starter kit.
+Typescript x NextJS x Chakra-UI scaffold-eth production ready starter kit.
 
 ## Tech stack overview
 
-We are using TypeScript with Next.js on the front-end, and NestJS on the back-end.
-Ceramic is our main data store in conjunction with Filecoin & IPFS for file storage.
+We are using TypeScript with Next.js & Chakra UI on the front-end.
 
 ### 📁 Folder structure
 
@@ -15,9 +14,8 @@ Ceramic is our main data store in conjunction with Filecoin & IPFS for file stor
 │ ├── web # Landing page using NextJS, TypeScript, Chakra-UI
 │ ├── dapp # Web3, decentralized app using NextJS, TypeScript, Chakra-UI and ethers.js
 │ ├── ui # Theme/design system shared accross web & dapp folders
-│ ├── schemas # Ceramic and JSON schemas
 │ ├── hardhat # Your contracts, using Hardhat with Typechain and ethers v5
-│ └── server # TypeScript NodeJS server using NestJS as a production ready back-end framework
+│ └── subgraph # A subgraph that gets generated on contract deploys
 └── ... config ...
 ```
 
@@ -28,7 +26,7 @@ Ceramic is our main data store in conjunction with Filecoin & IPFS for file stor
 - [Node](https://nodejs.org/en/download/)
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/)
 - [Git](https://git-scm.com/downloads)
-- Account and API key for [WEB3.storage](https://web3.storage/)
+- Account and API key for [WEB3.storage](https://web3.storage/) (Optional, it provides decentralized media storage)
 
 ### Setup env
 
