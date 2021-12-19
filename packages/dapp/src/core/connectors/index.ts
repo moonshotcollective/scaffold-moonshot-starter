@@ -10,7 +10,7 @@ import getLibrary from "./getLibrary";
 import { NetworkConnector } from "./NetworkConnector";
 
 interface SwitchNetworkArguments {
-  library: Web3Provider;
+  library: Web3Provider | undefined;
   chainId: SupportedChainId;
 }
 

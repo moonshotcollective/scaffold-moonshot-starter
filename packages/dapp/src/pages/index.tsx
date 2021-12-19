@@ -3,7 +3,6 @@ import { HStack, IconButton, Text, VStack } from "@chakra-ui/react";
 import { Title } from "@scaffold-eth/ui";
 import { useWeb3React } from '@web3-react/core';
 import ContractFields from "components/custom/ContractFields";
-import { accessListify } from "ethers/lib/utils";
 import React, { useContext, useEffect, useState } from "react";
 import Faucet from "../components/custom/Faucet";
 import { Web3Context } from "../contexts/Web3Provider";
@@ -26,19 +25,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // const getFaucetAddress = async () => {
-    //   if (staticProvider) {
-    //     const _faucetAddress = await staticProvider.listAccounts();
-    //     setFaucetAddress(_faucetAddress[0]);
-    //     const signer = await staticProvider.getSigner();
-    //     // const address = await signer.getAddress();
-    //     setFaucetSigner(signer);
-    //     const _balance = await signer.getBalance();
-    //     setFaucetBalance(utils.formatEther(_balance.toString()));
-    //     getFaucetBalance();
-    //   }
-    // };
-    // getFaucetAddress();
     getEthBalance();
   }, [account, library]);
 

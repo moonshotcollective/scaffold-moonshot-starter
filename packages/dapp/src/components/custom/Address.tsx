@@ -29,26 +29,6 @@ import { RiExternalLinkFill } from "react-icons/ri";
 import { Web3Context } from "../../contexts/Web3Provider";
 import { useResolveEnsName } from "../../core/hooks/useResolveEnsName";
 
-// changed value={account} to account={account}
-
-/*
-  ~ What it does? ~
-  Displays an account with a blockie image and option to copy account
-  ~ How can I use? ~
-  <Address
-    account={account}
-    ensProvider={mainnetProvider}
-    blockExplorer={blockExplorer}
-    fontSize={fontSize}
-  />
-  ~ Features ~
-  - Provide ensProvider={mainnetProvider} and your account will be replaced by ENS name
-              (ex. "0xa870" => "user.eth")
-  - Provide blockExplorer={blockExplorer}, click on account and get the link
-              (ex. by default "https://etherscan.io/" or for xdai "https://blockscout.com/poa/xdai/")
-  - Provide fontSize={fontSize} to change the size of account text
-*/
-
 const blockExplorerLink = (address: string, blockExplorer?: string) =>
   `${blockExplorer || "https://etherscan.io/"}${"address/"}${address}`;
 

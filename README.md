@@ -55,20 +55,7 @@ $ git clone https://github.com/moonshotcollective/scaffold-moonshot-starter.git
 $ cd scaffold-moonshot-starter && yarn install
 ```
 
-### 🏺‍ Publish your Ceramic schemas
-
-```sh
-$ cd packages/schemas
-$ yarn build
-```
-
-### 🛰 Run the backend
-
-```sh
-$ cd packages/server && yarn start:dev
-```
-
-### 👷‍ Build it!
+### 👷‍ Build your contracts!
 
 run hardhat locally, get some faucet and 🛰 deploy your contract
 Create a `mnemonic.secret` file or set one of your dev private key as the DEPLOYER_PRIVATE_KEY environment variables in packages/hardhat/.env
