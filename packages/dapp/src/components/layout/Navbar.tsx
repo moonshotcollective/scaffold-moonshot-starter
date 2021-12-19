@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import useCustomColor from "../../core/hooks/useCustomColor";
 import ConnectButton from "../Buttons/ConnectButton";
 import ThemeToggle from "../Buttons/ThemeToggle";
+import NetworkSwitch from '../custom/NetworkSwitch';
 import GitcoinIcon from "../Icons/GitcoinIcon";
 
 const LinkItem = ({ href, children, ...props }: any) => {
@@ -81,6 +82,7 @@ const Navbar = () => {
         </HStack>
 
         <HStack marginLeft="auto">
+          <NetworkSwitch />
           <ConnectButton />
           <ThemeToggle />
           <IconButton

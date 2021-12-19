@@ -9,7 +9,7 @@ export class GetAllContributorsResolver {
     name: 'getAllContributors',
   })
   async getAllContributors(): Promise<Contributor[] | null | undefined> {
-    // Get the data from your favorite data store
+    // TODO: Get the data from your favorite data store
     return [
       {
         did: 'did:3:some_did',

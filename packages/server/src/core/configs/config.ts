@@ -5,6 +5,7 @@ const config: Config = {
   nest: {
     port: 5000,
   },
+  infuraKey: process.env.INFURA_ID!,
   ceramic: {
     apiUrl: process.env.CERAMIC_API_URL!,
     seed: process.env.CERAMIC_SEED!,
@@ -61,7 +62,7 @@ const config: Config = {
       },
     },
     // rateLimits: {
-    //   register: 1,
+    //   register: 5,
     // },
   },
   apolloServerOptions: {
@@ -81,20 +82,29 @@ const config: Config = {
     showFriendlyErrorStack: true,
     autoResubscribe: true,
   },
-  // sessionOptions: {
-  //   name: process.env.COOKIE_NAME!,
-  //   secret: process.env.COOKIE_SECRET!,
-  //   resave: false,
-  //   saveUninitialized: false,
-  //   unset: 'destroy',
-  //   cookie: {
-  //     secure: JSON.parse(process.env.IS_SECURE_COOKIE!),
-  //     httpOnly: true,
-  //     sameSite: 'lax',
-  //     path: '/',
-  //     maxAge: 144 * 60 * 60 * 1000, // 6 days
-  //   },
-  // },
+  redisAuthConfig: {
+    port: +process.env.AUTH_REDIS_PORT!,
+    host: process.env.AUTH_REDIS_HOST,
+    password: process.env.AUTH_REDIS_PASSWORD,
+    connectTimeout: 15000,
+    enableReadyCheck: true,
+    showFriendlyErrorStack: true,
+    autoResubscribe: true,
+  },
+  sessionOptions: {
+    name: process.env.COOKIE_NAME!,
+    secret: process.env.COOKIE_SECRET!,
+    resave: true,
+    saveUninitialized: true,
+    unset: 'destroy',
+    cookie: {
+      secure: JSON.parse(process.env.IS_SECURE_COOKIE!), // casting the string to a boolean
+      httpOnly: true,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 144 * 60 * 60 * 1000, // 6 days
+    },
+  },
 };
 
 export default (): Config => config;

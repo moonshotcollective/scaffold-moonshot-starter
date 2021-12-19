@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 // import { disconnect } from './core/utils/helpers/shutdown';
-import { HttpModule } from '@nestjs/axios';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TerminusModule } from '@nestjs/terminus';
 import depthLimit from 'graphql-depth-limit';
@@ -15,13 +14,10 @@ import { HealthController } from './core/controllers/health.controller';
 import config from './core/configs/config';
 import { GraphqlConfig } from './core/configs/config.interface';
 import { ContributorModule } from './entities/Contributors/Contributor.module';
+import { UserModule } from './entities/Users/User.module';
 
 @Module({
   imports: [
-    HttpModule.register({
-      timeout: 60000,
-      maxRedirects: 10,
-    }),
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     GraphQLModule.forRootAsync({
       useFactory: async (configService: ConfigService) => {
@@ -48,6 +44,7 @@ import { ContributorModule } from './entities/Contributors/Contributor.module';
     }),
     TerminusModule,
     ContributorModule,
+    UserModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService, ConfigService],

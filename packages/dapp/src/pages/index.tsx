@@ -1,6 +1,7 @@
 import { RepeatIcon } from "@chakra-ui/icons";
 import { HStack, IconButton, Text, VStack } from "@chakra-ui/react";
 import { Title } from "@scaffold-eth/ui";
+import { useWeb3React } from '@web3-react/core';
 import ContractFields from "components/custom/ContractFields";
 import { accessListify } from "ethers/lib/utils";
 import React, { useContext, useEffect, useState } from "react";
@@ -10,13 +11,14 @@ import { hexToString } from "../core/helpers";
 import useCustomColor from "../core/hooks/useCustomColor";
 
 const Home = () => {
-  const { account, provider, staticProvider } = useContext(Web3Context);
+  const { account } = useContext(Web3Context);
+  const { library } = useWeb3React();
   const { coloredText, accentColor } = useCustomColor();
   const [yourBalance, setYourBalance] = useState("");
 
   const getEthBalance = async () => {
-    if (provider && account) {
-      const res = await provider?.getBalance(account);
+    if (library && account) {
+      const res = await library?.getBalance(account);
       const balance = hexToString(res);
       setYourBalance(balance);
       // console.log(`balance`, balance);
@@ -38,7 +40,7 @@ const Home = () => {
     // };
     // getFaucetAddress();
     getEthBalance();
-  }, [account]);
+  }, [account, library]);
 
   return (
     <VStack>

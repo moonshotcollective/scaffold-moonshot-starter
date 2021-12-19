@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_CONTRIBUTOR_MUTATION = gql`
+export const JOIN_AS_CONTRIBUTOR_MUTATION = gql`
   mutation JoinAsContributor($input: JoinAsContributorInput!) {
     joinAsContributor(input: $input) {
       did

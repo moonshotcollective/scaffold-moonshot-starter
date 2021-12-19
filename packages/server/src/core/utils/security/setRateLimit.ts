@@ -25,8 +25,8 @@ export const setRateLimit = async ({
   errorMessage,
 }: SetRateLimiterOptions) => {
   const visitorKey =
-    context.req.session && context.req.session.userId
-      ? 'user:' + context.req.session.userId
+    context.req.session && context.req.session.siwe
+      ? 'user:' + context.req.session.siwe.address
       : 'ip:' + context.req.ip;
 
   const variableKey =

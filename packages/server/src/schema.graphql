@@ -20,9 +20,59 @@ input JoinAsContributorInput {
 type Mutation {
   """Join as a Contributor"""
   joinAsContributor(input: JoinAsContributorInput!): Contributor
+
+  """Sign in a user and notifies the connected clients"""
+  signIn(input: SiweRegisterInput!): User!
+
+  """Logs out a user an notifies the connected clients"""
+  signOut: Boolean!
 }
 
 type Query {
   """Gets all the contributors"""
   getAllContributors: [Contributor!]
+
+  """Gets a nonce"""
+  getNonce: String
+
+  """Gets the currently logged in user"""
+  me: User
+}
+
+"""EIP-191 signature scheme"""
+enum SignatureType {
+  PERSONAL_SIGNATURE
+}
+
+input SiweMessageInput {
+  address: String!
+  chainId: String!
+  domain: String!
+  expirationTime: String
+  issuedAt: String!
+  nonce: String!
+  notBefore: String
+  requestId: String
+  resources: [String!]
+  signature: String!
+  statement: String!
+  type: SignatureType!
+  uri: String!
+  version: String!
+}
+
+input SiweRegisterInput {
+  ens: String
+  message: SiweMessageInput!
+}
+
+type User {
+  address: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: String!
+  ens: String
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: String!
 }

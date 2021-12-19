@@ -1,10 +1,12 @@
 import { config as dotenvConfig } from 'dotenv';
 dotenvConfig();
-// import cookieParser from 'cookie-parser';
 import { NestFactory } from '@nestjs/core';
+// import cookieParser from 'cookie-parser';
+// import { NextFunction } from 'express';
+
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-// import { sessionMiddleware } from './core/resources/Redis/redis';
+import { sessionMiddleware } from './core/resources/Redis/redis';
 import {
   BadRequestException,
   Logger,
@@ -14,7 +16,7 @@ import {
 import config from './core/configs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { CorsConfig, SwaggerConfig } from './core/configs/config.interface';
+import { SwaggerConfig } from './core/configs/config.interface';
 
 const {
   api: { protocol, hostname, port, corsOptions },
@@ -23,6 +25,7 @@ const {
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bodyParser: true,
+    cors: false,
   });
 
   app.enableCors(corsOptions);
@@ -32,19 +35,9 @@ async function bootstrap() {
   // app.set('trust proxy', 1); // trust first proxy
   app.enableShutdownHooks(['SIGINT', 'SIGTERM']);
 
-  // app.use(helmet());
-  // app.use(cookieParser(sessionOptions.secret));
-  // app.use(sessionMiddleware);
-  // /* Cookie & Session cleaner */
-  // app.use((req: Context['req'], res: Context['res'], next: NextFunction) => {
-  //   if (req.cookies[sessionOptions.name] && !req.session?.userId) {
-  //     res.clearCookie(sessionOptions.name);
-  //   }
-  //   next();
-  // });
+  app.use(sessionMiddleware);
 
   const configService = app.get(ConfigService);
-  const corsConfig = configService.get<CorsConfig>('cors');
   const swaggerConfig = configService.get<SwaggerConfig>('swagger');
 
   // Swagger Api
@@ -57,11 +50,6 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
 
     SwaggerModule.setup(swaggerConfig.path || 'api', app, document);
-  }
-
-  // Cors
-  if (corsConfig?.enabled) {
-    app.enableCors();
   }
 
   app.useGlobalPipes(

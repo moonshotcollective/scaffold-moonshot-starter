@@ -4,9 +4,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { ethers, utils } from "ethers";
 import toast, { Toaster } from "react-hot-toast";
 import { hexToString } from "../../core/helpers";
+import { useWeb3React } from '@web3-react/core';
 
 function Faucet({ ...others }: any) {
-  const { account, staticProvider } = useContext(Web3Context);
+  const { account, } = useContext(Web3Context);
+  const { chainId, library } = useWeb3React();
+
   const [faucetAddress, setFaucetAddress] = useState("");
   const [faucetBalance, setFaucetBalance] = useState("");
   const [faucetSigner, setFaucetSigner] =
@@ -14,11 +17,11 @@ function Faucet({ ...others }: any) {
 
   useEffect(() => {
     const getFaucetAddress = async () => {
-      if (staticProvider) {
-        const _faucetAddress = await staticProvider.listAccounts();
+      if (library) {
+        const _faucetAddress = await library.listAccounts();
         setFaucetAddress(_faucetAddress[0]);
 
-        const signer = await staticProvider.getSigner();
+        const signer = await library.getSigner();
         // const address = await signer.getAddress();
         setFaucetSigner(signer);
 
@@ -26,7 +29,7 @@ function Faucet({ ...others }: any) {
       }
     };
     getFaucetAddress();
-  }, [staticProvider]);
+  }, []);
 
   const getFaucetBalance = async () => {
     if (faucetSigner) {
@@ -73,7 +76,7 @@ function Faucet({ ...others }: any) {
         <Text>Faucet</Text>
         <Text textStyle="small">{faucetAddress}</Text>
         <Text textStyle="small">{faucetBalance}</Text>
-        <Button onClick={faucet}>Get some eth</Button>
+        <Button onClick={faucet} isDisabled={chainId !== 31337}>Get some eth</Button>
       </VStack>
       <Toaster
         toastOptions={{

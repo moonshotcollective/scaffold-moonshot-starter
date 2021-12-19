@@ -1,11 +1,11 @@
 import { Button, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import ABIS from "@scaffold-eth/hardhat-ts/hardhat_contracts.json";
-import { useWeb3React } from "@web3-react/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Web3Context } from "../../contexts/Web3Provider";
 import useCustomColor from "../../core/hooks/useCustomColor";
 import NETWORKS from "../../core/networks";
 import { YourContract } from "@scaffold-eth/hardhat-ts/generated/contract-types/YourContract";
+import { useWeb3React } from '@web3-react/core';
 
 type Block = {
   inputs?: Array<Object>;
@@ -35,7 +35,7 @@ function ContractFields({ ...others }: any) {
     if (yourContract) {
       const transaction = await yourContract.setPurpose(purposeInput);
       await transaction.wait();
-      readPurpose();
+      await readPurpose();
     }
   };
 
@@ -44,11 +44,11 @@ function ContractFields({ ...others }: any) {
       const strChainId = chainId.toString() as keyof typeof NETWORKS;
       const network = NETWORKS[strChainId];
       const abis = ABIS as Record<string, any>;
-      const abi = abis[strChainId][network.name].contracts.YourContract.abi;
-
-      setAbi(abi);
-      setYourContract(contracts.yourContract);
-      readPurpose();
+      if (abis[strChainId]) {
+        const abi = abis[strChainId][network.name].contracts.YourContract.abi;
+        setAbi(abi);
+        setYourContract(contracts.yourContract);
+      }
     }
   }, [chainId, contracts]);
 

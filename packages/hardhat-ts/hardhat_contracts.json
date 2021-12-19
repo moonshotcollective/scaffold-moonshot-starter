@@ -1,11 +1,11 @@
 {
-  "42": {
-    "kovan": {
-      "name": "kovan",
-      "chainId": "42",
+  "31337": {
+    "localhost": {
+      "name": "localhost",
+      "chainId": "31337",
       "contracts": {
         "YourContract": {
-          "address": "0x96EDf5a39E832e37F54A7F6FfFb4823747760CDC",
+          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
           "abi": [
             {
               "inputs": [],
@@ -62,13 +62,13 @@
       }
     }
   },
-  "31337": {
-    "localhost": {
-      "name": "localhost",
-      "chainId": "31337",
+  "80001": {
+    "mumbai": {
+      "name": "mumbai",
+      "chainId": "80001",
       "contracts": {
         "YourContract": {
-          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "address": "0x7F1933E4D383e474696DcB545C607Ac8784Cc5CE",
           "abi": [
             {
               "inputs": [],
