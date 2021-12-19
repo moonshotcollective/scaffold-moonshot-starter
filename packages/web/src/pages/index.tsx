@@ -170,11 +170,6 @@ const Home = () => {
             We are using Next.js with Chakra-UI &amp; TypeScript for our
             front-end.
           </Text>
-          <Text>
-            We choose Ceramic for our main data store &amp; decentralized
-            identity management in conjunction with Filecoin &amp; IPFS for file
-            storage.
-          </Text>
         </Flex>
 
         <Flex d="column">
@@ -183,9 +178,7 @@ const Home = () => {
           </Text>
           <Text>
             The dApp will be available on the Ethereum mainnet and Polygon for
-            the beta version but we are planning to support chains like Solana,
-            Avalanche as well as chains running on Substrate &amp; Tendermint in
-            the future.
+            the beta version but we are planning to support other networks in the future.
           </Text>
         </Flex>
 

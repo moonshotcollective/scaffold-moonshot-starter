@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 import useCustomColor from "../../hooks/useCustomColor";
 import DiscordButton from "../Buttons/DiscordButton";
 import TwitterButton from "../Buttons/TwitterButton";
-import GitcoinIcon from "../Icons/GitcoinIcon";
+import ScaffoldIcon from "../Icons/ScaffoldIcon";
 import ThemeToggle from "./ThemeToggle";
 
 const LinkItem = ({ href, children, ...props }: any) => {
@@ -63,16 +63,17 @@ const Header = () => {
         alignItems="center"
         justify="space-between"
       >
-        <HStack px="4" spacing={4}>
-          <GitcoinIcon size="36px" />
+        <HStack px="4">
+          <ScaffoldIcon size="36px" />
           <NextLink href="/">
             <Link
               display={{ base: "none", md: "flex" }}
               fontWeight="bold"
               color={accentColor}
               textTransform="uppercase"
+              size="md"
             >
-              Coordination.party
+              Scaffold
             </Link>
           </NextLink>
           <HStack pl="4" spacing="4" display={{ base: "none", lg: "flex" }}>
