@@ -44,9 +44,11 @@ function ContractFields({ ...others }: any) {
       const strChainId = chainId.toString() as keyof typeof NETWORKS;
       const network = NETWORKS[strChainId];
       const abis = ABIS as Record<string, any>;
-      const abi = abis[strChainId][network.name].contracts.YourContract.abi;
-      setAbi(abi);
-      setYourContract(contracts.yourContract);
+      if (abis[strChainId]) {
+        const abi = abis[strChainId][network.name].contracts.YourContract.abi;
+        setAbi(abi);
+        setYourContract(contracts.yourContract);
+      }
     }
   }, [chainId, contracts]);
 
