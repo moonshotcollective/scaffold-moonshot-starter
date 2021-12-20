@@ -14,7 +14,7 @@ function NetworkSwitch() {
   useEffect(() => {
     // metamask is currently the only known implementer of this EIP
     // here we proceed w/ a noop feature check to ensure the user's version of metamask supports network switching
-    // if not, we hide the UI
+    // if not, we disable the network switch button
     if (!library?.provider?.request || !chainId || !library?.provider?.isMetaMask) {
       return
     }
@@ -33,7 +33,7 @@ function NetworkSwitch() {
   return chainId ? (
     <>
       <Menu>
-        <MenuButton disabled={!isSupportedNetwork || !implements3085} w="md" as={Button} border={isSupportedNetwork ? "" : "solid 1px red"} rightIcon={<ChevronDownIcon />}>
+        <MenuButton disabled={!implements3085} w="md" as={Button} border={isSupportedNetwork ? "" : "solid 1px red"} rightIcon={<ChevronDownIcon />}>
           <HStack>
             <Image
               boxSize='2rem'

@@ -1,6 +1,6 @@
 import { Button, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import ABIS from "@scaffold-eth/hardhat-ts/hardhat_contracts.json";
-import React, { useContext, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from "react";
 import { Web3Context } from "../../contexts/Web3Provider";
 import useCustomColor from "../../core/hooks/useCustomColor";
 import NETWORKS from "../../core/networks";
@@ -22,35 +22,49 @@ function ContractFields({ ...others }: any) {
   const { coloredText } = useCustomColor();
   const [purpose, setPurpose] = useState("");
   const [purposeInput, setPurposeInput] = useState("");
-  const [yourContract, setYourContract] = useState<YourContract>();
+  const [yourReadContract, setYourReadContract] = useState<YourContract>();
+  const [yourWriteContract, setYourWriteContract] = useState<YourContract>();
 
-  const readPurpose = async () => {
-    if (yourContract) {
-      const res = await yourContract.purpose();
-      setPurpose(res);
-    }
-  };
+  const readPurpose = useCallback(
+    async () => {
+      if (yourReadContract) {
+        const res = await yourReadContract.purpose();
+        setPurpose(res);
+      }
+    },
+    [purposeInput, yourReadContract, contracts],
+  )
 
-  const writePurpose = async () => {
-    if (yourContract) {
-      const transaction = await yourContract.setPurpose(purposeInput);
-      await transaction.wait();
-      await readPurpose();
-    }
-  };
+  const writePurpose = useCallback(
+    async () => {
+      if (yourWriteContract) {
+        const transaction = await yourWriteContract.setPurpose(purposeInput);
+        await transaction.wait();
+        await readPurpose();
+      }
+    },
+    [purposeInput, yourWriteContract, contracts],
+  )
 
   useEffect(() => {
     if (chainId && contracts) {
+      setPurpose("");
+      setPurposeInput("");
       const strChainId = chainId.toString() as keyof typeof NETWORKS;
       const network = NETWORKS[strChainId];
       const abis = ABIS as Record<string, any>;
       if (abis[strChainId]) {
         const abi = abis[strChainId][network.name].contracts.YourContract.abi;
         setAbi(abi);
-        setYourContract(contracts.yourContract);
+        setYourReadContract(contracts.yourReadContract);
+        setYourWriteContract(contracts.yourWriteContract);
       }
     }
   }, [chainId, contracts]);
+
+  const handlePurposeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPurposeInput(e.target.value);
+  }
 
   return (
     <VStack
@@ -76,7 +90,7 @@ function ContractFields({ ...others }: any) {
                 <Text>{el.name}</Text>
                 <Input
                   value={purposeInput}
-                  onChange={(e) => setPurposeInput(e.target.value)}
+                  onChange={handlePurposeChange}
                 />
                 <Button onClick={() => el.name && writePurpose()}>Call</Button>
               </HStack>
@@ -92,7 +106,7 @@ function ContractFields({ ...others }: any) {
             );
           }
         })}
-      <Button onClick={() => console.log(abi)}>Get abi</Button>
+      <Button onClick={() => console.log(abi)}>Check ABI in the console</Button>
     </VStack>
   );
 }

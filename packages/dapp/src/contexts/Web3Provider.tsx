@@ -55,6 +55,11 @@ const providerOptions = {
 const Web3Context = createContext(initialState);
 
 const Web3Provider = ({ children }: { children: any }) => {
+  const web3Modal = new Web3Modal({
+    providerOptions,
+    cacheProvider: false,
+  });
+
   const [state, dispatch] = useReducer(Web3Reducer, initialState);
   const { chainId, activate, library } = useWeb3React();
 
@@ -81,20 +86,26 @@ const Web3Provider = ({ children }: { children: any }) => {
 
   async function updateState() {
     if (chainId && library) {
-      const strChainId = chainId.toString() as keyof typeof NETWORKS;
+      // check if supported network
+      const strChainId = chainId?.toString();
       if (supportedNetworks.includes(strChainId)) {
-        const network = NETWORKS[strChainId];
+        const provider = await web3Modal.connect();
+        const lib = new ethers.providers.Web3Provider(provider);
+        const signer = lib.getSigner();
+        const network = NETWORKS[strChainId as keyof typeof NETWORKS];
         const abis = ABIS as Record<string, any>;
-        try {
-          const yourContract = new ethers.Contract(
-            abis[strChainId][network.name].contracts.YourContract.address,
-            abis[strChainId][network.name].contracts.YourContract.abi,
-            library.getSigner()
-          );
-          setContracts({ yourContract });
-        } catch (error) {
-          console.log('error reseting contract for', strChainId, error);
-        }
+        const yourReadContract = new ethers.Contract(
+          abis[strChainId][network.name].contracts.YourContract.address,
+          abis[strChainId][network.name].contracts.YourContract.abi,
+          // TODO: replace this with static provider and rpc url based on chainId
+          signer
+        );
+        const yourWriteContract = new ethers.Contract(
+          abis[strChainId][network.name].contracts.YourContract.address,
+          abis[strChainId][network.name].contracts.YourContract.abi,
+          signer
+        );
+        setContracts({ yourReadContract, yourWriteContract });
       }
     }
   }
@@ -112,12 +123,8 @@ const Web3Provider = ({ children }: { children: any }) => {
 
   const connectWeb3 = useCallback(async () => {
     // Set up Web3 Modal
-    const web3Modal = new Web3Modal({
-      providerOptions,
-      cacheProvider: false,
-    });
     const provider = await web3Modal.connect();
-    const lib = getLibrary(provider);
+    const lib = new ethers.providers.Web3Provider(provider)
     activate(
       lib?.connection.url === "metamask" ? injected : walletconnect
     );
@@ -140,13 +147,19 @@ const Web3Provider = ({ children }: { children: any }) => {
     if (supportedNetworks.includes(strChainId)) {
       const network = NETWORKS[strChainId as keyof typeof NETWORKS];
       const abis = ABIS as Record<string, any>;
-      const yourContract = new ethers.Contract(
+      const yourReadContract = new ethers.Contract(
         abis[strChainId][network.name].contracts.YourContract.address,
         abis[strChainId][network.name].contracts.YourContract.abi,
         signer
       );
-      console.log('reseting contract for', strChainId, network.name, network.chainId);
-      setContracts({ yourContract });
+      const yourWriteContract = new ethers.Contract(
+        abis[strChainId][network.name].contracts.YourContract.address,
+        abis[strChainId][network.name].contracts.YourContract.abi,
+        signer
+      );
+      console.log(strChainId, network.name, network.chainId);
+      console.log({ yourReadContract, yourWriteContract });
+      setContracts({ yourReadContract, yourWriteContract });
     }
 
     setAccount(account);
