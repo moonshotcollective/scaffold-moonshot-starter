@@ -16,6 +16,7 @@ import Web3Modal from "web3modal";
 import { NETWORK_URLS } from '../core/connectors';
 import { ALL_SUPPORTED_CHAIN_IDS } from '../core/connectors/chains';
 import getLibrary from '../core/connectors/getLibrary';
+import { useActiveWeb3React } from '../core/hooks/web3';
 import NETWORKS from "../core/networks";
 import { State, Web3Reducer } from "./Web3Reducer";
 
@@ -62,8 +63,10 @@ const Web3Provider = ({ children }: { children: any }) => {
 
   const [state, dispatch] = useReducer(Web3Reducer, initialState);
   const { chainId, activate, library } = useWeb3React();
+  const { active, account } = useActiveWeb3React();
+  console.log({ active, account });
 
-  const setAccount = (account: null | string) => {
+  const setAccount = (account?: null | string) => {
     dispatch({
       type: "SET_ACCOUNT",
       payload: account,
@@ -84,6 +87,28 @@ const Web3Provider = ({ children }: { children: any }) => {
     });
   };
 
+  useEffect(() => {
+    async function handleActiveAccount() {
+      if (active) {
+        setAccount(account)
+        // Get ens
+        let ens = null;
+        try {
+          ens = await library.lookupAddress(account);
+          setENS(ens);
+        } catch (error) {
+          console.log({ error });
+          setENS(null);
+        }
+      }
+    }
+    handleActiveAccount()
+    return () => {
+      setAccount(null)
+      setENS(null)
+    }
+  }, [account])
+
   async function updateState() {
     if (chainId && library) {
       // check if supported network
@@ -93,6 +118,7 @@ const Web3Provider = ({ children }: { children: any }) => {
         const lib = new ethers.providers.Web3Provider(provider);
         const signer = lib.getSigner();
         const network = NETWORKS[strChainId as keyof typeof NETWORKS];
+        console.log({ network });
         const abis = ABIS as Record<string, any>;
         const yourReadContract = new ethers.Contract(
           abis[strChainId][network.name].contracts.YourContract.address,

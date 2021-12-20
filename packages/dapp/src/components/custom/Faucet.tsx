@@ -1,10 +1,13 @@
-import { VStack, Button, Text } from "@chakra-ui/react";
-import { Web3Context } from "../../contexts/Web3Provider";
+import { VStack, Button, Text, Link } from "@chakra-ui/react";
 import React, { useContext, useState, useEffect } from "react";
 import { ethers, utils } from "ethers";
 import toast, { Toaster } from "react-hot-toast";
-import { hexToString } from "../../core/helpers";
 import { useWeb3React } from '@web3-react/core';
+
+import { Web3Context } from "../../contexts/Web3Provider";
+import { hexToString } from "../../core/helpers";
+import NETWORKS from '../../core/networks';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 function Faucet({ ...others }: any) {
   const { account, } = useContext(Web3Context);
@@ -65,6 +68,8 @@ function Faucet({ ...others }: any) {
     }
   };
 
+  const network = chainId && (NETWORKS as any)[chainId.toString()];
+
   return (
     <>
       <VStack
@@ -75,8 +80,21 @@ function Faucet({ ...others }: any) {
       >
         <Text>Faucet</Text>
         <Text textStyle="small">{faucetAddress}</Text>
-        <Text textStyle="small">{faucetBalance}</Text>
-        <Button onClick={faucet} isDisabled={chainId !== 31337}>Get some eth</Button>
+        {
+          faucetBalance &&
+          <Text textStyle="small">
+            {faucetBalance}{" "}
+            {network.symbol ?? "Native tokens"}
+          </Text>
+        }
+        {chainId === 31337
+          ? <Button onClick={faucet}>Get some eth</Button>
+          : network && <Link href={network.faucet} target="_blank" rel="noopener noreferrer">
+            <Button leftIcon={<ExternalLinkIcon />}>
+              Get faucet tokens
+            </Button>
+          </Link>
+        }
       </VStack>
       <Toaster
         toastOptions={{

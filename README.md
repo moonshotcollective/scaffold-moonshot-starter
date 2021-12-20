@@ -63,14 +63,14 @@ $ cd packages/hardhat
 $ yarn chain
 $ yarn faucet <YOUR_DEV_ADDRESS>
 
-Deploying on localhost
-$ yarn deploy --network localhost --reset
+Deploying on hardhat localhost
+$ yarn deploy --network localhost
 
 Deploying on mumbai
-$ yarn deploy --network mumbai --reset
+$ yarn deploy --network mumbai
 
 Deploying on an other testnet (make sure to edit the hardhat.config.js first)
-$ yarn deploy --network mytestnet --reset
+$ yarn deploy --network mytestnet
 ```
 
 #### Testnet Faucets

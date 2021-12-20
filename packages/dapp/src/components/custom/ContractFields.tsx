@@ -86,7 +86,7 @@ function ContractFields({ ...others }: any) {
         abi.map((el: Block) => {
           if (el.type === "function" && el.inputs?.length !== 0) {
             return (
-              <HStack>
+              <HStack key={el.name}>
                 <Text>{el.name}</Text>
                 <Input
                   value={purposeInput}
@@ -98,7 +98,7 @@ function ContractFields({ ...others }: any) {
           }
           if (el.type === "function" && el.outputs?.length !== 0) {
             return (
-              <HStack>
+              <HStack key={el.name}>
                 <Text>{el.name}</Text>
                 <Text color={coloredText}>{purpose}</Text>
                 <Button onClick={readPurpose}>Call</Button>
