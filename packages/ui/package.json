@@ -9,6 +9,10 @@
     "src"
   ],
   "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "engines": {
     "node": ">=10"
   },
@@ -99,5 +103,5 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "gitHead": "9712461f30b4a215532cbca1b74a1b228e039b04"
+  "gitHead": "b95535cf19af4b8ce58fdf788c910193c1e6a1a8"
 }
