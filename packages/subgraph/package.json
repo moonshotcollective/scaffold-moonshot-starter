@@ -2,6 +2,7 @@
   "name": "@scaffold-eth/subgraph",
   "license": "UNLICENSED",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",

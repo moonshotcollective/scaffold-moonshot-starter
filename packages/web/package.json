@@ -5,6 +5,7 @@
   "author": "Moonshot Collective",
   "homepage": "",
   "license": "GPL-3.0-or-later",
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
