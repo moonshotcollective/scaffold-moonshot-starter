@@ -8,7 +8,7 @@
     "dist",
     "src"
   ],
-  "private": "false",
+  "private": false,
   "engines": {
     "node": ">=10"
   },
