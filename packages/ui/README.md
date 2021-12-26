@@ -89,7 +89,7 @@ const myTheme = {
           px: '32px',
         },
       },
-      // 3. We can add a new visual variant
+      // 3. We can add a new visual variant !
       variants: {
         'with-shadow': {
           bg: 'red.400',
