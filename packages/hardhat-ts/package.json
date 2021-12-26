@@ -1,6 +1,6 @@
 {
   "name": "@scaffold-eth/hardhat-ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "scripts": {
     "chain": "hardhat node --network hardhat --no-deploy",
