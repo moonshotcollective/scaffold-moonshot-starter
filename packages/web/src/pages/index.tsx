@@ -16,7 +16,7 @@ import React from "react";
 import { appStaticContent } from "../../next-seo.config";
 import ExampleLogoIcon from "../components/Icons/ExampleLogoIcon";
 import useCustomColor from "../hooks/useCustomColor";
-import { Title } from "@scaffold-eth/ui";
+import { Title } from "@moonshotcollective/ui";
 
 const Home = () => {
   const { dappLink, name: appName } = appStaticContent;

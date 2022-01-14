@@ -1,5 +1,5 @@
 import { DeepPartial, Theme } from "@chakra-ui/react";
-import { colors as uiColors } from "@scaffold-eth/ui";
+import { colors as uiColors } from "@moonshotcollective/ui";
 
 /** extend additional color here */
 const myColors: DeepPartial<

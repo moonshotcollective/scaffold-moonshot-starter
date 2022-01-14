@@ -60,7 +60,7 @@ npm run acp
 
 ```tsx
 import { extendTheme } from "@chakra-ui/react";
-import { customTheme } from "@scaffold-eth/ui";
+import { customTheme } from "@moonshotcollective/ui";
 
 const theme = extendTheme(customTheme);
 

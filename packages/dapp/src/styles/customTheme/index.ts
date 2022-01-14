@@ -1,6 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 
-import { customTheme } from "@scaffold-eth/ui";
+import { customTheme } from "@moonshotcollective/ui";
 import { colors } from "./colors";
 import styles from "./styles";
 import layerStyles from "./layer-styles";

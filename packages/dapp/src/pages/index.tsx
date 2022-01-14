@@ -1,6 +1,6 @@
 import { RepeatIcon } from "@chakra-ui/icons";
 import { HStack, IconButton, Text, VStack } from "@chakra-ui/react";
-import { Title } from "@scaffold-eth/ui";
+import { Title } from "@moonshotcollective/ui";
 import { useWeb3React } from '@web3-react/core';
 import ContractFields from "components/custom/ContractFields";
 import React, { useContext, useEffect, useState } from "react";

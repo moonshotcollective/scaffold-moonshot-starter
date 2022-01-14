@@ -1,5 +1,5 @@
 import { useColorModeValue } from "@chakra-ui/react";
-import { colors } from "@scaffold-eth/ui";
+import { colors } from "@moonshotcollective/ui";
 
 function useCustomColor() {
   const primaryColor = useColorModeValue(
