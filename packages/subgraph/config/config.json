@@ -1,3 +1,6 @@
 {
-  "mumbai_YourContractAddress": "0x7F1933E4D383e474696DcB545C607Ac8784Cc5CE"
+  "mumbai_YourContractAddress": "0x7F1933E4D383e474696DcB545C607Ac8784Cc5CE",
+  "localhost_YourContractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "rinkeby_YourContractAddress": "0xC7C2304baf37Efd486eA35FB2A8ed05313036DC5",
+  "kovan_YourContractAddress": "0x43B6F70B0eCB72a0f3b2125e9053021759d5Dd14"
 }

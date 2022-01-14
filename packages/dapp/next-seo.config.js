@@ -1,8 +1,7 @@
 export const appStaticContent = {
-  dappLink: "https://app.coordination.party",
-  currentAppLink: "https://coordination.party",
-  name: "Greenpill project",
-  description: "Greenpill the world and slay Moloch everyday!",
+  currentAppLink: "https://demo.scaffold-eth.io",
+  name: "Scaffold ETH",
+  description: "Bootstrap & customize your dApp in minutes",
 };
 
 /** @type {import('next-seo').DefaultSeoProps} */
@@ -18,13 +17,13 @@ const defaultSEOConfig = {
     description: appStaticContent.description,
     images: [
       {
-        url: "https://schellingpoint.gitcoin.co/image/star2.gif",
+        url: "https://avatars.githubusercontent.com/u/90008925?s=200&v=4",
       },
     ],
     site_name: appStaticContent.name,
   },
   twitter: {
-    handle: "@GitcoinDAO",
+    handle: "@buidlguidl",
     cardType: "summary_large_image",
   },
 };

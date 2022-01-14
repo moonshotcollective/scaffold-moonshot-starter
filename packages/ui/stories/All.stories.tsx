@@ -74,10 +74,18 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
 } from '@chakra-ui/react';
 import { SearchIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 
-import useCustomColor from './hooks/useCustomColor';
+import useColor from './hooks/useColor';
 
 const meta: Meta = {
   title: 'Components/All',
@@ -101,7 +109,7 @@ export const All = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { titleColor, violetColor, accentColorScheme } = useCustomColor();
+  const { titleColor, textVioletColor, accentColorScheme } = useColor();
 
   const {
     isOpen: isOpenDrawer,
@@ -121,31 +129,64 @@ export const All = () => {
           Hello world with Text
         </Text>
         <Title>Title</Title>
+        <Divider />
         <HStack>
-          <Center boxSize="150px" layerStyle="solid-card">
-            <Text color={violetColor}>Accent Text in Card</Text>
-          </Center>
+          <Box layerStyle="gradient-border">
+            <Center boxSize="150px" layerStyle="solid-card">
+              <Text color={textVioletColor}>Accent Text in Card</Text>
+            </Center>
+          </Box>
           <Center boxSize="150px" layerStyle="outline-card">
-            <Text color={violetColor}>Accent Text in Card</Text>
+            <Text color={textVioletColor}>Accent Text in Card</Text>
           </Center>
           <Center boxSize="150px" layerStyle="no-border-card">
-            <Text color={violetColor}>Accent Text in Card</Text>
+            <Text color={textVioletColor}>Accent Text in Card</Text>
           </Center>
-          {/* <Box layerStyle="solidCard" textStyle="h2">
-          With layer style and text style
-        </Box> */}
+        </HStack>
+        <HStack>
+          <Center boxSize="150px" layerStyle="solid-hover">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="outline-hover">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="no-border-hover">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+        </HStack>
+        <HStack>
+          <Center boxSize="150px" layerStyle="solid-hover2">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="outline-hover2">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="no-border-hover2">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+        </HStack>
+        <HStack>
+          <Center boxSize="150px" layerStyle="solid-hover3">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="outline-hover3">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
+          <Center boxSize="150px" layerStyle="no-border-hover3">
+            <Text color={textVioletColor}>Accent Text in Card</Text>
+          </Center>
         </HStack>
 
         <Text textStyle="h1">
           Lorem ipsum dolor sit amet,
-          <Box as="span" color={titleColor}>
+          <Box as="span" layerStyle="gradient-text">
             {' '}
             consetetur{' '}
           </Box>
           sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
           dolore magna aliquyam erat, sed diam voluptua.
         </Text>
-        <Text textStyle="h2" color={violetColor}>
+        <Text textStyle="h2" color={textVioletColor}>
           Lorem ipsum dolor sit amet, sadipscing elitr, sed diam nonumy eirmod
           tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
           voluptua.
@@ -155,10 +196,13 @@ export const All = () => {
           tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
           voluptua.
         </Text>
-        <Text textStyle="small" color={violetColor}>
+        <Text textStyle="small" color={textVioletColor}>
           Lorem ipsum dolor sit amet, sadipscing elitr, sed diam nonumy eirmod
           tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
           voluptua.
+        </Text>
+        <Text textStyle="glow">
+          Lorem ipsum dolor sit amet, sadipscing elitr
         </Text>
 
         <HStack>
@@ -183,16 +227,10 @@ export const All = () => {
             Hello
           </Button>
         </HStack>
+        <Button layerStyle="gradient-bg">Hello</Button>
 
-        <Button ref={btnRef} colorScheme="violet" onClick={onOpenDrawer}>
-          Open Drawer
-        </Button>
-        <Drawer
-          isOpen={isOpenDrawer}
-          placement="left"
-          onClose={onCloseDrawer}
-          finalFocusRef={btnRef}
-        >
+        <Button onClick={onOpenDrawer}>Open Drawer</Button>
+        <Drawer isOpen={isOpenDrawer} placement="left" onClose={onCloseDrawer}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
@@ -217,22 +255,26 @@ export const All = () => {
 
         <Switch />
         {/* set to subtle default variant="subtle" colorScheme="cyan" */}
-        <Text>Tags</Text>
-        <Tag>hello</Tag>
-        <Tag colorScheme="blue">hello</Tag>
-        <Tag variant="solid" colorScheme="green">
-          hello
-        </Tag>
-        <Tag variant="outline" colorScheme="teal">
-          hello
-        </Tag>
-        <Tag variant="subtle" colorScheme="teal">
-          hello
-        </Tag>
+        <HStack>
+          <Text>Tags</Text>
+          <Tag>hello</Tag>
+          <Tag colorScheme="blue">hello</Tag>
+          <Tag variant="solid" colorScheme="green">
+            hello
+          </Tag>
+          <Tag variant="outline" colorScheme="teal">
+            hello
+          </Tag>
+          <Tag variant="subtle" colorScheme="teal">
+            hello
+          </Tag>
+        </HStack>
 
-        <Text>Badges</Text>
-        <Badge>hello</Badge>
-        <Badge colorScheme="teal">hello</Badge>
+        <HStack>
+          <Text>Badges</Text>
+          <Badge>hello</Badge>
+          <Badge colorScheme="teal">hello</Badge>
+        </HStack>
 
         <Button
           onClick={() =>
@@ -267,6 +309,27 @@ export const All = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
+
+        <Tabs variant="line">
+          <TabList>
+            <Tab>One</Tab>
+            <Tab>Two</Tab>
+            <Tab>Three</Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <p>one!</p>
+            </TabPanel>
+            <TabPanel>
+              <p>two!</p>
+            </TabPanel>
+            <TabPanel>
+              <p>three!</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+
         <Checkbox />
         <Link isExternal>
           Link <ExternalLinkIcon mx="2px" />
@@ -341,47 +404,78 @@ export const All = () => {
           </NumberInput>
         </FormControl>
 
-        <Accordion w="full" allowToggle>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex="1" textAlign="left">
-                  Section 1 title
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
+        <Box layerStyle="outline-card" p="0" w="full">
+          <Accordion w="full" allowToggle>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    Section 1 title
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </AccordionPanel>
+            </AccordionItem>
 
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box flex="1" textAlign="left">
-                  Section 2 title
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    Section 2 title
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </Box>
 
-        <Stack>
-          <Skeleton height="20px" />
-          <Skeleton height="20px" />
-          <Skeleton height="20px" />
-        </Stack>
+        <Table variant="simple">
+          <TableCaption>Imperial to metric conversion factors</TableCaption>
+          <Thead>
+            <Tr>
+              <Th>To convert</Th>
+              <Th>into</Th>
+              <Th isNumeric>multiply by</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>inches</Td>
+              <Td>millimetres (mm)</Td>
+              <Td isNumeric>25.4</Td>
+            </Tr>
+            <Tr>
+              <Td>feet</Td>
+              <Td>centimetres (cm)</Td>
+              <Td isNumeric>30.48</Td>
+            </Tr>
+            <Tr>
+              <Td>yards</Td>
+              <Td>metres (m)</Td>
+              <Td isNumeric>0.91444</Td>
+            </Tr>
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th>To convert</Th>
+              <Th>into</Th>
+              <Th isNumeric>multiply by</Th>
+            </Tr>
+          </Tfoot>
+        </Table>
       </VStack>
     </>
   );

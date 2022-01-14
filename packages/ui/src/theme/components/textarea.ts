@@ -2,7 +2,7 @@ import type {
   SystemStyleInterpolation,
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
-import { colorScheme } from '../utils/default-props';
+import { colorScheme } from '../default-props';
 import Input from './input';
 
 const baseStyle: SystemStyleObject = {

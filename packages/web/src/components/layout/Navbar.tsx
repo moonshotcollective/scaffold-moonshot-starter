@@ -1,7 +1,6 @@
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Container,
   Drawer,
   DrawerBody,
@@ -20,7 +19,7 @@ import { useRouter } from "next/router";
 import useCustomColor from "../../hooks/useCustomColor";
 import DiscordButton from "../Buttons/DiscordButton";
 import TwitterButton from "../Buttons/TwitterButton";
-import GitcoinIcon from "../Icons/GitcoinIcon";
+import ScaffoldIcon from "../Icons/ScaffoldIcon";
 import ThemeToggle from "./ThemeToggle";
 
 const LinkItem = ({ href, children, ...props }: any) => {
@@ -45,19 +44,17 @@ const LinkItems = () => {
   return (
     <>
       <LinkItem href="/">Home</LinkItem>
-      <LinkItem href="/contract">Contract</LinkItem>
-      <LinkItem href="/example">Example</LinkItem>
-      <LinkItem href="/subgraph">Subgraph</LinkItem>
+      <LinkItem href="/about">About</LinkItem>
     </>
   );
 };
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { accentColor, bgColor } = useCustomColor();
+  const { accentColor } = useCustomColor();
 
   return (
-    <Box as="nav" w="100%" top="0" bg={bgColor} zIndex={1}>
+    <Box as="nav" w="100%" top="0" zIndex={1}>
       <Container
         display="flex"
         p={2}
@@ -66,16 +63,17 @@ const Header = () => {
         alignItems="center"
         justify="space-between"
       >
-        <HStack px="4" spacing={4}>
-          <GitcoinIcon size="36px" />
+        <HStack px="4">
+          <ScaffoldIcon size="36px" />
           <NextLink href="/">
             <Link
               display={{ base: "none", md: "flex" }}
               fontWeight="bold"
               color={accentColor}
               textTransform="uppercase"
+              size="md"
             >
-              Coordination.party
+              Scaffold
             </Link>
           </NextLink>
           <HStack pl="4" spacing="4" display={{ base: "none", lg: "flex" }}>
@@ -87,7 +85,6 @@ const Header = () => {
           <HStack display={{ base: "none", md: "flex" }}>
             <DiscordButton />
             <TwitterButton />
-            <Button>Connect</Button>
           </HStack>
           <ThemeToggle />
           <IconButton

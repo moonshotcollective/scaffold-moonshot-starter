@@ -20,7 +20,7 @@ import { Title } from "@scaffold-eth/ui";
 
 const Home = () => {
   const { dappLink, name: appName } = appStaticContent;
-  const { accentColor, primaryColor } = useCustomColor();
+  const { primaryColor, accentColorScheme, accentColor } = useCustomColor();
 
   return (
     <Box w="full">
@@ -47,7 +47,7 @@ const Home = () => {
               <Button
                 m="2"
                 size="lg"
-                colorScheme="yellow"
+                colorScheme={accentColorScheme}
                 aria-label="Launch App"
               >
                 Launch App
@@ -79,7 +79,7 @@ const Home = () => {
       <Divider mt="16" bg={primaryColor} />
 
       <VStack mt="16" spacing="12" align="left">
-        <Heading color={accentColor}>How it Works</Heading>
+        <Heading color={accentColor}>How it works</Heading>
         <SimpleGrid
           columns={{
             sm: 1,
@@ -170,11 +170,6 @@ const Home = () => {
             We are using Next.js with Chakra-UI &amp; TypeScript for our
             front-end.
           </Text>
-          <Text>
-            We choose Ceramic for our main data store &amp; decentralized
-            identity management in conjunction with Filecoin &amp; IPFS for file
-            storage.
-          </Text>
         </Flex>
 
         <Flex d="column">
@@ -183,9 +178,7 @@ const Home = () => {
           </Text>
           <Text>
             The dApp will be available on the Ethereum mainnet and Polygon for
-            the beta version but we are planning to support chains like Solana,
-            Avalanche as well as chains running on Substrate &amp; Tendermint in
-            the future.
+            the beta version but we are planning to support other networks in the future.
           </Text>
         </Flex>
 

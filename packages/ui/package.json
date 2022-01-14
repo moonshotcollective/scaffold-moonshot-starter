@@ -1,6 +1,6 @@
 {
-  "name": "@scaffold-eth/ui",
-  "version": "0.0.1",
+  "name": "@moonshotcollective/ui",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -8,10 +8,14 @@
     "dist",
     "src"
   ],
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "engines": {
     "node": ">=10"
   },
-  "private": true,
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -65,6 +69,7 @@
     "@types/react-dom": "^17.0.9",
     "babel-loader": "^8.2.2",
     "cz-conventional-changelog": "^3.3.0",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -90,9 +95,13 @@
     "type": "git",
     "url": "https://github.com/moonshotcollective/scaffold-moonshot-starter.git"
   },
+  "resolutions": {
+    "postcss": "8.1.7"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "gitHead": "b95535cf19af4b8ce58fdf788c910193c1e6a1a8"
 }

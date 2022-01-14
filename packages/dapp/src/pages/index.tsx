@@ -1,38 +1,61 @@
-import {
-  Heading,
-  HStack,
-  Text,
-  VStack,
-  Button
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-
-import Container from "../components/layout/Container";
+import { RepeatIcon } from "@chakra-ui/icons";
+import { HStack, IconButton, Text, VStack } from "@chakra-ui/react";
+import { Title } from "@scaffold-eth/ui";
+import { useWeb3React } from '@web3-react/core';
+import ContractFields from "components/custom/ContractFields";
+import React, { useContext, useEffect, useState } from "react";
+import Faucet from "../components/custom/Faucet";
+import { Web3Context } from "../contexts/Web3Provider";
+import { hexToString } from "../core/helpers";
+import useCustomColor from "../core/hooks/useCustomColor";
 
 const Home = () => {
-  const router = useRouter();
+  const { account } = useContext(Web3Context);
+  const { library } = useWeb3React();
+  const { coloredText, accentColor } = useCustomColor();
+  const [yourBalance, setYourBalance] = useState("");
 
-  function goTo(destination: string) {
-    router.push(destination);
-  }
+  const getEthBalance = async () => {
+    if (library && account) {
+      const res = await library?.getBalance(account);
+      const balance = hexToString(res);
+      setYourBalance(balance);
+      // console.log(`balance`, balance);
+    }
+  };
+
+  useEffect(() => {
+    getEthBalance();
+  }, [account, library]);
+
   return (
-    <Container>
-      <VStack w="full" p="8">
-        <HStack align="center">
-          <Heading fontSize="7xl">Homepage</Heading>
-        </HStack>
-        <Heading fontSize="xl">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos esse rerum doloremque eligendi tenetur reprehenderit consequuntur adipisci officia amet quam architecto, commodi deserunt neque debitis porro non iusto asperiores molestiae!
-        </Heading>
-        <Text>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos esse rerum doloremque eligendi tenetur reprehenderit consequuntur adipisci officia amet quam architecto, commodi deserunt neque debitis porro non iusto asperiores molestiae!
-        </Text>
-        <HStack>
-          <Button>Action 1</Button>
-          <Button variant="outline">Action 2</Button>
-        </HStack>
-      </VStack>
-    </Container>
+    <VStack>
+      <HStack align="center" w="full">
+        <Title color={accentColor}>Title</Title>
+      </HStack>
+      <Text textStyle="h2">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos
+        esse rerum doloremque eligendi tenetur reprehenderit consequuntur
+        adipisci officia amet quam architecto, commodi deserunt neque debitis
+        porro non iusto asperiores molestiae!
+      </Text>
+      <Text color={coloredText}>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos
+        esse rerum doloremque eligendi tenetur reprehenderit consequuntur
+        adipisci officia amet quam architecto, commodi deserunt neque debitis
+        porro non iusto asperiores molestiae!
+      </Text>
+      <HStack>
+        <Text>Your Balance: {yourBalance}Ξ</Text>
+        <IconButton
+          onClick={getEthBalance}
+          aria-label="refresh"
+          icon={<RepeatIcon />}
+        />
+      </HStack>
+      <ContractFields />
+      <Faucet />
+    </VStack>
   );
 };
 

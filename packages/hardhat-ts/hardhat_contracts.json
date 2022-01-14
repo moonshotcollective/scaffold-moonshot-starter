@@ -1,4 +1,193 @@
 {
+  "4": {
+    "rinkeby": {
+      "name": "rinkeby",
+      "chainId": "4",
+      "contracts": {
+        "YourContract": {
+          "address": "0xC7C2304baf37Efd486eA35FB2A8ed05313036DC5",
+          "abi": [
+            {
+              "inputs": [],
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "purpose",
+                  "type": "string"
+                }
+              ],
+              "name": "SetPurpose",
+              "type": "event"
+            },
+            {
+              "inputs": [],
+              "name": "purpose",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "newPurpose",
+                  "type": "string"
+                }
+              ],
+              "name": "setPurpose",
+              "outputs": [],
+              "stateMutability": "payable",
+              "type": "function"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "42": {
+    "kovan": {
+      "name": "kovan",
+      "chainId": "42",
+      "contracts": {
+        "YourContract": {
+          "address": "0x43B6F70B0eCB72a0f3b2125e9053021759d5Dd14",
+          "abi": [
+            {
+              "inputs": [],
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "purpose",
+                  "type": "string"
+                }
+              ],
+              "name": "SetPurpose",
+              "type": "event"
+            },
+            {
+              "inputs": [],
+              "name": "purpose",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "newPurpose",
+                  "type": "string"
+                }
+              ],
+              "name": "setPurpose",
+              "outputs": [],
+              "stateMutability": "payable",
+              "type": "function"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "31337": {
+    "hardhat": {
+      "name": "hardhat",
+      "chainId": "31337",
+      "contracts": {
+        "YourContract": {
+          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "abi": [
+            {
+              "inputs": [],
+              "stateMutability": "nonpayable",
+              "type": "constructor"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "string",
+                  "name": "purpose",
+                  "type": "string"
+                }
+              ],
+              "name": "SetPurpose",
+              "type": "event"
+            },
+            {
+              "inputs": [],
+              "name": "purpose",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "newPurpose",
+                  "type": "string"
+                }
+              ],
+              "name": "setPurpose",
+              "outputs": [],
+              "stateMutability": "payable",
+              "type": "function"
+            }
+          ]
+        }
+      }
+    }
+  },
   "80001": {
     "mumbai": {
       "name": "mumbai",

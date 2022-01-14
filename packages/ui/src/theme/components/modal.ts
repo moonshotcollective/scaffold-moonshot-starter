@@ -6,6 +6,8 @@ import type {
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
+import useThemeColor from '../../hooks/useThemeColor';
+import { borderRadius } from '../default-props';
 
 const baseStyleOverlay: SystemStyleObject = {
   bg: 'blackAlpha.600',
@@ -26,15 +28,13 @@ const baseStyleDialogContainer: SystemStyleFunction = (props) => {
 
 const baseStyleDialog: SystemStyleFunction = (props) => {
   const { scrollBehavior } = props;
-
-  const bgColor = mode(`gray.100`, `cosmos`)(props);
-  const borderColor = mode(`gray.100`, `fog`)(props);
+  const { getBgColor, getOverBgColor } = useThemeColor();
 
   return {
-    bg: mode('white', bgColor)(props),
-    borderColor: borderColor,
+    bg: getBgColor(props),
+    borderColor: getOverBgColor(props),
     borderWidth: '1px',
-    borderRadius: 'none',
+    borderRadius: borderRadius,
     color: 'inherit',
     my: '3.75rem',
     zIndex: 'modal',
@@ -57,7 +57,7 @@ const baseStyleCloseButton: SystemStyleObject = {
   position: 'absolute',
   top: 2,
   insetEnd: 3,
-  color: 'pink.200',
+  color: 'red.200',
   _focus: {
     boxShadow: 'none',
   },
@@ -65,12 +65,14 @@ const baseStyleCloseButton: SystemStyleObject = {
 
 const baseStyleBody: SystemStyleFunction = (props) => {
   const { scrollBehavior } = props;
+  const { getTextColor } = useThemeColor();
+
   return {
     px: 6,
     py: 2,
     flex: 1,
     overflow: scrollBehavior === 'inside' ? 'auto' : undefined,
-    color: 'gray.200',
+    color: getTextColor(props),
   };
 };
 

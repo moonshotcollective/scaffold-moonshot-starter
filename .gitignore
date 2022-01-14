@@ -1,3 +1,5 @@
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -105,3 +107,5 @@ dist
 
 # IPFS
 /ipfs
+
+.DS_Store

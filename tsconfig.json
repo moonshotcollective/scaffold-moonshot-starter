@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "incremental": true,
     "target": "ES2019",
     "module": "commonjs",

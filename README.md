@@ -1,11 +1,10 @@
 # scaffold-moonshot-starter
 
-Typescript x NestJS x NextJS x Chakra-UI scaffold-eth production ready starter kit.
+Typescript x NextJS x Chakra-UI scaffold-eth production ready starter kit.
 
 ## Tech stack overview
 
-We are using TypeScript with Next.js on the front-end, and NestJS on the back-end.
-Ceramic is our main data store in conjunction with Filecoin & IPFS for file storage.
+We are using TypeScript with Next.js & Chakra UI on the front-end.
 
 ### 📁 Folder structure
 
@@ -15,9 +14,8 @@ Ceramic is our main data store in conjunction with Filecoin & IPFS for file stor
 │ ├── web # Landing page using NextJS, TypeScript, Chakra-UI
 │ ├── dapp # Web3, decentralized app using NextJS, TypeScript, Chakra-UI and ethers.js
 │ ├── ui # Theme/design system shared accross web & dapp folders
-│ ├── schemas # Ceramic and JSON schemas
 │ ├── hardhat # Your contracts, using Hardhat with Typechain and ethers v5
-│ └── server # TypeScript NodeJS server using NestJS as a production ready back-end framework
+│ └── subgraph # A subgraph that gets generated on contract deploys
 └── ... config ...
 ```
 
@@ -28,7 +26,7 @@ Ceramic is our main data store in conjunction with Filecoin & IPFS for file stor
 - [Node](https://nodejs.org/en/download/)
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/)
 - [Git](https://git-scm.com/downloads)
-- Account and API key for [WEB3.storage](https://web3.storage/)
+- Account and API key for [WEB3.storage](https://web3.storage/) (Optional, it provides decentralized media storage)
 
 ### Setup env
 
@@ -55,20 +53,7 @@ $ git clone https://github.com/moonshotcollective/scaffold-moonshot-starter.git
 $ cd scaffold-moonshot-starter && yarn install
 ```
 
-### 🏺‍ Publish your Ceramic schemas
-
-```sh
-$ cd packages/schemas
-$ yarn build
-```
-
-### 🛰 Run the backend
-
-```sh
-$ cd packages/server && yarn start:dev
-```
-
-### 👷‍ Build it!
+### 👷‍ Build your contracts!
 
 run hardhat locally, get some faucet and 🛰 deploy your contract
 Create a `mnemonic.secret` file or set one of your dev private key as the DEPLOYER_PRIVATE_KEY environment variables in packages/hardhat/.env
@@ -78,14 +63,14 @@ $ cd packages/hardhat
 $ yarn chain
 $ yarn faucet <YOUR_DEV_ADDRESS>
 
-Deploying on localhost
-$ yarn deploy --network localhost --reset
+Deploying on hardhat localhost
+$ yarn deploy --network localhost
 
 Deploying on mumbai
-$ yarn deploy --network mumbai --reset
+$ yarn deploy --network mumbai
 
 Deploying on an other testnet (make sure to edit the hardhat.config.js first)
-$ yarn deploy --network mytestnet --reset
+$ yarn deploy --network mytestnet
 ```
 
 #### Testnet Faucets
@@ -96,6 +81,26 @@ $ yarn deploy --network mytestnet --reset
 - [BSC](https://testnet.binance.org/faucet-smart)
 
 ### Dev Preview
+
+**Build the ui theme:**
+
+```bash
+$ cd packages/ui
+$ yarn build
+```
+
+**Build in local**
+
+```bash
+$ cd packages/hardhat-ts
+$ yarn chain
+```
+
+Open a new terminal
+
+```bash
+$ yarn deploy
+```
 
 **Start the 📱 dApp:**
 

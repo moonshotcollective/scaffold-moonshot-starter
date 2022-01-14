@@ -1,13 +1,14 @@
 const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID;
 const NETWORKS = {
   "31337": {
-    name: "localhost",
+    name: "hardhat",
     color: "#666666",
     chainId: 31337,
     blockExplorer: "",
     rpcUrl: `http://${
       global.window ? window.location.hostname : "localhost"
     }:8545`,
+    symbol: "ETH",
   },
   "1": {
     name: "mainnet",
@@ -15,6 +16,7 @@ const NETWORKS = {
     chainId: 1,
     rpcUrl: `https://mainnet.infura.io/v3/${INFURA_ID}`,
     blockExplorer: "https://etherscan.io/",
+    symbol: "ETH",
   },
   "42": {
     name: "kovan",
@@ -22,7 +24,8 @@ const NETWORKS = {
     chainId: 42,
     rpcUrl: `https://kovan.infura.io/v3/${INFURA_ID}`,
     blockExplorer: "https://kovan.etherscan.io/",
-    faucet: "https://gitter.im/kovan-testnet/faucet", // https://faucet.kovan.network/
+    faucet: "https://gitter.im/kovan-testnet/faucet",
+    symbol: "ETH",
   },
   "4": {
     name: "rinkeby",
@@ -31,6 +34,7 @@ const NETWORKS = {
     rpcUrl: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
     faucet: "https://faucet.rinkeby.io/",
     blockExplorer: "https://rinkeby.etherscan.io/",
+    symbol: "ETH",
   },
   "3": {
     name: "ropsten",
@@ -39,6 +43,7 @@ const NETWORKS = {
     faucet: "https://faucet.ropsten.be/",
     blockExplorer: "https://ropsten.etherscan.io/",
     rpcUrl: `https://ropsten.infura.io/v3/${INFURA_ID}`,
+    symbol: "ETH",
   },
   "5": {
     name: "goerli",
@@ -47,6 +52,7 @@ const NETWORKS = {
     faucet: "https://goerli-faucet.slock.it/",
     blockExplorer: "https://goerli.etherscan.io/",
     rpcUrl: `https://goerli.infura.io/v3/${INFURA_ID}`,
+    symbol: "ETH",
   },
   "100": {
     name: "xdai",
@@ -65,8 +71,9 @@ const NETWORKS = {
     price: 1,
     gasPrice: 1000000000,
     rpcUrl: "https://rpc-mainnet.maticvigil.com",
-    faucet: "https://faucet.matic.network/",
-    blockExplorer: "https://explorer-mainnet.maticvigil.com//",
+    faucet: "https://faucet.polygon.technology/",
+    blockExplorer: "https://polygonscan.com/",
+    symbol: "MATIC",
   },
   "80001": {
     name: "mumbai",
@@ -75,8 +82,9 @@ const NETWORKS = {
     price: 1,
     gasPrice: 1000000000,
     rpcUrl: "https://rpc-mumbai.maticvigil.com",
-    faucet: "https://faucet.matic.network/",
-    blockExplorer: "https://mumbai-explorer.matic.today/",
+    faucet: "https://faucet.polygon.technology/",
+    blockExplorer: "https://mumbai.polygonscan.com/",
+    symbol: "MATIC",
   },
   "153869338190755": {
     name: "localArbitrum",

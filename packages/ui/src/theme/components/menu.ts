@@ -5,13 +5,14 @@ import type {
   SystemStyleObject,
 } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
-import { borderRadius, colorScheme } from '../utils/default-props';
+import useThemeColor from '../../hooks/useThemeColor';
+import { borderRadius, colorScheme } from '../default-props';
 
 const baseStyleList: SystemStyleFunction = (props) => {
-  const bgColor = mode(`gray.100`, `cosmos`)(props);
+  const { getOverBgColor } = useThemeColor();
 
   return {
-    bg: bgColor,
+    bg: getOverBgColor(props),
     boxShadow: mode('sm', 'dark-lg')(props),
     color: 'inherit',
     minW: '3xs',
@@ -19,14 +20,14 @@ const baseStyleList: SystemStyleFunction = (props) => {
     p: '2',
     zIndex: 1,
     borderRadius: borderRadius,
-    borderColor: bgColor,
+    borderColor: getOverBgColor(props),
     borderWidth: '1px',
   };
 };
 
 const baseStyleItem: SystemStyleFunction = (props) => {
-  const { colorScheme: c } = props;
-  const txtColor = mode(`white`, `cosmos`)(props);
+  // const { colorScheme: c } = props;
+  const { getPrimaryColor, getInverseTextColor } = useThemeColor();
 
   return {
     py: '0.4rem',
@@ -36,16 +37,16 @@ const baseStyleItem: SystemStyleFunction = (props) => {
     transitionTimingFunction: 'ease-in',
     borderRadius: borderRadius,
     _focus: {
-      bg: mode(`${c}.800`, `${c}.300`)(props),
-      color: txtColor,
+      bg: getPrimaryColor(props),
+      color: getInverseTextColor(props),
     },
     _active: {
-      bg: mode(`${c}.700`, `${c}.400`)(props),
-      color: txtColor,
+      bg: getPrimaryColor(props),
+      color: getInverseTextColor(props),
     },
     _expanded: {
-      bg: mode(`${c}.800`, `${c}.300`)(props),
-      color: txtColor,
+      bg: getPrimaryColor(props),
+      color: getInverseTextColor(props),
     },
     _disabled: {
       opacity: 0.4,
