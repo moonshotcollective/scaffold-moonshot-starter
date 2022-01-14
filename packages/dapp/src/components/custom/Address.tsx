@@ -24,7 +24,7 @@ import { useWeb3React } from '@web3-react/core';
 import useCustomColor from "core/hooks/useCustomColor";
 import React, { useContext } from "react";
 import Blockies from "react-blockies";
-import { MdCheckCircle, MdContentCopy } from "react-icons/md";
+import { MdCheckCircle, MdContentCopy, MdExitToApp } from "react-icons/md";
 import { RiExternalLinkFill } from "react-icons/ri";
 import { Web3Context } from "../../contexts/Web3Provider";
 import { useResolveEnsName } from "../../core/hooks/useResolveEnsName";
@@ -108,7 +108,7 @@ function Address({
     );
   } else {
     text = (
-      <Flex alignItems="center" justifyContent="center" flexGrow={1}>
+      <Flex display={["none", "none", "flex"]} alignItems="center" justifyContent="center" flexGrow={1}>
         <Link
           display="flex"
           alignItems="center"
@@ -159,7 +159,21 @@ function Address({
               px="2"
               justify="start"
             >
-              {text}
+              <Flex alignItems="center" justifyContent="center" flexGrow={1}>
+                <Link
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  border="none"
+                  textOverflow={displayAddress.startsWith("0x") ? "ellipsis" : "unset"}
+                  href={etherscanLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <RiExternalLinkFill />
+                  {displayAddress}
+                </Link>
+              </Flex>
               <IconButton
                 size="sm"
                 variant="ghost"
@@ -178,8 +192,8 @@ function Address({
           </ModalBody>
 
           <ModalFooter>
-            <Button w="full" onClick={logout}>
-              Log out
+            <Button w="full" onClick={logout} rightIcon={<MdExitToApp />}>
+              Disconnect
             </Button>
           </ModalFooter>
         </ModalContent>

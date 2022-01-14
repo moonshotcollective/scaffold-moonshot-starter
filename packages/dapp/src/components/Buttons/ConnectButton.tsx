@@ -1,54 +1,21 @@
 import {
   Button,
   HStack,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
+  IconButton,
 } from "@chakra-ui/react";
 import { useWeb3React } from '@web3-react/core';
-import NextLink from "next/link";
+import { IoMdExit } from "react-icons/io";
 import React, { useContext } from "react";
-import { AiFillSetting } from "react-icons/ai";
-import { BsFillPersonLinesFill } from "react-icons/bs";
+
 import { Web3Context } from "../../contexts/Web3Provider";
 import Address from "../custom/Address";
-
-// const MenuOptions = (logout: any) => (
-//   <Menu>
-//     <MenuButton
-//       as={Button}
-//       rounded="full"
-//       variant="link"
-//       cursor="pointer"
-//       minW={0}
-//     >
-//       ok
-//     </MenuButton>
-//     <MenuList>
-//       <NextLink href="/profile" passHref>
-//         <MenuItem icon={<BsFillPersonLinesFill />}>Profile</MenuItem>
-//       </NextLink>
-//       <NextLink href="/settings" passHref>
-//         <MenuItem icon={<AiFillSetting />}>Settings</MenuItem>
-//       </NextLink>
-//       <MenuDivider />
-//       <MenuItem>
-//         <Button colorScheme="pink" onClick={logout}>
-//           Logout
-//         </Button>
-//       </MenuItem>
-//     </MenuList>
-//   </Menu>
-// );
 
 function ConnectButton({ w }: { w?: string }) {
   const { account, connectWeb3, logout } = useContext(Web3Context);
   const { active } = useWeb3React();
 
   return (
-    <HStack w="full">
+    <HStack>
       {account ? (
         <>
           <Address
@@ -58,8 +25,7 @@ function ConnectButton({ w }: { w?: string }) {
             fontSize="18px"
             size="short"
           />
-          {/* <Button onClick={logout}>Logout</Button> */}
-          {/* <MenuOptions /> */}
+          <IconButton display={["none", "none", "inherit"]} aria-label="exit" icon={<IoMdExit />} onClick={logout} />
         </>
       ) : active && (
         <Button onClick={connectWeb3} w={w}>

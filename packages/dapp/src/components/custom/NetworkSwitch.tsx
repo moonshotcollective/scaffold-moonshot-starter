@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Button, HStack, Image, Menu, MenuButton, MenuItem, MenuList, Spinner, Text } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Avatar, Box, Button, HStack, Image, Menu, MenuButton, MenuItem, MenuList, Spinner, Text } from '@chakra-ui/react'
 import { useWeb3React } from '@web3-react/core'
 import React, { useCallback, useEffect, useState } from 'react'
 import { supportedNetworks } from '../../contexts/Web3Provider'
@@ -33,18 +33,18 @@ function NetworkSwitch() {
   return chainId ? (
     <>
       <Menu>
-        <MenuButton disabled={!implements3085} w="md" as={Button} border={isSupportedNetwork ? "" : "solid 1px red"} rightIcon={<ChevronDownIcon />}>
+        <MenuButton disabled={!implements3085} w={["fit-content", "fit-content", "250px"]} as={Button} border={isSupportedNetwork ? "" : "solid 1px red"} rightIcon={<ChevronDownIcon />}>
           <HStack>
-            <Image
-              boxSize='2rem'
-              borderRadius='full'
+            <Avatar
               src={CHAIN_INFO[chainId].logoUrl}
               alt={CHAIN_INFO[chainId].label}
-              mr='12px'
+              size="sm"
             />
-            <Text size="sm">
-              {isSupportedNetwork ? CHAIN_INFO[chainId].label : "Wrong network"}
-            </Text>
+            <Box display={["none", "none", "inherit"]}>
+              <Text size="sm">
+                {isSupportedNetwork ? CHAIN_INFO[chainId].label : "Wrong network"}
+              </Text>
+            </Box>
           </HStack>
         </MenuButton>
         <MenuList>
@@ -58,7 +58,7 @@ function NetworkSwitch() {
                 alt={CHAIN_INFO[supportedChainId].label}
                 mr='12px'
               />
-              <span>{CHAIN_INFO[supportedChainId].label}</span>
+              <Box>{CHAIN_INFO[supportedChainId].label}</Box>
             </MenuItem>
           })}
         </MenuList>

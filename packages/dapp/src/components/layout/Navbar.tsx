@@ -64,7 +64,7 @@ const Navbar = () => {
         wrap="wrap"
         alignItems="center"
       >
-        <HStack px="4">
+        <HStack>
           <ScaffoldIcon size="36px" />
           <NextLink href="/">
             <Link
@@ -77,7 +77,7 @@ const Navbar = () => {
               Scaffold
             </Link>
           </NextLink>
-          <HStack pl="4" spacing="4" display={{ base: "none", lg: "flex" }}>
+          <HStack px="2" spacing="4" display={{ base: "none", lg: "flex" }}>
             <LinkItems />
           </HStack>
         </HStack>
