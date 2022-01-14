@@ -19,10 +19,11 @@ import {
   SkeletonText,
   useDisclosure,
   Text,
+  Avatar,
 } from "@chakra-ui/react";
 import { useWeb3React } from '@web3-react/core';
 import useCustomColor from "core/hooks/useCustomColor";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Blockies from "react-blockies";
 import { MdCheckCircle, MdContentCopy } from "react-icons/md";
 import { RiExternalLinkFill } from "react-icons/ri";
@@ -53,12 +54,34 @@ function Address({
   fontSize?: string;
   blockiesScale?: number;
 }) {
+  const [basicProfileName, setBasicProfileName] = useState();
+  const [basicProfileAvatarUrl, setBasicProfileAvatarUrl] = useState<string | undefined>();
+  const { self } = useContext(Web3Context);
   const { library } = useWeb3React();
   const account = value || address;
   const ens = useResolveEnsName(library, address);
   const { hasCopied, onCopy } = useClipboard(account);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { coloredText } = useCustomColor();
+
+  useEffect(() => {
+    async function fetchBasicProfileName() {
+      if (self) {
+        const basicProfile = await self.get("basicProfile");
+        setBasicProfileName(basicProfile.name);
+
+        const {
+          original: { src: url },
+        } = basicProfile.image;
+        const match = url.match(/^ipfs:\/\/(.+)$/);
+        if (match) {
+          const ipfsUrl = `//ipfs.io/ipfs/${match[1]}`;
+          return setBasicProfileAvatarUrl(ipfsUrl);
+        }
+      }
+    }
+    fetchBasicProfileName()
+  }, [self])
   if (!account) {
     return (
       <Box padding="6" as="span">
@@ -68,14 +91,14 @@ function Address({
     );
   }
 
-  let displayAddress = account.substr(0, 6);
+  let displayAddress = account.slice(0, 6);
 
   const ensSplit = ens && ens.split(".");
   const validEnsCheck = ensSplit && ensSplit[ensSplit.length - 1] === "eth";
   if (validEnsCheck) {
     displayAddress = ens;
   } else if (size === "short") {
-    displayAddress += "..." + account.substr(-4);
+    displayAddress += "..." + account.slice(-4);
   } else if (size === "long") {
     displayAddress = account;
   }
@@ -85,12 +108,14 @@ function Address({
     return (
       <Box as="span" verticalAlign="middle">
         <Link target="_blank" href={etherscanLink} rel="noopener noreferrer">
-          <Blockies
-            seed={account.toLowerCase()}
-            className="blockies"
-            size={8}
-            scale={2}
-          />
+          {basicProfileAvatarUrl
+            ? <Avatar src={`https:${basicProfileAvatarUrl}`} size="sm" />
+            : <Blockies
+              seed={account.toLowerCase()}
+              className="blockies"
+              size={8}
+              scale={2}
+            />}
         </Link>
       </Box>
     );
@@ -120,7 +145,7 @@ function Address({
           rel="noopener noreferrer"
         >
           <RiExternalLinkFill />
-          {displayAddress}
+          {basicProfileName || displayAddress}
         </Link>
       </Flex>
     );
@@ -135,12 +160,15 @@ function Address({
       fontSize={fontSize ?? 28}
     >
       <Flex _hover={{ cursor: "pointer" }} onClick={onOpen}>
-        <Blockies
-          className="blockies"
-          seed={account.toLowerCase()}
-          size={6}
-          scale={blockiesScale ? blockiesScale / 7 : 4.9}
-        />
+        {basicProfileAvatarUrl
+          ? <Avatar src={`https:${basicProfileAvatarUrl}`} size="sm" />
+          : <Blockies
+            className="blockies"
+            seed={account.toLowerCase()}
+            size={6}
+            scale={blockiesScale ? blockiesScale / 7 : 4.9}
+          />}
+
       </Flex>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

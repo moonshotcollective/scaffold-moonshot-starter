@@ -1,4 +1,6 @@
 import ABIS from "@scaffold-eth/hardhat-ts/hardhat_contracts.json";
+import publishedModel from "@scaffold-eth/schemas/lib/model.json";
+import { EthereumAuthProvider, SelfID } from "@self.id/web";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
@@ -12,10 +14,12 @@ import React, {
   useCallback,
 } from "react";
 import Web3Modal from "web3modal";
+import { ceramicCoreFactory, CERAMIC_TESTNET } from '../core/ceramic';
+import { IdentityLink } from '../core/ceramic/identity-link';
 
 import { NETWORK_URLS } from '../core/connectors';
 import { ALL_SUPPORTED_CHAIN_IDS } from '../core/connectors/chains';
-import getLibrary from '../core/connectors/getLibrary';
+
 import { useActiveWeb3React } from '../core/hooks/web3';
 import NETWORKS from "../core/networks";
 import { State, Web3Reducer } from "./Web3Reducer";
@@ -64,12 +68,32 @@ const Web3Provider = ({ children }: { children: any }) => {
   const [state, dispatch] = useReducer(Web3Reducer, initialState);
   const { chainId, activate, library } = useWeb3React();
   const { active, account } = useActiveWeb3React();
-  console.log({ active, account });
 
   const setAccount = (account?: null | string) => {
     dispatch({
       type: "SET_ACCOUNT",
       payload: account,
+    });
+  };
+
+  const setSelf = (self: null | any) => {
+    dispatch({
+      type: "SET_SELF",
+      payload: self,
+    });
+  };
+
+  const setCore = (core: null | any) => {
+    dispatch({
+      type: "SET_CORE",
+      payload: core,
+    });
+  };
+
+  const setIdentityLink = (identityLink: null | any) => {
+    dispatch({
+      type: "SET_IDENTITY_LINK",
+      payload: identityLink,
     });
   };
 
@@ -88,9 +112,22 @@ const Web3Provider = ({ children }: { children: any }) => {
   };
 
   useEffect(() => {
+    const coreCeramic = ceramicCoreFactory();
+    setCore(coreCeramic);
+  }, []);
+
+  useEffect(() => {
     async function handleActiveAccount() {
-      if (active) {
+      if (active && account) {
         setAccount(account)
+        const provider = await web3Modal.connect();
+        const mySelf = await SelfID.authenticate({
+          authProvider: new EthereumAuthProvider(provider, account),
+          ceramic: CERAMIC_TESTNET,
+          connectNetwork: CERAMIC_TESTNET,
+          model: publishedModel,
+        });
+        setSelf(mySelf)
         // Get ens
         let ens = null;
         try {
@@ -143,6 +180,8 @@ const Web3Provider = ({ children }: { children: any }) => {
 
   const logout = async () => {
     setAccount(null);
+    setSelf(null);
+    setCore(null);
     setContracts(null);
     localStorage.setItem("defaultWallet", "");
   };
@@ -190,6 +229,20 @@ const Web3Provider = ({ children }: { children: any }) => {
 
     setAccount(account);
 
+    const identityLinkService = new IdentityLink(
+      process.env.NEXT_PUBLIC_CERAMIC_VERIFICATION_SERVER_URL ||
+      "https://verifications-clay.3boxlabs.com"
+    );
+    setIdentityLink(identityLinkService);
+
+    const mySelf = await SelfID.authenticate({
+      authProvider: new EthereumAuthProvider(lib.provider, account),
+      ceramic: CERAMIC_TESTNET,
+      connectNetwork: CERAMIC_TESTNET,
+      model: publishedModel,
+    });
+
+    setSelf(mySelf);
   }, [ABIS, chainId]);
 
   return (

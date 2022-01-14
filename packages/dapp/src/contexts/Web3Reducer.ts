@@ -7,6 +7,9 @@ export type State = {
   chainId?: number;
   provider?: ethers.providers.Web3Provider;
   ens?: string;
+  self?: any;
+  core?: any;
+  identityLink?: any;
   contracts?: any;
   connectWeb3?: any;
   logout?: any;
@@ -22,6 +25,21 @@ export const Web3Reducer = (state: State, action: Record<string, any>) => {
       return {
         ...state,
         ens: action.payload,
+      };
+    case "SET_SELF":
+      return {
+        ...state,
+        self: action.payload,
+      };
+    case "SET_CORE":
+      return {
+        ...state,
+        core: action.payload,
+      };
+    case "SET_IDENTITY_LINK":
+      return {
+        ...state,
+        identityLink: action.payload,
       };
     case "SET_PROVIDER":
       return {
